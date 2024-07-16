@@ -4,6 +4,8 @@
  */
 package com.library.management.system;
 
+import com.library.management.system.view.BookManagementView;
+
 /**
  *
  * @author Lenovo
@@ -14,7 +16,7 @@ public class Main {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-       System.out.println("Hello, Librarian !!");
+        new BookManagementView().setVisible(true);
     }
     
 }

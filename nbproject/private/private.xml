@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-private xmlns="http://www.netbeans.org/ns/project-private/1">
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+        <group>
+            <file>file:/C:/Users/Lenovo/Documents/NetBeansProjects/Library-Management-System/src/com/library/management/system/service/custom/BookService.java</file>
+            <file>file:/C:/Users/Lenovo/Documents/NetBeansProjects/Library-Management-System/src/com/library/management/system/service/impl/BookServiceImpl.java</file>
+            <file>file:/C:/Users/Lenovo/Documents/NetBeansProjects/Library-Management-System/src/com/library/management/system/service/ServiceFactory.java</file>
+            <file>file:/C:/Users/Lenovo/Documents/NetBeansProjects/Library-Management-System/src/com/library/management/system/entity/Book.java</file>
+            <file>file:/C:/Users/Lenovo/Documents/NetBeansProjects/Library-Management-System/src/com/library/management/system/dao/CrudUtil.java</file>
+            <file>file:/C:/Users/Lenovo/Documents/NetBeansProjects/Library-Management-System/src/com/library/management/system/dao/custom/impl/BookDaoImpl.java</file>
+            <file>file:/C:/Users/Lenovo/Documents/NetBeansProjects/Library-Management-System/src/com/library/management/system/controller/BookController.java</file>
+            <file>file:/C:/Users/Lenovo/Documents/NetBeansProjects/Library-Management-System/src/com/library/management/system/dao/CrudDao.java</file>
+            <file>file:/C:/Users/Lenovo/Documents/NetBeansProjects/Library-Management-System/src/com/library/management/system/dao/SuperDao.java</file>
+            <file>file:/C:/Users/Lenovo/Documents/NetBeansProjects/Library-Management-System/src/com/library/management/system/db/DBConnection.java</file>
+            <file>file:/C:/Users/Lenovo/Documents/NetBeansProjects/Library-Management-System/src/com/library/management/system/dao/custom/BookDao.java</file>
+            <file>file:/C:/Users/Lenovo/Documents/NetBeansProjects/Library-Management-System/src/com/library/management/system/dao/DaoFactory.java</file>
+            <file>file:/C:/Users/Lenovo/Documents/NetBeansProjects/Library-Management-System/src/com/library/management/system/dto/BookDto.java</file>
+            <file>file:/C:/Users/Lenovo/Documents/NetBeansProjects/Library-Management-System/src/com/library/management/system/service/SuperService.java</file>
+        </group>
+    </open-files>
+</project-private>
