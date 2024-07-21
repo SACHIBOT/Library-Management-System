@@ -6,6 +6,7 @@ package com.library.management.system.service;
 
 import com.library.management.system.dao.SuperDao;
 import com.library.management.system.service.impl.BookServiceImpl;
+import com.library.management.system.service.impl.CategoryServiceImpl;
 
 /**
  *
@@ -30,7 +31,7 @@ public class ServiceFactory {
             case BOOK:
                 return new BookServiceImpl();
             case CATEGORY:
-                return null;
+                return new CategoryServiceImpl();
             case MEMBER:
                 return null; 
             default:

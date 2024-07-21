@@ -5,6 +5,7 @@
 package com.library.management.system.dao;
 
 import com.library.management.system.dao.custom.impl.BookDaoImpl;
+import com.library.management.system.dao.custom.impl.CategoryDaoImpl;
 
 /**
  *
@@ -29,7 +30,7 @@ public class DaoFactory {
             case BOOK:
                 return new BookDaoImpl();
             case CATEGORY:
-                return null;
+                return new CategoryDaoImpl();
             case MEMBER:
                 return null; 
             default:

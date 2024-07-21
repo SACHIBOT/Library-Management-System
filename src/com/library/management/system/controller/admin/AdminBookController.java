@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.library.management.system.controller;
+package com.library.management.system.controller.admin;
 
 import com.library.management.system.dto.BookDto;
 import com.library.management.system.service.ServiceFactory;
@@ -15,7 +15,7 @@ import java.util.List;
  *
  * @author Lenovo
  */
-public class BookController {
+public class AdminBookController {
     
     private BookService BookService = (BookService)ServiceFactory.getInstance().getService(ServiceFactory.ServiceTypes.BOOK);
     

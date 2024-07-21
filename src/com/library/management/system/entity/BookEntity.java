@@ -13,7 +13,7 @@ public class BookEntity {
     private String title; 
     private String author;
     private String categoryId;
-    private int copiesQoH;
+    private int copiesQoH; 
 
 
     public BookEntity() {
@@ -76,6 +76,11 @@ public class BookEntity {
         this.copiesQoH = copiesQoH;
     }
 
+    
+    public boolean getIsAvailable(){
+        return this.copiesQoH > 0;
+    }
+    
     @Override
     public String toString() {
         return "BookEntity [id=" + id + ", title=" + title + ", author=" + author + ", categoryId=" + categoryId +", copiesQoH=" + copiesQoH +"]";

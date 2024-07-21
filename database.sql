@@ -8,4 +8,10 @@ CREATE TABLE Books (
     author VARCHAR(50) NOT NULL,
     category_id VARCHAR(10) NOT NULL,
     copies_qoh int(10) NOT NULL
+    FOREIGN KEY(category_id) REFERENCES Categories(id)
 );
+
+CREATE TABLE Categories (
+    id VARCHAR(10) NOT NULL PRIMARY KEY,
+    name VARCHAR(50) NOT NULL
+)

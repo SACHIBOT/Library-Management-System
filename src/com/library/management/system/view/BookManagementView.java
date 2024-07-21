@@ -4,7 +4,7 @@
  */
 package com.library.management.system.view;
 
-import com.library.management.system.controller.BookController;
+import com.library.management.system.controller.admin.AdminBookController;
 import com.library.management.system.dto.BookDto;
 import javax.swing.JOptionPane;
 
@@ -14,13 +14,13 @@ import javax.swing.JOptionPane;
  */
 public class BookManagementView extends javax.swing.JFrame {
 
-    private BookController BookController;
+    private AdminBookController BookController;
     /**
      * Creates new form BookView
      */
     public BookManagementView() {
         initComponents();
-        BookController = new BookController();
+        BookController = new AdminBookController();
 //        loadTable();
     }
 
