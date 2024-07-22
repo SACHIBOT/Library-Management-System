@@ -7,6 +7,7 @@ package com.library.management.system.service;
 import com.library.management.system.dao.SuperDao;
 import com.library.management.system.service.impl.BookServiceImpl;
 import com.library.management.system.service.impl.CategoryServiceImpl;
+import com.library.management.system.service.impl.UserServiceImpl;
 
 /**
  *
@@ -15,32 +16,34 @@ import com.library.management.system.service.impl.CategoryServiceImpl;
 
 public class ServiceFactory {
     private static ServiceFactory serviceFactory;
-    private ServiceFactory(){
-        
-    }
-    
-   public static ServiceFactory getInstance(){
-       if(serviceFactory == null){
-           serviceFactory = new ServiceFactory();
-       }
-        return serviceFactory;
-   }
 
-       public SuperService getService(ServiceTypes type) {
+    private ServiceFactory() {
+
+    }
+
+    public static ServiceFactory getInstance() {
+        if (serviceFactory == null) {
+            serviceFactory = new ServiceFactory();
+        }
+        return serviceFactory;
+    }
+
+    public SuperService getService(ServiceTypes type) {
         switch (type) {
             case BOOK:
                 return new BookServiceImpl();
             case CATEGORY:
                 return new CategoryServiceImpl();
-            case MEMBER:
-                return null; 
+            case USER:
+                return new UserServiceImpl();
+            case BORROWING:
+                return null;
             default:
                 return null;
         }
     }
 
     public enum ServiceTypes {
-        BOOK, CATEGORY, MEMBER;
+        BOOK, CATEGORY, USER,BORROWING;
     }
 }
-

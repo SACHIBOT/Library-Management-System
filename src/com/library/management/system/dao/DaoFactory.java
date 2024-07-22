@@ -5,14 +5,16 @@
 package com.library.management.system.dao;
 
 import com.library.management.system.dao.custom.impl.BookDaoImpl;
+import com.library.management.system.dao.custom.impl.BorrowingDaoImpl;
 import com.library.management.system.dao.custom.impl.CategoryDaoImpl;
+import com.library.management.system.dao.custom.impl.UserDaoImpl;
 
 /**
  *
  * @author Lenovo
  */
 public class DaoFactory {
-    
+
     private static DaoFactory daoFactory;
 
     private DaoFactory() {
@@ -31,14 +33,16 @@ public class DaoFactory {
                 return new BookDaoImpl();
             case CATEGORY:
                 return new CategoryDaoImpl();
-            case MEMBER:
-                return null; 
+            case USER:
+                return new UserDaoImpl();
+            case BORROWING:
+                return new BorrowingDaoImpl();
             default:
                 return null;
         }
     }
 
     public enum DaoTypes {
-        BOOK, CATEGORY, MEMBER;
+        BOOK, CATEGORY, USER,BORROWING;
     }
 }

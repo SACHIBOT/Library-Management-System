@@ -4,16 +4,11 @@
  */
 package com.library.management.system.dao.custom.impl;
 
-import com.library.management.system.dao.CrudUtil;
-import com.library.management.system.dao.DaoFactory;
-import com.library.management.system.dao.custom.BookDao;
-import com.library.management.system.dto.BookDto;
-import com.library.management.system.entity.BookEntity;
-import com.library.management.system.service.custom.BookService;
+import com.library.management.system.dao.CrudUtil; 
+import com.library.management.system.dao.custom.BookDao; 
+import com.library.management.system.entity.BookEntity; 
 import java.sql.ResultSet;
-import java.util.ArrayList;
-import java.util.List;
-
+import java.util.ArrayList; 
 /**
  *
  * @author Lenovo
@@ -39,7 +34,7 @@ public class BookDaoImpl implements BookDao {
 
     @Override
     public BookEntity get(String id) throws Exception {
-        ResultSet rst = CrudUtil.executeQuery("SELECT * FROM Books WHERE BookId = ?", id);
+        ResultSet rst = CrudUtil.executeQuery("SELECT * FROM Books WHERE id = ?", id);
         if (rst.next()) {
             BookEntity entity = new BookEntity(rst.getString("id"), rst.getString("title"),
             rst.getString("author"), rst.getString("category_id"), rst.getInt("copies_qoh"));

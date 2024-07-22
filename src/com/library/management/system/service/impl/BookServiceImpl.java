@@ -48,11 +48,11 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public ArrayList<BookDto> getAll() throws Exception {
-        ArrayList<BookEntity> BookEntitys = BookDao.getAll();
-        if(BookEntitys != null && !BookEntitys.isEmpty()){
+        ArrayList<BookEntity> BookEntities = BookDao.getAll();
+        if(BookEntities != null && !BookEntities.isEmpty()){
             ArrayList<BookDto> BookDtos = new ArrayList<>();
             
-            for (BookEntity BookEntity : BookEntitys) {
+            for (BookEntity BookEntity : BookEntities) {
                 BookDtos.add(getBookDto(BookEntity));
             }
             
