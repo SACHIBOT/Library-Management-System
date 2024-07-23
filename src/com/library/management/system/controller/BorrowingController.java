@@ -5,10 +5,8 @@
 package com.library.management.system.controller;
 
 import com.library.management.system.dto.BorrowingDto;
-import com.library.management.system.dto.CategoryDto;
 import com.library.management.system.service.ServiceFactory;
 import com.library.management.system.service.custom.BorrowingService;
-import com.library.management.system.service.custom.CategoryService;
 import java.util.ArrayList;
 
 /**
@@ -16,9 +14,10 @@ import java.util.ArrayList;
  * @author Lenovo
  */
 public class BorrowingController {
-            private final BorrowingService borrowingService = (BorrowingService) ServiceFactory.getInstance().getService(ServiceFactory.ServiceTypes.BORROWING);
+    private final BorrowingService borrowingService = (BorrowingService) ServiceFactory.getInstance()
+            .getService(ServiceFactory.ServiceTypes.BORROWING);
 
-        public String save(BorrowingDto borrowingDto) throws Exception {
+    public String save(BorrowingDto borrowingDto) throws Exception {
         return borrowingService.save(borrowingDto);
     }
 
@@ -29,7 +28,7 @@ public class BorrowingController {
     public String delete(String id) throws Exception {
         return borrowingService.delete(id);
     }
-    
+
     public ArrayList<BorrowingDto> getAll() throws Exception {
         return borrowingService.getAll();
     }

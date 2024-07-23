@@ -4,9 +4,6 @@
  */
 package com.library.management.system.service.custom;
 
-import java.sql.SQLException;
-import java.util.List;
-
 import com.library.management.system.dto.BookDto;
 import com.library.management.system.service.SuperService;
 import java.util.ArrayList;
@@ -15,10 +12,14 @@ import java.util.ArrayList;
  *
  * @author Lenovo
  */
-public interface BookService extends SuperService{
+public interface BookService extends SuperService {
     String save(BookDto BookDto) throws Exception;
+
     String update(BookDto BookDto) throws Exception;
+
     String delete(String BookId) throws Exception;
+
     BookDto get(String BookId) throws Exception;
+
     ArrayList<BookDto> getAll() throws Exception;
 }

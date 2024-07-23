@@ -6,7 +6,6 @@ package com.library.management.system.dao.custom.impl;
 
 import com.library.management.system.dao.CrudUtil;
 import com.library.management.system.dao.custom.UserDao;
-import com.library.management.system.entity.BookEntity;
 import com.library.management.system.entity.UserEntity;
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -15,18 +14,18 @@ import java.util.ArrayList;
  *
  * @author Lenovo
  */
-public class UserDaoImpl  implements UserDao {
+public class UserDaoImpl implements UserDao {
 
     @Override
     public boolean create(UserEntity t) throws Exception {
         return CrudUtil.executeUpdate("INSERT INTO users (id , name, email, password, role) VALUES (?, ?, ?, ?, ?)",
-        t.getId(), t.getName(), t.getEmail(), t.getPassword(), t.getRole()); 
+                t.getId(), t.getName(), t.getEmail(), t.getPassword(), t.getRole());
     }
 
     @Override
     public boolean update(UserEntity t) throws Exception {
         return CrudUtil.executeUpdate("UPDATE users SET name = ?, email = ?, password = ?, role = ? WHERE id = ?",
-                t.getName(), t.getEmail(), t.getPassword(),t.getRole(), t.getId());
+                t.getName(), t.getEmail(), t.getPassword(), t.getRole(), t.getId());
     }
 
     @Override
@@ -39,7 +38,7 @@ public class UserDaoImpl  implements UserDao {
         ResultSet rst = CrudUtil.executeQuery("SELECT * FROM users WHERE id = ?", id);
         if (rst.next()) {
             UserEntity entity = new UserEntity(rst.getString("id"), rst.getString("name"),
-            rst.getString("email"), rst.getString("password"), rst.getString("role"));
+                    rst.getString("email"), rst.getString("password"), rst.getString("role"));
             return entity;
         }
         return null;
@@ -51,10 +50,10 @@ public class UserDaoImpl  implements UserDao {
         ResultSet rst = CrudUtil.executeQuery("SELECT * FROM users");
         while (rst.next()) {
             UserEntity entity = new UserEntity(rst.getString("id"), rst.getString("name"),
-            rst.getString("email"), rst.getString("password"), rst.getString("role"));
+                    rst.getString("email"), rst.getString("password"), rst.getString("role"));
             UserEntities.add(entity);
         }
         return UserEntities;
     }
-    
+
 }

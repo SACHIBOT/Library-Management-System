@@ -5,15 +5,9 @@
 package com.library.management.system.service.impl;
 
 import com.library.management.system.dao.DaoFactory;
-import com.library.management.system.dao.custom.BookDao;
 import com.library.management.system.dao.custom.BorrowingDao;
-import com.library.management.system.dto.BookDto;
 import com.library.management.system.dto.BorrowingDto;
-import com.library.management.system.dto.CategoryDto;
-import com.library.management.system.entity.BookEntity;
 import com.library.management.system.entity.BorrowingEntity;
-import com.library.management.system.entity.CategoryEntity;
-import com.library.management.system.service.custom.BookService;
 import com.library.management.system.service.custom.BorrowingService;
 import java.util.ArrayList;
 
@@ -21,8 +15,8 @@ import java.util.ArrayList;
  *
  * @author Lenovo
  */
-public class BorrowingServiceImpl  implements BorrowingService {
-    
+public class BorrowingServiceImpl implements BorrowingService {
+
     private BorrowingDao BorrowingDao = (BorrowingDao) DaoFactory.getInstance().getDao(DaoFactory.DaoTypes.BORROWING);
 
     @Override
@@ -39,13 +33,13 @@ public class BorrowingServiceImpl  implements BorrowingService {
 
     @Override
     public String delete(String borrowingId) throws Exception {
-       return BorrowingDao.delete(borrowingId) ?  "Success" : "Fail";
+        return BorrowingDao.delete(borrowingId) ? "Success" : "Fail";
     }
 
     @Override
     public BorrowingDto get(String borrowingId) throws Exception {
         BorrowingEntity entity = BorrowingDao.get(borrowingId);
-        if(entity != null){
+        if (entity != null) {
             return getBorrowingDto(entity);
         }
         return null;
@@ -54,25 +48,27 @@ public class BorrowingServiceImpl  implements BorrowingService {
     @Override
     public ArrayList<BorrowingDto> getAll() throws Exception {
         ArrayList<BorrowingEntity> BorrowingEntities = BorrowingDao.getAll();
-        if(BorrowingEntities != null && !BorrowingEntities.isEmpty()){
+        if (BorrowingEntities != null && !BorrowingEntities.isEmpty()) {
             ArrayList<BorrowingDto> borrowingDtos = new ArrayList<>();
-            
+
             for (BorrowingEntity BorrowingEntity : BorrowingEntities) {
                 borrowingDtos.add(getBorrowingDto(BorrowingEntity));
             }
-            
+
             return borrowingDtos;
         }
         return null;
     }
-            private BorrowingEntity getBorrowingEntity(BorrowingDto dto){
-        return  new BorrowingEntity(
+
+    private BorrowingEntity getBorrowingEntity(BorrowingDto dto) {
+        return new BorrowingEntity(
                 dto.getId(),
-                dto.getUserId(), dto.getBookId(), dto.getBorrowDate(),dto.getReturnDate(),dto.getStatus());
+                dto.getUserId(), dto.getBookId(), dto.getBorrowDate(), dto.getReturnDate(), dto.getStatus());
     }
-    
-    private BorrowingDto getBorrowingDto(BorrowingEntity entity){
-        return  new BorrowingDto(entity.getId(),
-                entity.getUserId(), entity.getBookId(), entity.getBorrowDate(),entity.getReturnDate(),entity.getStatus() );
+
+    private BorrowingDto getBorrowingDto(BorrowingEntity entity) {
+        return new BorrowingDto(entity.getId(),
+                entity.getUserId(), entity.getBookId(), entity.getBorrowDate(), entity.getReturnDate(),
+                entity.getStatus());
     }
 }
