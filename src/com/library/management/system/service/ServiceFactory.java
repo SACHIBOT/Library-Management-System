@@ -5,6 +5,7 @@
 package com.library.management.system.service;
 
 import com.library.management.system.service.impl.BookServiceImpl;
+import com.library.management.system.service.impl.BorrowingServiceImpl;
 import com.library.management.system.service.impl.CategoryServiceImpl;
 import com.library.management.system.service.impl.UserServiceImpl;
 
@@ -36,7 +37,7 @@ public class ServiceFactory {
             case USER:
                 return new UserServiceImpl();
             case BORROWING:
-                return null;
+                return new BorrowingServiceImpl();
             default:
                 return null;
         }

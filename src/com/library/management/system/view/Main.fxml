@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="758.0" maxWidth="922.4" minHeight="758.0" minWidth="922.4" prefHeight="758.0" prefWidth="922.4" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.library.management.system.controller.view.MainViewController">
+   <children>
+      <ImageView fitHeight="42.0" fitWidth="46.0" layoutX="217.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@images/letter-l.png" />
+         </image>
+      </ImageView>
+      <Label alignment="CENTER" layoutX="319.0" layoutY="15.0" prefHeight="31.0" text="LIBRARY MANAGEMENT SYSTEM">
+         <font>
+            <Font name="Century" size="18.0" />
+         </font>
+      </Label>
+      <ScrollPane hbarPolicy="NEVER" layoutY="58.0" prefHeight="700.0" prefWidth="922.0" vbarPolicy="ALWAYS">
+         <content>
+            <AnchorPane prefWidth="922.0">
+               <children>
+                  <Pane fx:id="paneHelloReader" layoutX="-2.0" prefHeight="550.0" prefWidth="922.0">
+                     <children>
+                        <Label layoutX="79.0" layoutY="135.0" text="Hello Reader" textFill="WHITE">
+                           <font>
+                              <Font name="Century" size="82.0" />
+                           </font>
+                        </Label>
+                        <Button layoutX="482.0" layoutY="312.0" mnemonicParsing="false" onAction="#btnOickaBookOnAction" prefHeight="59.0" prefWidth="247.0" style="-fx-background-color: #304463;" text="Pick a Book" textFill="WHITE">
+                           <font>
+                              <Font name="Century" size="30.0" />
+                           </font>
+                        </Button>
+                     </children>
+                  </Pane>
+                  <Pane layoutX="-2.0" layoutY="550.0" prefHeight="421.0" prefWidth="922.0">
+                     <children>
+                        <GridPane layoutX="40.0" layoutY="87.0" prefHeight="265.0" prefWidth="837.0">
+                          <columnConstraints>
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="630.0" minWidth="10.0" prefWidth="170.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="630.2000274658203" minWidth="10.0" prefWidth="170.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="630.2000274658203" minWidth="10.0" prefWidth="170.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="630.2000274658203" minWidth="10.0" prefWidth="170.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="630.2000274658203" minWidth="10.0" prefWidth="170.0" />
+                          </columnConstraints>
+                          <rowConstraints>
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                          </rowConstraints>
+                           <children>
+                              <Pane prefHeight="170.0" prefWidth="85.0">
+                                 <children>
+                                    <Pane fx:id="panetop4" layoutX="7.0" layoutY="13.0" onMouseClicked="#top4OnMouseClick" prefHeight="184.0" prefWidth="155.0" style="-fx-background-radius: 10; -fx-border-radius: 10;">
+                                       <children>
+                                          <Label fx:id="lbltop4" alignment="CENTER" contentDisplay="CENTER" layoutX="47.0" layoutY="155.0" textAlignment="CENTER" textFill="WHITE">
+                                             <font>
+                                                <Font name="Century" size="18.0" />
+                                             </font>
+                                          </Label>
+                                          <Pane prefHeight="155.0" prefWidth="155.0">
+                                             <children>
+                                                <Pane fx:id="paneimgtop4" layoutX="8.0" layoutY="8.0" prefHeight="140.0" prefWidth="140.0" style="-fx-background-radius: 10; -fx-border-radius: 10;" />
+                                             </children>
+                                          </Pane>
+                                       </children>
+                                    </Pane>
+                                    <Label fx:id="lbltopname4" alignment="CENTER" contentDisplay="CENTER" layoutX="14.0" layoutY="197.0" maxWidth="140.0" prefHeight="59.0" prefWidth="140.0" textAlignment="CENTER" wrapText="true" />
+                                 </children>
+                              </Pane>
+                              <Pane prefHeight="170.0" prefWidth="85.0" GridPane.columnIndex="1">
+                                 <children>
+                                    <Pane fx:id="panetop2" layoutX="7.0" layoutY="13.0" onMouseClicked="#top2OnMouseClick" prefHeight="184.0" prefWidth="155.0" style="-fx-background-radius: 10; -fx-border-radius: 10;">
+                                       <children>
+                                          <Label fx:id="lbltop2" alignment="CENTER" contentDisplay="CENTER" layoutX="47.0" layoutY="155.0" textAlignment="CENTER" textFill="WHITE">
+                                             <font>
+                                                <Font name="Century" size="18.0" />
+                                             </font>
+                                          </Label>
+                                          <Pane prefHeight="155.0" prefWidth="155.0">
+                                             <children>
+                                                <Pane fx:id="paneimgtop2" layoutX="8.0" layoutY="8.0" prefHeight="140.0" prefWidth="140.0" style="-fx-background-radius: 10; -fx-border-radius: 10;" />
+                                             </children>
+                                          </Pane>
+                                       </children>
+                                    </Pane>
+                                    <Label fx:id="lbltopname2" alignment="CENTER" contentDisplay="CENTER" layoutX="14.0" layoutY="197.0" maxWidth="140.0" prefHeight="59.0" prefWidth="140.0" textAlignment="CENTER" wrapText="true" />
+                                 </children>
+                              </Pane>
+                              <Pane prefHeight="170.0" prefWidth="85.0" GridPane.columnIndex="2">
+                                 <children>
+                                    <Pane fx:id="panetop1" layoutX="7.0" layoutY="13.0" onMouseClicked="#top1OnMouseClick" prefHeight="184.0" prefWidth="155.0" style="-fx-background-radius: 10; -fx-border-radius: 10;">
+                                       <children>
+                                          <Label fx:id="lbltop1" alignment="CENTER" contentDisplay="CENTER" layoutX="47.0" layoutY="155.0" textAlignment="CENTER" textFill="WHITE">
+                                             <font>
+                                                <Font name="Century" size="18.0" />
+                                             </font>
+                                          </Label>
+                                          <Pane prefHeight="155.0" prefWidth="155.0">
+                                             <children>
+                                                <Pane fx:id="paneimgtop1" layoutX="8.0" layoutY="8.0" prefHeight="140.0" prefWidth="140.0" style="-fx-background-radius: 10; -fx-border-radius: 10;" />
+                                             </children>
+                                          </Pane>
+                                       </children>
+                                    </Pane>
+                                    <Label fx:id="lbltopname1" alignment="CENTER" contentDisplay="CENTER" layoutX="14.0" layoutY="197.0" maxWidth="140.0" prefHeight="59.0" prefWidth="140.0" textAlignment="CENTER" wrapText="true" />
+                                 </children>
+                              </Pane>
+                              <Pane prefHeight="170.0" prefWidth="85.0" GridPane.columnIndex="3">
+                                 <children>
+                                    <Pane fx:id="panetop3" layoutX="7.0" layoutY="13.0" onMouseClicked="#top3OnMouseClick" prefHeight="184.0" prefWidth="155.0" style="-fx-background-radius: 10; -fx-border-radius: 10;">
+                                       <children>
+                                          <Label fx:id="lbltop3" alignment="CENTER" contentDisplay="CENTER" layoutX="47.0" layoutY="155.0" textAlignment="CENTER" textFill="WHITE">
+                                             <font>
+                                                <Font name="Century" size="18.0" />
+                                             </font>
+                                          </Label>
+                                          <Pane prefHeight="155.0" prefWidth="155.0">
+                                             <children>
+                                                <Pane fx:id="paneimgtop3" layoutX="8.0" layoutY="8.0" prefHeight="140.0" prefWidth="140.0" style="-fx-background-radius: 10; -fx-border-radius: 10;" />
+                                             </children>
+                                          </Pane>
+                                       </children>
+                                    </Pane>
+                                    <Label fx:id="lbltopname3" alignment="CENTER" contentDisplay="CENTER" layoutX="14.0" layoutY="197.0" maxWidth="140.0" prefHeight="59.0" prefWidth="140.0" textAlignment="CENTER" wrapText="true" />
+                                 </children>
+                              </Pane>
+                              <Pane prefHeight="170.0" prefWidth="85.0" GridPane.columnIndex="4">
+                                 <children>
+                                    <Pane fx:id="panetop5" layoutX="7.0" layoutY="13.0" onMouseClicked="#top5OnMouseClick" prefHeight="184.0" prefWidth="155.0" style="-fx-background-radius: 10; -fx-border-radius: 10;">
+                                       <children>
+                                          <Label fx:id="lbltop5" alignment="CENTER" contentDisplay="CENTER" layoutX="47.0" layoutY="155.0" textAlignment="CENTER" textFill="WHITE">
+                                             <font>
+                                                <Font name="Century" size="18.0" />
+                                             </font>
+                                          </Label>
+                                          <Pane prefHeight="155.0" prefWidth="155.0">
+                                             <children>
+                                                <Pane fx:id="paneimgtop5" layoutX="8.0" layoutY="8.0" prefHeight="140.0" prefWidth="140.0" style="-fx-background-radius: 10; -fx-border-radius: 10;" />
+                                             </children>
+                                          </Pane>
+                                       </children>
+                                    </Pane>
+                                    <Label fx:id="lbltopname5" alignment="CENTER" contentDisplay="CENTER" layoutX="14.0" layoutY="197.0" maxWidth="140.0" prefHeight="59.0" prefWidth="140.0" textAlignment="CENTER" wrapText="true" />
+                                 </children>
+                              </Pane>
+                           </children>
+                        </GridPane>
+                        <Label layoutX="392.0" layoutY="34.0" text="Top Readings">
+                           <font>
+                              <Font name="Century" size="22.0" />
+                           </font>
+                        </Label>
+                        <Button layoutX="377.0" layoutY="372.0" mnemonicParsing="false" onAction="#btnMoreBooksOnAction" prefHeight="31.0" prefWidth="168.0" style="-fx-background-color: #304463;" text="More Books" textFill="WHITE">
+                           <font>
+                              <Font name="Century" size="17.0" />
+                           </font>
+                        </Button>
+                     </children>
+                  </Pane>
+               </children>
+            </AnchorPane>
+         </content>
+      </ScrollPane>
+      <Pane layoutX="734.0" layoutY="10.0" prefHeight="42.0" prefWidth="174.0" />
+ 
+   </children>
+</AnchorPane>

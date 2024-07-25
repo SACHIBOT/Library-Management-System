@@ -33,6 +33,10 @@ public class BorrowingController {
         return borrowingService.getAll();
     }
 
+    public ArrayList<BorrowingDto> getTop5byBookId() throws Exception {
+        return borrowingService.getTop5byBookId();
+    }
+
     public BorrowingDto get(String id) throws Exception {
         return borrowingService.get(id);
     }

@@ -4,6 +4,8 @@
  */
 package com.library.management.system.dao.custom;
 
+import java.util.ArrayList;
+
 import com.library.management.system.dao.CrudDao;
 import com.library.management.system.entity.BorrowingEntity;
 
@@ -11,6 +13,8 @@ import com.library.management.system.entity.BorrowingEntity;
  *
  * @author Lenovo
  */
-public interface BorrowingDao extends CrudDao<BorrowingEntity, String>{
-    
+public interface BorrowingDao extends CrudDao<BorrowingEntity, String> {
+
+    ArrayList<BorrowingEntity> getTop5byBookId() throws Exception;
+
 }

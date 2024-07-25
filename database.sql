@@ -1,36 +1,215 @@
+-- Drop the database if it exists and create a new one
 DROP DATABASE IF EXISTS library_management_system;
 CREATE DATABASE library_management_system;
 USE library_management_system;
 
-CREATE TABLE books (
-    id VARCHAR(10) NOT NULL PRIMARY KEY,
-    title VARCHAR(50) NOT NULL,
-    author VARCHAR(50) NOT NULL,
-    category_id VARCHAR(10) NOT NULL,
-    copies_qoh int(10) NOT NULL,
-    FOREIGN KEY(category_id) REFERENCES categories(id)
-);
-
+-- Create categories table  
 CREATE TABLE categories (
     id VARCHAR(10) NOT NULL PRIMARY KEY,
     name VARCHAR(50) NOT NULL
-)
+);
 
+-- Create users table  
 CREATE TABLE users (
     id VARCHAR(10) NOT NULL PRIMARY KEY,
     name VARCHAR(50) NOT NULL,
     email VARCHAR(100) NOT NULL,
     password VARCHAR(100) NOT NULL,
-    role VARCHAR(10) NOT NULL 
+    role VARCHAR(10) NOT NULL
 );
 
+-- Create books table  
+CREATE TABLE books (
+    id VARCHAR(10) NOT NULL PRIMARY KEY,
+    title VARCHAR(50) NOT NULL,
+    author VARCHAR(50) NOT NULL,
+    category_id VARCHAR(10) NOT NULL,
+    copies_qoh INT(10) NOT NULL,
+    image_path VARCHAR(255),
+    FOREIGN KEY (category_id) REFERENCES categories(id)
+);
+
+-- Create borrowings table  
 CREATE TABLE borrowings (
     id VARCHAR(10) NOT NULL PRIMARY KEY,
-    user_id VARCHAR(50) NOT NULL,
-    book_id VARCHAR(50) NOT NULL,
+    user_id VARCHAR(10) NOT NULL,
+    book_id VARCHAR(10) NOT NULL,
     borrowDate DATE NOT NULL,
     returnDate DATE NOT NULL,
     status ENUM('Borrowed', 'Returned', 'Overdue', 'Renewed', 'Lost') NOT NULL,
-    FOREIGN KEY(user_id) REFERENCES users(id),
-    FOREIGN KEY(book_id) REFERENCES books(id)
+    FOREIGN KEY (user_id) REFERENCES users(id),
+    FOREIGN KEY (book_id) REFERENCES books(id)
 );
+
+
+-- Insert Data into Categories Table
+INSERT INTO categories (id, name) VALUES
+('c1', 'Fiction'),
+('c2', 'Non-Fiction'),
+('c3', 'Science'),
+('c4', 'History'),
+('c5', 'Biography'),
+('c6', 'Fantasy'),
+('c7', 'Mystery'),
+('c8', 'Horror'),
+('c9', 'Romance'),
+('c10', 'Thriller');
+
+-- Insert Data into Books Table
+INSERT INTO books (id, title, author, category_id, copies_qoh, image_path) VALUES
+('b1', 'Madol Doova', 'Martin Wickramasinghe', 'c1', 10, 'images/bookimages/bookimage.jpg'),
+('b2', 'Gamperaliya', 'Martin Wickramasinghe', 'c1', 8, 'images/bookimages/bookimage.jpg'),
+('b3', 'The Village in the Jungle', 'Leonard Woolf', 'c1', 7, 'images/bookimages/bookimage.jpg'),
+('b4', 'The Road from Elephant Pass', 'Nihal De Silva', 'c1', 5, 'images/bookimages/bookimage.jpg'),
+('b5', 'Water for Elephants', 'Sara Gruen', 'c9', 3, 'images/bookimages/bookimage.jpg'),
+('b6', 'Great Expectations', 'Charles Dickens', 'c4', 4, 'images/bookimages/bookimage.jpg'),
+('b7', 'To Kill a Mockingbird', 'Harper Lee', 'c7', 6, 'images/bookimages/bookimage.jpg'),
+('b8', 'The Adventures of Sherlock Holmes', 'Arthur Conan Doyle', 'c7', 9, 'images/bookimages/bookimage.jpg'),
+('b9', '1984', 'George Orwell', 'c2', 10, 'images/bookimages/bookimage.jpg'),
+('b10', 'The Hobbit', 'J.R.R. Tolkien', 'c6', 8, 'images/bookimages/bookimage.jpg'),
+('b11', 'Harry Potter and the Sorcerers Stone', 'J.K. Rowling', 'c6', 12, 'images/bookimages/bookimage.jpg'),
+('b12', 'The Alchemist', 'Paulo Coelho', 'c9', 15, 'images/bookimages/bookimage.jpg'),
+('b13', 'Pride and Prejudice', 'Jane Austen', 'c9', 5, 'images/bookimages/bookimage.jpg'),
+('b14', 'The Da Vinci Code', 'Dan Brown', 'c7', 7, 'images/bookimages/bookimage.jpg'),
+('b15', 'The Great Gatsby', 'F. Scott Fitzgerald', 'c1', 4, 'images/bookimages/bookimage.jpg'),
+('b16', 'Moby Dick', 'Herman Melville', 'c1', 3, 'images/bookimages/bookimage.jpg'),
+('b17', 'War and Peace', 'Leo Tolstoy', 'c4', 6, 'images/bookimages/bookimage.jpg'),
+('b18', 'Ulysses', 'James Joyce', 'c4', 2, 'images/bookimages/bookimage.jpg'),
+('b19', 'Crime and Punishment', 'Fyodor Dostoevsky', 'c7', 8, 'images/bookimages/bookimage.jpg'),
+('b20', 'The Catcher in the Rye', 'J.D. Salinger', 'c1', 10, 'images/bookimages/bookimage.jpg'),
+('b21', 'Brave New World', 'Aldous Huxley', 'c2', 5, 'images/bookimages/bookimage.jpg'),
+('b22', 'The Odyssey', 'Homer', 'c4', 6, 'images/bookimages/bookimage.jpg'),
+('b23', 'Lord of the Flies', 'William Golding', 'c1', 7, 'images/bookimages/bookimage.jpg'),
+('b24', 'Animal Farm', 'George Orwell', 'c2', 9, 'images/bookimages/bookimage.jpg'),
+('b25', 'The Book Thief', 'Markus Zusak', 'c1', 3, 'images/bookimages/bookimage.jpg'),
+('b26', 'Jane Eyre', 'Charlotte Bronte', 'c9', 4, 'images/bookimages/bookimage.jpg'),
+('b27', 'Frankenstein', 'Mary Shelley', 'c8', 5, 'images/bookimages/bookimage.jpg'),
+('b28', 'Dracula', 'Bram Stoker', 'c8', 6, 'images/bookimages/bookimage.jpg'),
+('b29', 'The Shining', 'Stephen King', 'c8', 8, 'images/bookimages/bookimage.jpg'),
+('b30', 'Wuthering Heights', 'Emily Bronte', 'c9', 7, 'images/bookimages/bookimage.jpg'),
+('b31', 'The Chronicles of Narnia', 'C.S. Lewis', 'c6', 10, 'images/bookimages/bookimage.jpg'),
+('b32', 'Gone with the Wind', 'Margaret Mitchell', 'c9', 6, 'images/bookimages/bookimage.jpg'),
+('b33', 'Dune', 'Frank Herbert', 'c6', 4, 'images/bookimages/bookimage.jpg'),
+('b34', 'The Iliad', 'Homer', 'c4', 3, 'images/bookimages/bookimage.jpg'),
+('b35', 'The Picture of Dorian Gray', 'Oscar Wilde', 'c7', 2, 'images/bookimages/bookimage.jpg'),
+('b36', 'Les Miserables', 'Victor Hugo', 'c4', 5, 'images/bookimages/bookimage.jpg'),
+('b37', 'A Tale of Two Cities', 'Charles Dickens', 'c4', 6, 'images/bookimages/bookimage.jpg'),
+('b38', 'Don Quixote', 'Miguel de Cervantes', 'c4', 7, 'images/bookimages/bookimage.jpg'),
+('b39', 'Anna Karenina', 'Leo Tolstoy', 'c9', 4, 'images/bookimages/bookimage.jpg'),
+('b40', 'The Brothers Karamazov', 'Fyodor Dostoevsky', 'c7', 5, 'images/bookimages/bookimage.jpg'),
+('b41', 'The Hunchback of Notre-Dame', 'Victor Hugo', 'c4', 6, 'images/bookimages/bookimage.jpg'),
+('b42', 'A Clockwork Orange', 'Anthony Burgess', 'c2', 7, 'images/bookimages/bookimage.jpg'),
+('b43', 'The Old Man and the Sea', 'Ernest Hemingway', 'c1', 8, 'images/bookimages/bookimage.jpg'),
+('b44', 'Of Mice and Men', 'John Steinbeck', 'c1', 9, 'images/bookimages/bookimage.jpg'),
+('b45', 'Catch-22', 'Joseph Heller', 'c2', 10, 'images/bookimages/bookimage.jpg'),
+('b46', 'Heart of Darkness', 'Joseph Conrad', 'c4', 4, 'images/bookimages/bookimage.jpg'),
+('b47', 'The Sun Also Rises', 'Ernest Hemingway', 'c1', 3, 'images/bookimages/bookimage.jpg'),
+('b48', 'The Metamorphosis', 'Franz Kafka', 'c7', 5, 'images/bookimages/bookimage.jpg'),
+('b49', 'Slaughterhouse-Five', 'Kurt Vonnegut', 'c2', 6, 'images/bookimages/bookimage.jpg'),
+('b50', 'Fahrenheit 451', 'Ray Bradbury', 'c2', 7, 'images/bookimages/bookimage.jpg');
+
+-- Insert Data into Users Table
+INSERT INTO users (id, name, email, password, role) VALUES
+('u1', 'Amara Perera', 'amara.perera@email.com', 'password1', 'member'),
+('u2', 'Kamal Jayasinghe', 'kamal.jayasinghe@email.com', 'password2', 'member'),
+('u3', 'Sunil Wijesinghe', 'sunil.wijesinghe@email.com', 'password3', 'member'),
+('u4', 'Nimal Perera', 'nimal.perera@email.com', 'password4', 'member'),
+('u5', 'Samanthi Silva', 'samanthi.silva@email.com', 'password5', 'member'),
+('u6', 'Tharindu Jayawardene', 'tharindu.jayawardene@email.com', 'password6', 'member'),
+('u7', 'Priyanthi De Silva', 'priyanthi.desilva@email.com', 'password7', 'member'),
+('u8', 'Mahesh Kumara', 'mahesh.kumara@email.com', 'password8', 'member'),
+('u9', 'Ruwan Fernando', 'ruwan.fernando@email.com', 'password9', 'member'),
+('u10', 'Chandana Rathnayake', 'chandana.rathnayake@email.com', 'password10', 'member'),
+('u11', 'Anjali Kumar', 'anjali.kumar@email.com', 'password11', 'member'),
+('u12', 'Kusum De Silva', 'kusum.desilva@email.com', 'password12', 'member'),
+('u13', 'Hiran Wijeratne', 'hiran.wijeratne@email.com', 'password13', 'member'),
+('u14', 'Mala Perera', 'mala.perera@email.com', 'password14', 'member'),
+('u15', 'Nuwan Jayawardena', 'nuwan.jayawardena@email.com', 'password15', 'member'),
+('u16', 'Sanjeewa Senanayake', 'sanjeewa.senanayake@email.com', 'password16', 'member'),
+('u17', 'Rashmi Silva', 'rashmi.silva@email.com', 'password17', 'member'),
+('u18', 'Dinesh Kumar', 'dinesh.kumar@email.com', 'password18', 'member'),
+('u19', 'Sanduni Perera', 'sanduni.perera@email.com', 'password19', 'member'),
+('u20', 'Shanthi De Silva', 'shanthi.desilva@email.com', 'password20', 'member'),
+('u21', 'Thilini Wijesinghe', 'thilini.wijesinghe@email.com', 'password21', 'member'),
+('u22', 'Sujeewa Rathnayake', 'sujeewa.rathnayake@email.com', 'password22', 'member'),
+('u23', 'Aruna Jayawardena', 'aruna.jayawardena@email.com', 'password23', 'member'),
+('u24', 'Ruwan Wijeratne', 'ruwan.wijeratne@email.com', 'password24', 'member'),
+('u25', 'Chandana De Silva', 'chandana.desilva@email.com', 'password25', 'member'),
+('u26', 'Dilshan Kumara', 'dilshan.kumara@email.com', 'password26', 'member'),
+('u27', 'Roshan Perera', 'roshan.perera@email.com', 'password27', 'member'),
+('u28', 'Nishanthi De Silva', 'nishanthi.desilva@email.com', 'password28', 'member'),
+('u29', 'Mahesh Perera', 'mahesh.perera@email.com', 'password29', 'member'),
+('u30', 'Lakshmi Rathnayake', 'lakshmi.rathnayake@email.com', 'password30', 'member'),
+('u31', 'Kasun Wijesinghe', 'kasun.wijesinghe@email.com', 'password31', 'member'),
+('u32', 'Ishara Jayawardena', 'ishara.jayawardena@email.com', 'password32', 'member'),
+('u33', 'Nadeesha De Silva', 'nadeesha.desilva@email.com', 'password33', 'member'),
+('u34', 'Thushara Kumar', 'thushara.kumar@email.com', 'password34', 'member'),
+('u35', 'Sulochana Perera', 'sulochana.perera@email.com', 'password35', 'member'),
+('u36', 'Ashan Jayawardena', 'ashan.jayawardena@email.com', 'password36', 'member'),
+('u37', 'Nirosha De Silva', 'nirosha.desilva@email.com', 'password37', 'member'),
+('u38', 'Dilan Kumar', 'dilan.kumar@email.com', 'password38', 'member'),
+('u39', 'Anushka Perera', 'anushka.perera@email.com', 'password39', 'member'),
+('u40', 'Priyanka Rathnayake', 'priyanka.rathnayake@email.com', 'password40', 'member'),
+('u41', 'Harsha Wijesinghe', 'harsha.wijesinghe@email.com', 'password41', 'member'),
+('u42', 'Kusum Jayawardena', 'kusum.jayawardena@email.com', 'password42', 'member'),
+('u43', 'Aravinda De Silva', 'aravinda.desilva@email.com', 'password43', 'member'),
+('u44', 'Nuwan Kumara', 'nuwan.kumara@email.com', 'password44', 'member'),
+('u45', 'Roshan Perera', 'roshan.perera@email.com', 'password45', 'member'),
+('u46', 'Dilshan Wijeratne', 'dilshan.wijeratne@email.com', 'password46', 'member'),
+('u47', 'Lasantha De Silva', 'lasantha.desilva@email.com', 'password47', 'member'),
+('u48', 'Shanika Rathnayake', 'shanika.rathnayake@email.com', 'password48', 'member'),
+('u49', 'Sachini Jayawardena', 'sachini.jayawardena@email.com', 'password49', 'member'),
+('u50', 'Amila Wijesinghe', 'amila.wijesinghe@email.com', 'password50', 'member');
+
+-- Insert Data into Borrowings Table  
+INSERT INTO borrowings (id, user_id, book_id, borrowDate, returnDate, status) VALUES
+('br1', 'u1', 'b5', '2024-01-01', '2024-01-15', 'Returned'),
+('br2', 'u1', 'b12', '2024-01-01', '2024-01-15', 'Returned'),
+('br3', 'u2', 'b3', '2024-01-05', '2024-01-20', 'Borrowed'),
+('br4', 'u3', 'b8', '2024-01-10', '2024-01-25', 'Overdue'),
+('br5', 'u3', 'b19', '2024-01-10', '2024-01-25', 'Overdue'),
+('br6', 'u4', 'b1', '2024-01-15', '2024-01-30', 'Returned'),
+('br7', 'u5', 'b7', '2024-01-20', '2024-02-04', 'Borrowed'),
+('br8', 'u5', 'b4', '2024-01-20', '2024-02-04', 'Borrowed'),
+('br9', 'u6', 'b11', '2024-01-25', '2024-02-09', 'Returned'),
+('br10', 'u7', 'b10', '2024-01-30', '2024-02-14', 'Renewed'),
+('br11', 'u8', 'b13', '2024-02-01', '2024-02-16', 'Borrowed'),
+('br12', 'u9', 'b19', '2024-02-05', '2024-02-20', 'Lost'),
+('br13', 'u10', 'b11', '2024-02-10', '2024-02-25', 'Borrowed'),
+('br14', 'u11', 'b6', '2024-02-15', '2024-03-01', 'Returned'),
+('br15', 'u12', 'b9', '2024-02-20', '2024-03-05', 'Borrowed'),
+('br16', 'u13', 'b18', '2024-02-25', '2024-03-12', 'Overdue'),
+('br17', 'u13', 'b22', '2024-02-25', '2024-03-12', 'Overdue'),
+('br18', 'u14', 'b11', '2024-03-01', '2024-03-16', 'Returned'),
+('br19', 'u15', 'b2', '2024-03-05', '2024-03-20', 'Borrowed'),
+('br20', 'u15', 'b6', '2024-03-05', '2024-03-20', 'Borrowed'),
+('br21', 'u16', 'b21', '2024-03-10', '2024-03-25', 'Returned'),
+('br22', 'u17', 'b10', '2024-03-15', '2024-03-30', 'Renewed'),
+('br23', 'u18', 'b23', '2024-03-20', '2024-04-04', 'Borrowed'),
+('br24', 'u19', 'b2', '2024-03-25', '2024-04-09', 'Lost'),
+('br25', 'u20', 'b11', '2024-03-30', '2024-04-14', 'Borrowed'),
+('br26', 'u21', 'b8', '2024-04-01', '2024-04-16', 'Returned'),
+('br27', 'u22', 'b6', '2024-04-05', '2024-04-20', 'Borrowed'),
+('br28', 'u22', 'b4', '2024-04-05', '2024-04-20', 'Borrowed'),
+('br29', 'u23', 'b19', '2024-04-10', '2024-04-25', 'Returned'),
+('br30', 'u24', 'b3', '2024-04-15', '2024-04-30', 'Borrowed'),
+('br31', 'u25', 'b27', '2024-04-20', '2024-05-05', 'Returned'),
+('br32', 'u26', 'b30', '2024-04-25', '2024-05-10', 'Borrowed'),
+('br33', 'u27', 'b6', '2024-04-30', '2024-05-15', 'Overdue'),
+('br34', 'u28', 'b31', '2024-05-01', '2024-05-16', 'Returned'),
+('br35', 'u29', 'b19', '2024-05-05', '2024-05-20', 'Borrowed'),
+('br36', 'u29', 'b2', '2024-05-05', '2024-05-20', 'Borrowed'),
+('br37', 'u30', 'b17', '2024-05-10', '2024-05-25', 'Returned'),
+('br38', 'u31', 'b12', '2024-05-15', '2024-05-30', 'Borrowed'),
+('br39', 'u32', 'b2', '2024-05-20', '2024-06-04', 'Returned'),
+('br40', 'u33', 'b35', '2024-05-25', '2024-06-09', 'Renewed'),
+('br41', 'u34', 'b32', '2024-05-30', '2024-06-14', 'Borrowed'),
+('br42', 'u35', 'b37', '2024-06-01', '2024-06-16', 'Returned'),
+('br43', 'u36', 'b9', '2024-06-05', '2024-06-20', 'Borrowed'),
+('br44', 'u37', 'b15', '2024-06-10', '2024-06-25', 'Lost'),
+('br45', 'u38', 'b11', '2024-06-15', '2024-06-30', 'Borrowed'),
+('br46', 'u39', 'b9', '2024-06-20', '2024-07-05', 'Returned'),
+('br47', 'u40', 'b5', '2024-06-25', '2024-07-10', 'Borrowed'),
+('br48', 'u41', 'b34', '2024-06-30', '2024-07-15', 'Returned'),
+('br49', 'u42', 'b24', '2024-07-01', '2024-07-16', 'Borrowed'),
+('br50', 'u42', 'b40', '2024-07-01', '2024-07-16', 'Borrowed');

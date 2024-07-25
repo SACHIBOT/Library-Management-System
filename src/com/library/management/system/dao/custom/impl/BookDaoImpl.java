@@ -4,11 +4,12 @@
  */
 package com.library.management.system.dao.custom.impl;
 
-import com.library.management.system.dao.CrudUtil; 
-import com.library.management.system.dao.custom.BookDao; 
-import com.library.management.system.entity.BookEntity; 
+import com.library.management.system.dao.CrudUtil;
+import com.library.management.system.dao.custom.BookDao;
+import com.library.management.system.entity.BookEntity;
 import java.sql.ResultSet;
-import java.util.ArrayList; 
+import java.util.ArrayList;
+
 /**
  *
  * @author Lenovo
@@ -17,14 +18,16 @@ public class BookDaoImpl implements BookDao {
 
     @Override
     public boolean create(BookEntity t) throws Exception {
-        return CrudUtil.executeUpdate("INSERT INTO books (id , title, author, category_id, copies_qoh) VALUES (?, ?, ?, ?, ?)",
-        t.getId(), t.getTitle(), t.getAuthor(), t.getCategoryId(), t.getCopiesQoH()); 
+        return CrudUtil.executeUpdate(
+                "INSERT INTO books (id, title, author, category_id, copies_qoh, image_path) VALUES (?, ?, ?, ?, ?, ?)",
+                t.getId(), t.getTitle(), t.getAuthor(), t.getCategoryId(), t.getCopiesQoH(), t.getImagePath());
     }
 
     @Override
     public boolean update(BookEntity t) throws Exception {
-        return CrudUtil.executeUpdate("UPDATE books SET title = ?, author = ?, category_id = ?, copies_qoh = ? WHERE id = ?",
-                t.getTitle(), t.getAuthor(), t.getCategoryId(),t.getCopiesQoH(), t.getId());
+        return CrudUtil.executeUpdate(
+                "UPDATE books SET title = ?, author = ?, category_id = ?, copies_qoh = ?, image_path = ? WHERE id = ?",
+                t.getTitle(), t.getAuthor(), t.getCategoryId(), t.getCopiesQoH(), t.getImagePath(), t.getId());
     }
 
     @Override
@@ -34,10 +37,11 @@ public class BookDaoImpl implements BookDao {
 
     @Override
     public BookEntity get(String id) throws Exception {
-        ResultSet rst = CrudUtil.executeQuery("SELECT * FROM Books WHERE id = ?", id);
+        ResultSet rst = CrudUtil.executeQuery("SELECT * FROM books WHERE id = ?", id);
         if (rst.next()) {
             BookEntity entity = new BookEntity(rst.getString("id"), rst.getString("title"),
-            rst.getString("author"), rst.getString("category_id"), rst.getInt("copies_qoh"));
+                    rst.getString("author"), rst.getString("category_id"), rst.getInt("copies_qoh"),
+                    rst.getString("image_path"));
             return entity;
         }
         return null;
@@ -46,10 +50,11 @@ public class BookDaoImpl implements BookDao {
     @Override
     public ArrayList<BookEntity> getAll() throws Exception {
         ArrayList<BookEntity> BookEntities = new ArrayList<>();
-        ResultSet rst = CrudUtil.executeQuery("SELECT * FROM Books");
+        ResultSet rst = CrudUtil.executeQuery("SELECT * FROM books");
         while (rst.next()) {
             BookEntity entity = new BookEntity(rst.getString("id"), rst.getString("title"),
-            rst.getString("author"), rst.getString("category_id"), rst.getInt("copies_qoh"));
+                    rst.getString("author"), rst.getString("category_id"), rst.getInt("copies_qoh"),
+                    rst.getString("image_path"));
             BookEntities.add(entity);
         }
         return BookEntities;

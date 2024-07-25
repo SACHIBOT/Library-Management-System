@@ -60,4 +60,18 @@ public class BorrowingDaoImpl implements BorrowingDao {
         return BorrowingEntities;
     }
 
+    @Override
+    public ArrayList<BorrowingEntity> getTop5byBookId() throws Exception {
+        ArrayList<BorrowingEntity> BorrowingEntities = new ArrayList<>();
+        ResultSet rst = CrudUtil.executeQuery(
+                "SELECT *, COUNT(book_id) AS borrow_count FROM borrowings GROUP BY book_id ORDER BY borrow_count DESC, book_id ASC LIMIT 5");
+        while (rst.next()) {
+            BorrowingEntity entity = new BorrowingEntity(rst.getString("id"), rst.getString("user_id"),
+                    rst.getString("book_id"), rst.getDate("borrowDate"), rst.getDate("returnDate"),
+                    rst.getString("status"));
+            BorrowingEntities.add(entity);
+        }
+        return BorrowingEntities;
+    }
+
 }

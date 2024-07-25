@@ -71,4 +71,19 @@ public class BorrowingServiceImpl implements BorrowingService {
                 entity.getUserId(), entity.getBookId(), entity.getBorrowDate(), entity.getReturnDate(),
                 entity.getStatus());
     }
+
+    @Override
+    public ArrayList<BorrowingDto> getTop5byBookId() throws Exception {
+        ArrayList<BorrowingEntity> BorrowingEntities = BorrowingDao.getTop5byBookId();
+        if (BorrowingEntities != null && !BorrowingEntities.isEmpty()) {
+            ArrayList<BorrowingDto> borrowingDtos = new ArrayList<>();
+
+            for (BorrowingEntity BorrowingEntity : BorrowingEntities) {
+                borrowingDtos.add(getBorrowingDto(BorrowingEntity));
+            }
+
+            return borrowingDtos;
+        }
+        return null;
+    }
 }

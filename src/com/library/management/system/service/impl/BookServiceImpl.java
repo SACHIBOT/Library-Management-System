@@ -66,7 +66,8 @@ public class BookServiceImpl implements BookService {
                 BookDto.getTitle(),
                 BookDto.getAuthor(),
                 BookDto.getCategoryId(),
-                BookDto.getCopiesQoH());
+                BookDto.getCopiesQoH(),
+                BookDto.getImagePath());
     }
 
     private BookDto getBookDto(BookEntity entity) {
@@ -74,7 +75,8 @@ public class BookServiceImpl implements BookService {
                 entity.getTitle(),
                 entity.getAuthor(),
                 entity.getCategoryId(),
-                entity.getCopiesQoH());
+                entity.getCopiesQoH(),
+                entity.getImagePath());
     }
 
 }
