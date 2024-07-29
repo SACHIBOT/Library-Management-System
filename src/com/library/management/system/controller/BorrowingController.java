@@ -44,4 +44,16 @@ public class BorrowingController {
     public BorrowingDto get(String id) throws Exception {
         return borrowingService.get(id);
     }
+
+    public ArrayList<BorrowingDto> getByBookId(String id) throws Exception {
+        return borrowingService.getByBookId(id);
+    }
+
+    public ArrayList<BorrowingDto> getByUserId(String id) throws Exception {
+        return borrowingService.getByUserId(id);
+    }
+
+    public ArrayList<BorrowingDto> getByStatus(String status) throws Exception {
+        return borrowingService.getByStatus(status);
+    }
 }

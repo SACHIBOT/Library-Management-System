@@ -94,17 +94,8 @@ public class BorrowingServiceImpl implements BorrowingService {
 
     @Override
     public ArrayList<BorrowingDto> getAll() throws Exception {
-        ArrayList<BorrowingEntity> BorrowingEntities = BorrowingDao.getAll();
-        if (BorrowingEntities != null && !BorrowingEntities.isEmpty()) {
-            ArrayList<BorrowingDto> borrowingDtos = new ArrayList<>();
 
-            for (BorrowingEntity BorrowingEntity : BorrowingEntities) {
-                borrowingDtos.add(getBorrowingDto(BorrowingEntity));
-            }
-
-            return borrowingDtos;
-        }
-        return null;
+        return getBorrowingDtosList(BorrowingDao.getAll());
     }
 
     private BorrowingEntity getBorrowingEntity(BorrowingDto dto) {
@@ -121,7 +112,26 @@ public class BorrowingServiceImpl implements BorrowingService {
 
     @Override
     public ArrayList<BorrowingDto> getTop5byBookId() throws Exception {
-        ArrayList<BorrowingEntity> BorrowingEntities = BorrowingDao.getTop5byBookId();
+
+        return getBorrowingDtosList(BorrowingDao.getTop5byBookId());
+    }
+
+    @Override
+    public ArrayList<BorrowingDto> getByBookId(String id) throws Exception {
+        return getBorrowingDtosList(BorrowingDao.getByBookId(id));
+    }
+
+    @Override
+    public ArrayList<BorrowingDto> getByUserId(String id) throws Exception {
+        return getBorrowingDtosList(BorrowingDao.getByUserId(id));
+    }
+
+    @Override
+    public ArrayList<BorrowingDto> getByStatus(String status) throws Exception {
+        return getBorrowingDtosList(BorrowingDao.getByStatus(status));
+    }
+
+    private ArrayList<BorrowingDto> getBorrowingDtosList(ArrayList<BorrowingEntity> BorrowingEntities) {
         if (BorrowingEntities != null && !BorrowingEntities.isEmpty()) {
             ArrayList<BorrowingDto> borrowingDtos = new ArrayList<>();
 

@@ -9,10 +9,13 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="758.0" maxWidth="922.4" minHeight="758.0" minWidth="922.4" prefHeight="758.0" prefWidth="922.4" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.library.management.system.controller.view.SingleBookViewController">
+<AnchorPane maxHeight="758.0" maxWidth="922.4" minHeight="758.0" minWidth="922.4" prefHeight="758.0" prefWidth="922.4" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.library.management.system.controller.view.ProfileController">
    <children>
       <ImageView fitHeight="42.0" fitWidth="46.0" layoutX="227.0" layoutY="20.0" pickOnBounds="true" preserveRatio="true">
          <image>
@@ -26,9 +29,9 @@
       </Label>
       <ScrollPane hbarPolicy="NEVER" layoutY="69.0" prefHeight="700.0" prefWidth="922.0" vbarPolicy="ALWAYS">
          <content>
-            <AnchorPane prefHeight="316.0" prefWidth="922.0">
+            <AnchorPane prefWidth="922.0">
                <children>
-                  <Pane prefHeight="700.0" prefWidth="922.0">
+                  <Pane prefWidth="922.0">
                      <children>
                         <Pane layoutX="161.0" layoutY="40.0" prefHeight="420.0" prefWidth="393.0" style="-fx-background-color: #304463; -fx-background-radius: 10; -fx-border-radius: 10;">
                            <children>
@@ -43,7 +46,7 @@
                                  </font>
                               </Label>
                               <TextField fx:id="txtUsername" editable="false" layoutX="162.0" layoutY="118.0" prefHeight="25.0" prefWidth="166.0" promptText="your new name" />
-                              <Button layoutX="143.0" layoutY="343.0" mnemonicParsing="false" onAction="#btnSignuponaction" prefHeight="42.0" prefWidth="105.0" style="-fx-background-color: white;" text="Update">
+                              <Button layoutX="143.0" layoutY="343.0" mnemonicParsing="false" onAction="#btnUpdateOnAction" prefHeight="42.0" prefWidth="105.0" style="-fx-background-color: white;" text="Update">
                                  <font>
                                     <Font name="Century" size="18.0" />
                                  </font>
@@ -73,23 +76,35 @@
                               <TextField fx:id="txtpassword1" layoutX="165.0" layoutY="268.0" prefHeight="25.0" prefWidth="166.0" promptText="your new password" />
                            </children>
                         </Pane>
-                        <Pane layoutY="486.0" prefHeight="214.0" prefWidth="922.0">
+                        <Pane layoutY="486.0" prefWidth="922.0">
                            <children>
-                              <TableView fx:id="tbborrowings" layoutX="97.0" layoutY="69.0" prefHeight="76.0" prefWidth="729.0">
-                                <columns>
-                                  <TableColumn prefWidth="75.0" text="id" />
-                                  <TableColumn prefWidth="75.0" text="book id" />
-                                    <TableColumn prefWidth="205.60006713867188" text="book" />
-                                    <TableColumn prefWidth="135.199951171875" text="borrowed date" />
-                                    <TableColumn prefWidth="127.99993896484375" text="return date" />
-                                    <TableColumn prefWidth="112.79998779296875" text="status" />
-                                </columns>
-                              </TableView>
                               <Label layoutX="74.0" layoutY="14.0" text="Your Borrowings">
                                  <font>
                                     <Font name="Century" size="22.0" />
                                  </font>
                               </Label>
+                              <GridPane layoutX="96.0" layoutY="75.0" prefHeight="514.0" prefWidth="731.0">
+                                <columnConstraints>
+                                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                </columnConstraints>
+                                <rowConstraints>
+                                  <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                                  <RowConstraints maxHeight="51.8000244140625" minHeight="10.0" prefHeight="27.00003662109374" vgrow="SOMETIMES" />
+                                </rowConstraints>
+                                 <children>
+                                   <TableView fx:id="tblborrowings" layoutX="97.0" layoutY="69.0" snapToPixel="false">
+                                      <columns>
+                                          <TableColumn fx:id="idColumn" editable="false" prefWidth="75.0" resizable="false" sortable="false" text="id" />
+                                          <TableColumn fx:id="bookIdColumn" editable="false" prefWidth="75.0" resizable="false" sortable="false" text="book id" />
+                                          <TableColumn fx:id="bookColumn" editable="false" prefWidth="205.6" resizable="false" sortable="false" text="book" />
+                                          <TableColumn fx:id="borrowedDateColumn" editable="false" prefWidth="135.2" resizable="false" sortable="false" text="borrowed date" />
+                                          <TableColumn fx:id="returnDateColumn" editable="false" prefWidth="128.0" resizable="false" sortable="false" text="return date" />
+                                          <TableColumn fx:id="statusColumn" editable="false" prefWidth="112.8" resizable="false" sortable="false" text="status" />
+                                      </columns>
+                                  </TableView>
+                        
+                                             </children>
+                              </GridPane>
                            </children>
                         </Pane>
                      </children>

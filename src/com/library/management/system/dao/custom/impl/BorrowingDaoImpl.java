@@ -85,19 +85,40 @@ public class BorrowingDaoImpl implements BorrowingDao {
 
     @Override
     public ArrayList<BorrowingEntity> getByBookId(String id) throws Exception {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getByBookId'");
+        ArrayList<BorrowingEntity> BorrowingEntities = new ArrayList<>();
+        ResultSet rst = CrudUtil.executeQuery("SELECT * FROM borrowings WHERE book_id = ?", id);
+        while (rst.next()) {
+            BorrowingEntity entity = new BorrowingEntity(rst.getString("id"), rst.getString("user_id"),
+                    rst.getString("book_id"), rst.getDate("borrowDate"), rst.getDate("returnDate"),
+                    rst.getString("status"));
+            BorrowingEntities.add(entity);
+        }
+        return BorrowingEntities;
     }
 
     @Override
     public ArrayList<BorrowingEntity> getByUserId(String id) throws Exception {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getByUserId'");
+        ArrayList<BorrowingEntity> BorrowingEntities = new ArrayList<>();
+        ResultSet rst = CrudUtil.executeQuery("SELECT * FROM borrowings WHERE user_id = ?", id);
+        while (rst.next()) {
+            BorrowingEntity entity = new BorrowingEntity(rst.getString("id"), rst.getString("user_id"),
+                    rst.getString("book_id"), rst.getDate("borrowDate"), rst.getDate("returnDate"),
+                    rst.getString("status"));
+            BorrowingEntities.add(entity);
+        }
+        return BorrowingEntities;
     }
 
     @Override
     public ArrayList<BorrowingEntity> getByStatus(String status) throws Exception {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getByStatus'");
+        ArrayList<BorrowingEntity> BorrowingEntities = new ArrayList<>();
+        ResultSet rst = CrudUtil.executeQuery("SELECT * FROM borrowings WHERE status = ?", status);
+        while (rst.next()) {
+            BorrowingEntity entity = new BorrowingEntity(rst.getString("id"), rst.getString("user_id"),
+                    rst.getString("book_id"), rst.getDate("borrowDate"), rst.getDate("returnDate"),
+                    rst.getString("status"));
+            BorrowingEntities.add(entity);
+        }
+        return BorrowingEntities;
     }
 }

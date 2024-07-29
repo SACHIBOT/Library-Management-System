@@ -288,7 +288,16 @@ public class Utils {
 
     public void goToProfile(MouseEvent event) throws Exception {
 
-        switchToAnotherPageWithAuth(profilePage, event);
-
+        FXMLLoader loader = switchToAnotherPageWithAuth(profilePage, event);
+        if (loader != null) {
+            ProfileController profile = loader
+                    .getController();
+            UserController userController = new UserController();
+            String userId = sessionController.getLoggedUser().getLoggedUserId();
+            UserDto userDto = userController.get(userId);
+            BorrowingController borrowingController = new BorrowingController();
+            ArrayList<BorrowingDto> borrowingDtos = borrowingController.getByUserId(userId);
+            profile.initialize(userDto.getName(), userDto.getEmail(), borrowingDtos);
+        }
     }
 }
