@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #304463; -fx-background-radius: 10; -fx-border-radius: 10;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.library.management.system.controller.view.BorrowBookPopupController">
+   <children>
+      <GridPane hgap="10" layoutX="49.0" layoutY="130.0" prefHeight="166.0" prefWidth="506.0" vgap="10">
+         <children>
+            <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" prefHeight="45.0" prefWidth="175.0" text="Title:    " textFill="WHITE" GridPane.columnIndex="0" GridPane.rowIndex="0">
+               <font>
+                  <Font name="Century" size="19.0" />
+               </font>
+            </Label>
+            <Label fx:id="lblPopupTitle" maxWidth="341.0" minWidth="213.0" prefHeight="24.0" prefWidth="341.0" textFill="WHITE" GridPane.columnIndex="1">
+               <font>
+                  <Font name="Century" size="16.0" />
+               </font>
+            </Label>
+            <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" prefHeight="45.0" prefWidth="167.0" text="Return Date:    " textFill="WHITE" GridPane.columnIndex="0" GridPane.rowIndex="1">
+               <font>
+                  <Font name="Century" size="19.0" />
+               </font>
+            </Label>
+            <Label fx:id="lblReturnDate" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="1">
+               <font>
+                  <Font name="Century" size="16.0" />
+               </font>
+            </Label>
+            <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" prefHeight="44.0" prefWidth="166.0" text="Fine:    " textFill="WHITE" GridPane.columnIndex="0" GridPane.rowIndex="2">
+               <font>
+                  <Font name="Century" size="19.0" />
+               </font>
+            </Label>
+            <Label fx:id="lblFine" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="2">
+               <font>
+                  <Font name="Century" size="16.0" />
+               </font>
+            </Label>
+         </children>
+         <columnConstraints>
+            <ColumnConstraints maxWidth="218.40001220703124" minWidth="96.80001220703124" prefWidth="150.19998779296876" />
+            <ColumnConstraints maxWidth="340.0" minWidth="143.19998779296876" prefWidth="340.0" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints />
+            <RowConstraints />
+            <RowConstraints />
+         </rowConstraints>
+      </GridPane>
+      <Label layoutX="231.0" layoutY="41.0" text="Borrow Book" textFill="WHITE">
+         <font>
+            <Font name="Century" size="23.0" />
+         </font>
+      </Label>
+      <Button layoutX="319.0" layoutY="321.0" onAction="#btnConfirmOnAction" prefHeight="44.0" prefWidth="98.0" style="-fx-background-color: white;" text="Confirm">
+         <font>
+            <Font name="Century" size="16.0" />
+         </font>
+      </Button>
+      <Button layoutX="182.0" layoutY="321.0" onAction="#btnCancelOnAction" prefHeight="44.0" prefWidth="98.0" style="-fx-background-color: white;" text="Cancel">
+         <font>
+            <Font name="Century" size="15.0" />
+         </font>
+      </Button>
+   </children>
+</AnchorPane>

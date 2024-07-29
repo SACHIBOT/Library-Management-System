@@ -22,7 +22,8 @@ public class SessionServiceImpl implements SessionService {
     public boolean logInUser(SessionDto sessionDto) throws Exception {
         UserEntity userEntity = userDao.get(sessionDto.getLoggedUserId());
         if (userEntity != null) {
-            if (sessionDto.getLoggedUserId().equals(userEntity.getId())) {
+            if (sessionDto.getLoggedUserId().equals(userEntity.getId())
+                    || sessionDto.getLoggedUserId().equals(userEntity.getEmail())) {
                 if (sessionDto.getLoggedPassword().equals(userEntity.getPassword())) {
                     sessionDto.setLoggedUserName(userEntity.getName());
                     sessionDto.setIsLoggedIn(true);

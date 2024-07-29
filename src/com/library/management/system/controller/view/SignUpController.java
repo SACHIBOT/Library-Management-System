@@ -27,13 +27,14 @@ public class SignUpController {
     private Utils utils = Utils.getInstance();
 
     @FXML
-    void btnLoginOnAction(ActionEvent event) {
+    void btnSignuponaction(ActionEvent event) {
         String username = txtUsername.getText();
         String email = txtemail.getText();
         String password = txtpassword.getText();
         if (username.isEmpty() || email.isEmpty() || password.isEmpty()) {
             loginerr.setText("Please fill username , email and password !");
         } else {
+            utils.signupUser(username, password, email, event, loginerr);
 
         }
     }

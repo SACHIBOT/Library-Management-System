@@ -184,7 +184,11 @@
             </AnchorPane>
          </content>
       </ScrollPane>
-      <Pane layoutX="734.0" layoutY="10.0" prefHeight="42.0" prefWidth="174.0" />
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="819.0" layoutY="17.0" onMouseClicked="#profilePaneOnMouseClick" prefHeight="26.0" prefWidth="64.0" text="Profile" textAlignment="CENTER">
+         <font>
+            <Font name="Century" size="12.0" />
+         </font>
+      </Label>
  
    </children>
 </AnchorPane>

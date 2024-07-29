@@ -46,7 +46,7 @@ public class CategoryDaoImpl implements CategoryDao {
     @Override
     public ArrayList<CategoryEntity> getAll() throws Exception {
         ArrayList<CategoryEntity> CategoryEntities = new ArrayList<>();
-        ResultSet rst = CrudUtil.executeQuery("SELECT * FROM Books");
+        ResultSet rst = CrudUtil.executeQuery("SELECT * FROM categories");
         while (rst.next()) {
             CategoryEntity entity = new CategoryEntity(rst.getString("id"), rst.getString("name"));
             CategoryEntities.add(entity);
@@ -56,7 +56,7 @@ public class CategoryDaoImpl implements CategoryDao {
 
     @Override
     public int count() throws Exception {
-        ResultSet rst = CrudUtil.executeQuery("SELECT count(id) as count FROM users");
+        ResultSet rst = CrudUtil.executeQuery("SELECT count(id) as count FROM categories");
         if (rst.next()) {
             return rst.getInt("count");
         }

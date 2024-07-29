@@ -5,10 +5,15 @@
 package com.library.management.system.service.custom.impl;
 
 import com.library.management.system.dao.DaoFactory;
+import com.library.management.system.dao.custom.BookDao;
 import com.library.management.system.dao.custom.BorrowingDao;
+import com.library.management.system.db.DBConnection;
 import com.library.management.system.dto.BorrowingDto;
+import com.library.management.system.entity.BookEntity;
 import com.library.management.system.entity.BorrowingEntity;
 import com.library.management.system.service.custom.BorrowingService;
+
+import java.sql.Connection;
 import java.util.ArrayList;
 
 /**
@@ -18,11 +23,48 @@ import java.util.ArrayList;
 public class BorrowingServiceImpl implements BorrowingService {
 
     private BorrowingDao BorrowingDao = (BorrowingDao) DaoFactory.getInstance().getDao(DaoFactory.DaoTypes.BORROWING);
+    private BookDao bookDao = (BookDao) DaoFactory.getInstance().getDao(DaoFactory.DaoTypes.BOOK);
 
     @Override
     public String save(BorrowingDto borrowingDto) throws Exception {
-        BorrowingEntity entity = getBorrowingEntity(borrowingDto);
-        return BorrowingDao.create(entity) ? "Success" : "Fail";
+        Connection connection = DBConnection.getInstance().getConnection();
+        try {
+            connection.setAutoCommit(false);
+
+            BorrowingEntity entity = getBorrowingEntity(borrowingDto);
+            BookEntity bookEntity = bookDao.get(entity.getBookId());
+
+            if (bookEntity.getCopiesQoH() > 0) {
+                if (BorrowingDao.create(entity)) {
+                    int newCopiesCount = bookEntity.getCopiesQoH() - 1;
+                    bookEntity.setCopiesQoH(newCopiesCount);
+
+                    if (bookDao.update(bookEntity)) {
+                        connection.commit();
+                        return "Success";
+                    } else {
+                        connection.rollback();
+                        return "Fail";
+                    }
+                } else {
+                    connection.rollback();
+                    return "Fail";
+                }
+            } else {
+                connection.rollback();
+                return "Fail";
+            }
+
+        } catch (Exception e) {
+            if (connection != null) {
+                connection.rollback();
+            }
+            e.printStackTrace();
+            return "Fail";
+        } finally {
+            connection.setAutoCommit(true);
+
+        }
     }
 
     @Override

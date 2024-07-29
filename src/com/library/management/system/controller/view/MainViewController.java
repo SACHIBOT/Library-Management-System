@@ -126,6 +126,15 @@ public class MainViewController {
     }
 
     @FXML
+    void profilePaneOnMouseClick(MouseEvent event) {
+        try {
+            utils.goToProfile(event);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
     void btnOickaBookOnAction(ActionEvent event) {
         try {
             utils.switchToBooksPage(event);

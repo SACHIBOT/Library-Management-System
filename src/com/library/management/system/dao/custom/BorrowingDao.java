@@ -17,4 +17,10 @@ public interface BorrowingDao extends CrudDao<BorrowingEntity, String> {
 
     ArrayList<BorrowingEntity> getTop5byBookId() throws Exception;
 
+    ArrayList<BorrowingEntity> getByBookId(String id) throws Exception;
+
+    ArrayList<BorrowingEntity> getByUserId(String id) throws Exception;
+
+    ArrayList<BorrowingEntity> getByStatus(String status) throws Exception;
+
 }

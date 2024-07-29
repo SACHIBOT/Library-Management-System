@@ -88,10 +88,9 @@
             </AnchorPane>
          </content>
       </ScrollPane>
-      <Pane layoutX="733.0" layoutY="19.0" prefHeight="42.0" prefWidth="174.0" />
       <Pane layoutX="37.0" layoutY="28.0" onMouseClicked="#homePaneOnMouseClick" prefHeight="25.0" prefWidth="64.0">
          <children>
-            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="26.0" prefWidth="64.0" text="Home" textAlignment="CENTER">
+            <Label alignment="CENTER" contentDisplay="CENTER" onMouseClicked="#homePaneOnMouseClick" prefHeight="26.0" prefWidth="64.0" text="Home" textAlignment="CENTER">
                <font>
                   <Font name="Century" size="12.0" />
                </font>
@@ -100,12 +99,17 @@
       </Pane>
       <Pane layoutX="101.0" layoutY="28.0" onMouseClicked="#backPaneOnMouseClick" prefHeight="25.0" prefWidth="64.0">
          <children>
-            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="26.0" prefWidth="64.0" text="Back" textAlignment="CENTER">
+            <Label alignment="CENTER" contentDisplay="CENTER" onMouseClicked="#backPaneOnMouseClick" prefHeight="26.0" prefWidth="64.0" text="Back" textAlignment="CENTER">
                <font>
                   <Font name="Century" size="12.0" />
                </font>
             </Label>
          </children>
       </Pane>
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="807.0" layoutY="27.0" onMouseClicked="#profilePaneOnMouseClick" prefHeight="26.0" prefWidth="64.0" text="Profile" textAlignment="CENTER">
+         <font>
+            <Font name="Century" size="12.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

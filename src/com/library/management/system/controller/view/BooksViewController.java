@@ -64,6 +64,15 @@ public class BooksViewController {
 
     }
 
+    @FXML
+    void profilePaneOnMouseClick(MouseEvent event) {
+        try {
+            utils.goToProfile(event);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     private void addCategoryPane(CategoryDto category) {
         try {
             FXMLLoader loaderBooksCategoryLayer = new FXMLLoader(

@@ -50,7 +50,7 @@ public class BorrowingDaoImpl implements BorrowingDao {
     @Override
     public ArrayList<BorrowingEntity> getAll() throws Exception {
         ArrayList<BorrowingEntity> BorrowingEntities = new ArrayList<>();
-        ResultSet rst = CrudUtil.executeQuery("SELECT * FROM Books");
+        ResultSet rst = CrudUtil.executeQuery("SELECT * FROM borrowings");
         while (rst.next()) {
             BorrowingEntity entity = new BorrowingEntity(rst.getString("id"), rst.getString("user_id"),
                     rst.getString("book_id"), rst.getDate("borrowDate"), rst.getDate("returnDate"),
@@ -76,10 +76,28 @@ public class BorrowingDaoImpl implements BorrowingDao {
 
     @Override
     public int count() throws Exception {
-        ResultSet rst = CrudUtil.executeQuery("SELECT count(id) as count FROM users");
+        ResultSet rst = CrudUtil.executeQuery("SELECT count(id) as count FROM borrowings");
         if (rst.next()) {
             return rst.getInt("count");
         }
         return 0;
+    }
+
+    @Override
+    public ArrayList<BorrowingEntity> getByBookId(String id) throws Exception {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getByBookId'");
+    }
+
+    @Override
+    public ArrayList<BorrowingEntity> getByUserId(String id) throws Exception {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getByUserId'");
+    }
+
+    @Override
+    public ArrayList<BorrowingEntity> getByStatus(String status) throws Exception {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getByStatus'");
     }
 }

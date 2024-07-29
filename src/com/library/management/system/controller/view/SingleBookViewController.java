@@ -1,5 +1,7 @@
 package com.library.management.system.controller.view;
 
+import java.io.IOException;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -42,6 +44,15 @@ public class SingleBookViewController {
     }
 
     @FXML
+    void profilePaneOnMouseClick(MouseEvent event) {
+        try {
+            utils.goToProfile(event);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
     void homePaneOnMouseClick(MouseEvent event) {
         try {
             utils.goToHome(event);
@@ -52,7 +63,16 @@ public class SingleBookViewController {
 
     @FXML
     void btnBorrowOnAction(ActionEvent event) {
-
+        try {
+            if (Integer.parseInt(lblCopies.getText()) > 0) {
+                utils.popUpwindow(lblTitle, lblBookId, "/com/library/management/system/view/BorrowBookPopup.fxml",
+                        "Borrow this book");
+            } else {
+                utils.showAlert("Error", "All books are borrowed by users.", "Ooops !");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void setBookDetails(String title, String author, String bookId, String category, int copies, String image,

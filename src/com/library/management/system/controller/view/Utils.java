@@ -2,12 +2,17 @@ package com.library.management.system.controller.view;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Date;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
+import com.library.management.system.controller.BookController;
+import com.library.management.system.controller.BorrowingController;
 import com.library.management.system.controller.CategoryController;
 import com.library.management.system.controller.SessionController;
 import com.library.management.system.controller.UserController;
 import com.library.management.system.dto.BookDto;
+import com.library.management.system.dto.BorrowingDto;
 import com.library.management.system.dto.SessionDto;
 import com.library.management.system.dto.UserDto;
 
@@ -19,8 +24,10 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Rectangle;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 public class Utils {
@@ -36,11 +43,18 @@ public class Utils {
         return utils;
     }
 
-    private String mainPage = "/com/library/management/system/view/Main.fxml";
-    private String bookPage = "/com/library/management/system/view/Book.fxml";
-    private String booksPage = "/com/library/management/system/view/Books.fxml";
-    private String loginPage = "/com/library/management/system/view/login.fxml";
-    private String signupPage = "/com/library/management/system/view/signup.fxml";
+    private String viewLayer = "/com/library/management/system/view/";
+    private String mainPage = viewLayer + "Main.fxml";
+    private String bookPage = viewLayer + "Book.fxml";
+    private String booksPage = viewLayer + "Books.fxml";
+    private String loginPage = viewLayer + "login.fxml";
+    private String signupPage = viewLayer + "signup.fxml";
+    private String profilePage = viewLayer + "Profile.fxml";
+    private int finePerDay = 10;
+
+    public int getFinePerDay() {
+        return finePerDay;
+    }
 
     public String getBooksPage() {
         return booksPage;
@@ -165,8 +179,12 @@ public class Utils {
             if (userDtobyusername == null) {
                 UserDto userDtobyemail = userController.get(email);
                 if (userDtobyemail == null) {
-                    int userCount = userController.count();
-                    UserDto userDto = new UserDto("u" + (userCount + 1), username, email, password, "member");
+                    ArrayList<UserDto> userDtos = userController.getAll();
+                    ArrayList<String> userIds = new ArrayList<String>();
+                    for (UserDto userDto : userDtos) {
+                        userIds.add(userDto.getId());
+                    }
+                    UserDto userDto = new UserDto("u" + findNextId(userIds), username, email, password, "member");
                     if (userController.save(userDto).equals("Success")) {
                         loginUser(username, password, event, loginerr);
                     } else {
@@ -183,5 +201,94 @@ public class Utils {
             loginerr.setText("Something went wrong !");
             e.printStackTrace();
         }
+    }
+
+    private int findNextId(ArrayList<String> list) {
+        int max = Integer.MIN_VALUE;
+        for (String str : list) {
+            int startIndex = 0;
+            while (startIndex < str.length() && !Character.isDigit(str.charAt(startIndex))) {
+                startIndex++;
+            }
+            if (startIndex < str.length()) {
+                int num = Integer.parseInt(str.substring(startIndex));
+                if (num > max) {
+                    max = num;
+                }
+            }
+        }
+        return max + 1;
+    }
+
+    public String borrowBook(String bookId) throws Exception {
+        BorrowingController borrowingController = new BorrowingController();
+        BookController bookController = new BookController();
+        BookDto bookDto = bookController.get(bookId);
+        if (bookDto != null && bookDto.getCopiesQoH() > 0) {
+            Date currentDate = new Date(System.currentTimeMillis());
+            LocalDate localDate = currentDate.toLocalDate();
+            LocalDate newLocalDate = localDate.plusMonths(1);
+            Date returnDate = Date.valueOf(newLocalDate);
+            ArrayList<BorrowingDto> borriwingDtos = borrowingController.getAll();
+            ArrayList<String> borrowingIds = new ArrayList<String>();
+            for (BorrowingDto borrowingDto : borriwingDtos) {
+                borrowingIds.add(borrowingDto.getId());
+            }
+            BorrowingDto borrowingDto = new BorrowingDto("br" + findNextId(borrowingIds),
+                    sessionController.getLoggedUser()
+                            .getLoggedUserId(),
+                    bookId, currentDate, returnDate, "Borrowed");
+            if (borrowingController.save(borrowingDto).equals("Success")) {
+                return "Success";
+            } else {
+                return "Error";
+            }
+        } else {
+            return "Error";
+        }
+    }
+
+    public void popUpwindow(Label lblTitle, Label lblBookId, String popupfxml, String pouptitle) throws IOException {
+        FXMLLoader loader = new FXMLLoader(
+                getClass().getResource(popupfxml));
+        Parent root = loader.load();
+
+        BorrowBookPopupController controller = loader.getController();
+        controller.setDetails(lblTitle.getText(), lblBookId.getText());
+
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root));
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.setTitle(pouptitle);
+
+        controller.setPopupStage(stage);
+
+        stage.showAndWait();
+    }
+
+    public void showAlert(String title, String value, String type) throws IOException {
+        FXMLLoader loader = new FXMLLoader(
+                getClass().getResource("/com/library/management/system/view/PopUp.fxml"));
+        Parent root = loader.load();
+
+        PopUpController controller = loader.getController();
+        controller.setDetails(title, value);
+
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root));
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.setTitle(type);
+        stage.getIcons().add(
+                new Image(getClass().getResourceAsStream("/com/library/management/system/view/images/letter-l.png")));
+        stage.setResizable(false);
+        controller.setPopUp(stage);
+
+        stage.showAndWait();
+    }
+
+    public void goToProfile(MouseEvent event) throws Exception {
+
+        switchToAnotherPageWithAuth(profilePage, event);
+
     }
 }
