@@ -11,6 +11,6 @@ import com.library.management.system.entity.CategoryEntity;
  *
  * @author Lenovo
  */
-public interface CategoryDao extends CrudDao<CategoryEntity, String>{
-    
+public interface CategoryDao extends CrudDao<CategoryEntity, String> {
+
 }

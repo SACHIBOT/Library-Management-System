@@ -12,14 +12,18 @@ import java.util.ArrayList;
  *
  * @author Lenovo
  */
-public interface UserService extends SuperService{
-        String save(UserDto userDto) throws Exception;
+public interface UserService extends SuperService {
+    String save(UserDto userDto) throws Exception;
 
     String update(UserDto userDto) throws Exception;
 
     String delete(String userId) throws Exception;
 
     UserDto get(String userId) throws Exception;
+
+    int count() throws Exception;
+
+    boolean validateUser(String user, String password) throws Exception;
 
     ArrayList<UserDto> getAll() throws Exception;
 }

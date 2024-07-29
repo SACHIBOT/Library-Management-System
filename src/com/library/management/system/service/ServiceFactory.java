@@ -4,10 +4,11 @@
  */
 package com.library.management.system.service;
 
-import com.library.management.system.service.impl.BookServiceImpl;
-import com.library.management.system.service.impl.BorrowingServiceImpl;
-import com.library.management.system.service.impl.CategoryServiceImpl;
-import com.library.management.system.service.impl.UserServiceImpl;
+import com.library.management.system.service.custom.impl.BookServiceImpl;
+import com.library.management.system.service.custom.impl.BorrowingServiceImpl;
+import com.library.management.system.service.custom.impl.CategoryServiceImpl;
+import com.library.management.system.service.custom.impl.SessionServiceImpl;
+import com.library.management.system.service.custom.impl.UserServiceImpl;
 
 /**
  *
@@ -38,12 +39,14 @@ public class ServiceFactory {
                 return new UserServiceImpl();
             case BORROWING:
                 return new BorrowingServiceImpl();
+            case SESSION:
+                return new SessionServiceImpl();
             default:
                 return null;
         }
     }
 
     public enum ServiceTypes {
-        BOOK, CATEGORY, USER, BORROWING;
+        BOOK, CATEGORY, USER, BORROWING, SESSION;
     }
 }

@@ -1,7 +1,5 @@
 package com.library.management.system.controller.view;
 
-import java.io.IOException;
-import java.net.URL;
 import java.util.ArrayList;
 
 import com.library.management.system.controller.BookController;
@@ -9,24 +7,12 @@ import com.library.management.system.controller.BorrowingController;
 import com.library.management.system.dto.BookDto;
 import com.library.management.system.dto.BorrowingDto;
 import javafx.event.ActionEvent;
-import javafx.event.Event;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Label;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.Node;
 import javafx.scene.layout.Pane;
-import javafx.scene.shape.Rectangle;
-import javafx.stage.Stage;
 
 public class MainViewController {
-    private Stage stage;
-    private Scene scene;
-    private Parent root;
 
     @FXML
     private Label lbltop1;
@@ -91,9 +77,15 @@ public class MainViewController {
     @FXML
     private Pane paneimgtop5;
 
+    private String thisPage = "/com/library/management/system/view/Main.fxml";
+    private ArrayList<BookDto> top5BookDtos = new ArrayList<BookDto>();
+
+    private Utils utils = Utils.getInstance();
+
     public void initialize() {
         try {
-            setPaneBackgroundImage(paneHelloReader, "com/library/management/system/view/images/mainpage-bg-hero.png");
+            utils.setBackgroundImagetoPane(paneHelloReader,
+                    "com/library/management/system/view/images/mainpagebg.png");
             BorrowingController borrowingController = new BorrowingController();
             BookController bookController = new BookController();
 
@@ -101,6 +93,7 @@ public class MainViewController {
             for (int i = 0; i < borrowingDtos.size(); i++) {
                 BorrowingDto borrowingDto = borrowingDtos.get(i);
                 BookDto bookDto = bookController.get(borrowingDto.getBookId());
+                top5BookDtos.add(bookDto);
                 if (i == 0) {
                     setTopBooksDetails(panetop1, lbltopname1, bookDto.getTitle(), lbltop1, 1, paneimgtop1,
                             bookDto.getImagePath());
@@ -126,7 +119,7 @@ public class MainViewController {
     @FXML
     void btnMoreBooksOnAction(ActionEvent event) {
         try {
-            switchToAnotherPage("/com/library/management/system/view/Books.fxml", event);
+            utils.switchToBooksPage(event);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -135,7 +128,7 @@ public class MainViewController {
     @FXML
     void btnOickaBookOnAction(ActionEvent event) {
         try {
-            switchToAnotherPage("/com/library/management/system/view/Books.fxml", event);
+            utils.switchToBooksPage(event);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -144,7 +137,7 @@ public class MainViewController {
     @FXML
     void top1OnMouseClick(MouseEvent event) {
         try {
-            switchToAnotherPage("/com/library/management/system/view/Books.fxml", event);
+            utils.goToBook(top5BookDtos.get(0), event, thisPage);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -153,7 +146,7 @@ public class MainViewController {
     @FXML
     void top2OnMouseClick(MouseEvent event) {
         try {
-            switchToAnotherPage("/com/library/management/system/view/Books.fxml", event);
+            utils.goToBook(top5BookDtos.get(1), event, thisPage);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -162,7 +155,7 @@ public class MainViewController {
     @FXML
     void top3OnMouseClick(MouseEvent event) {
         try {
-            switchToAnotherPage("/com/library/management/system/view/Books.fxml", event);
+            utils.goToBook(top5BookDtos.get(2), event, thisPage);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -171,7 +164,7 @@ public class MainViewController {
     @FXML
     void top4OnMouseClick(MouseEvent event) {
         try {
-            switchToAnotherPage("/com/library/management/system/view/Books.fxml", event);
+            utils.goToBook(top5BookDtos.get(3), event, thisPage);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -180,7 +173,7 @@ public class MainViewController {
     @FXML
     void top5OnMouseClick(MouseEvent event) {
         try {
-            switchToAnotherPage("/com/library/management/system/view/Books.fxml", event);
+            utils.goToBook(top5BookDtos.get(4), event, thisPage);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -192,37 +185,8 @@ public class MainViewController {
         topLabel.setText("# Top " + topValue);
         topPane.setStyle("-fx-background-color: #304463; -fx-background-radius:5; -fx-border-radius:5;");
 
-        ImageView imageView = new ImageView(
-                new Image(getClass().getResource("/com/library/management/system/view/" + imagePath).toExternalForm()));
-        imageView.setFitWidth(imagePane.getPrefWidth());
-        imageView.setFitHeight(imagePane.getPrefHeight());
-        imageView.setPreserveRatio(true);
+        utils.addImageToPane(imagePath, imagePane);
 
-        Rectangle clip = new Rectangle(imageView.getFitWidth(), imageView.getFitHeight());
-        clip.setArcWidth(10);
-        clip.setArcHeight(10);
-        imageView.setClip(clip);
-
-        imagePane.getChildren().clear();
-        imagePane.getChildren().add(imageView);
     }
 
-    private void setPaneBackgroundImage(Pane pane, String imagePath) {
-        String image = getClass().getResource("/" + imagePath).toExternalForm();
-        pane.setStyle("-fx-background-image: url('" + image + "'); " +
-                "-fx-background-size: cover; " +
-                "-fx-background-repeat: no-repeat; ");
-    }
-
-    private void switchToAnotherPage(String newpage, Event event) throws IOException {
-        URL resource = getClass().getResource(newpage);
-        if (resource == null) {
-            throw new IOException("Resource not found: " + newpage);
-        }
-        root = FXMLLoader.load(resource);
-        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
-    }
 }

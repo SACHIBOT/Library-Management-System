@@ -21,5 +21,7 @@ public interface BookService extends SuperService {
 
     BookDto get(String BookId) throws Exception;
 
+    int count() throws Exception;
+
     ArrayList<BookDto> getAll() throws Exception;
 }

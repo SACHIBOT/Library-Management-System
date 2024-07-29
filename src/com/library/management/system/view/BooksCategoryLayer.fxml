@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+
+<Pane prefHeight="362.0" prefWidth="908.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.library.management.system.controller.view.BooksCategoryLayerViewController">
+   <children>
+      <GridPane layoutX="36.0" layoutY="87.0" prefHeight="252.0" prefWidth="837.0">
+         <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="630.0" minWidth="10.0" prefWidth="170.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="630.2000274658203" minWidth="10.0" prefWidth="170.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="630.2000274658203" minWidth="10.0" prefWidth="170.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="630.2000274658203" minWidth="10.0" prefWidth="170.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="630.2000274658203" minWidth="10.0" prefWidth="170.0" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+         </rowConstraints>
+         <children>
+            <Pane prefHeight="170.0" prefWidth="85.0">
+               <children>
+                  <Pane fx:id="paneBook1" layoutX="7.0" layoutY="13.0" prefHeight="223.0" prefWidth="155.0" style="-fx-background-radius: 10; -fx-border-radius: 10;">
+                     <children>
+                        <Pane prefHeight="155.0" prefWidth="155.0">
+                           <children>
+                              <Pane fx:id="paneimg1" layoutX="8.0" layoutY="8.0" prefHeight="140.0" prefWidth="140.0" style="-fx-background-radius: 10; -fx-border-radius: 10;" />
+                           </children>
+                        </Pane>
+                        <Label fx:id="lbltitle1" alignment="CENTER" contentDisplay="CENTER" layoutX="8.0" layoutY="155.0" maxWidth="140.0" prefHeight="59.0" prefWidth="140.0" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+                           <font>
+                              <Font name="Century" size="12.0" />
+                           </font></Label>
+                     </children>
+                  </Pane>
+               </children>
+            </Pane>
+            <Pane prefHeight="170.0" prefWidth="85.0" GridPane.columnIndex="1">
+               <children>
+                  <Pane fx:id="paneBook2" layoutX="7.0" layoutY="13.0" prefHeight="223.0" prefWidth="155.0" style="-fx-background-radius: 10; -fx-border-radius: 10;">
+                     <children>
+                        <Pane prefHeight="155.0" prefWidth="155.0">
+                           <children>
+                              <Pane fx:id="paneimg2" layoutX="8.0" layoutY="8.0" prefHeight="140.0" prefWidth="140.0" style="-fx-background-radius: 10; -fx-border-radius: 10;" />
+                           </children>
+                        </Pane>
+                        <Label fx:id="lbltitle2" alignment="CENTER" contentDisplay="CENTER" layoutX="8.0" layoutY="155.0" maxWidth="140.0" prefHeight="59.0" prefWidth="140.0" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+                           <font>
+                              <Font name="Century" size="12.0" />
+                           </font></Label>
+                     </children>
+                  </Pane>
+               </children>
+            </Pane>
+            <Pane prefHeight="170.0" prefWidth="85.0" GridPane.columnIndex="2">
+               <children>
+                  <Pane fx:id="paneBook3" layoutX="7.0" layoutY="13.0" prefHeight="223.0" prefWidth="155.0" style="-fx-background-radius: 10; -fx-border-radius: 10;">
+                     <children>
+                        <Pane prefHeight="155.0" prefWidth="155.0">
+                           <children>
+                              <Pane fx:id="paneimg3" layoutX="8.0" layoutY="8.0" prefHeight="140.0" prefWidth="140.0" style="-fx-background-radius: 10; -fx-border-radius: 10;" />
+                           </children>
+                        </Pane>
+                        <Label fx:id="lbltitle3" alignment="CENTER" contentDisplay="CENTER" layoutX="8.0" layoutY="155.0" maxWidth="140.0" prefHeight="59.0" prefWidth="140.0" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+                           <font>
+                              <Font name="Century" size="12.0" />
+                           </font></Label>
+                     </children>
+                  </Pane>
+               </children>
+            </Pane>
+            <Pane prefHeight="170.0" prefWidth="85.0" GridPane.columnIndex="3">
+               <children>
+                  <Pane fx:id="paneBook4" layoutX="7.0" layoutY="13.0" prefHeight="223.0" prefWidth="155.0" style="-fx-background-radius: 10; -fx-border-radius: 10;">
+                     <children>
+                        <Pane prefHeight="155.0" prefWidth="155.0">
+                           <children>
+                              <Pane fx:id="paneimg4" layoutX="8.0" layoutY="8.0" prefHeight="140.0" prefWidth="140.0" style="-fx-background-radius: 10; -fx-border-radius: 10;" />
+                           </children>
+                        </Pane>
+                        <Label fx:id="lbltitle4" alignment="CENTER" contentDisplay="CENTER" layoutX="8.0" layoutY="155.0" maxWidth="140.0" prefHeight="59.0" prefWidth="140.0" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+                           <font>
+                              <Font name="Century" size="12.0" />
+                           </font></Label>
+                     </children>
+                  </Pane>
+               </children>
+            </Pane>
+            <Pane prefHeight="170.0" prefWidth="85.0" GridPane.columnIndex="4">
+               <children>
+                  <Pane fx:id="paneBook5" layoutX="7.0" layoutY="13.0" prefHeight="223.0" prefWidth="155.0" style="-fx-background-radius: 10; -fx-border-radius: 10;">
+                     <children>
+                        <Pane prefHeight="155.0" prefWidth="155.0">
+                           <children>
+                              <Pane fx:id="paneimg5" layoutX="8.0" layoutY="8.0" prefHeight="140.0" prefWidth="140.0" style="-fx-background-radius: 10; -fx-border-radius: 10;" />
+                           </children>
+                        </Pane>
+                        <Label fx:id="lbltitle5" alignment="CENTER" contentDisplay="CENTER" layoutX="8.0" layoutY="155.0" maxWidth="140.0" prefHeight="59.0" prefWidth="140.0" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+                           <font>
+                              <Font name="Century" size="12.0" />
+                           </font></Label>
+                     </children>
+                  </Pane>
+               </children>
+            </Pane>
+         </children>
+      </GridPane>
+      <Label fx:id="lblcategory" layoutX="36.0" layoutY="21.0" text="Category">
+         <font>
+            <Font name="Century" size="27.0" />
+         </font>
+      </Label>
+      <ImageView fx:id="btnprev" fitHeight="59.0" fitWidth="32.0" layoutX="-2.0" layoutY="189.0" onMouseClicked="#btnPrevOnMouseClick" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@images/carouselback.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="btnnext" fitHeight="59.0" fitWidth="32.0" layoutX="878.0" layoutY="189.0" onMouseClicked="#btnNextOnMouseClick" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@images/carouselnext.png" />
+         </image>
+      </ImageView>
+   </children>
+</Pane>

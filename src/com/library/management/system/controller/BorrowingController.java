@@ -29,6 +29,10 @@ public class BorrowingController {
         return borrowingService.delete(id);
     }
 
+    public int count() throws Exception {
+        return borrowingService.count();
+    }
+
     public ArrayList<BorrowingDto> getAll() throws Exception {
         return borrowingService.getAll();
     }

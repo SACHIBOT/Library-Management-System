@@ -14,9 +14,10 @@ import java.util.ArrayList;
  * @author Lenovo
  */
 public class CategoryController {
-        private final CategoryService categoryService = (CategoryService) ServiceFactory.getInstance().getService(ServiceFactory.ServiceTypes.CATEGORY);
+    private final CategoryService categoryService = (CategoryService) ServiceFactory.getInstance()
+            .getService(ServiceFactory.ServiceTypes.CATEGORY);
 
-        public String save(CategoryDto categoryDto) throws Exception {
+    public String save(CategoryDto categoryDto) throws Exception {
         return categoryService.save(categoryDto);
     }
 
@@ -27,7 +28,11 @@ public class CategoryController {
     public String delete(String CategoryId) throws Exception {
         return categoryService.delete(CategoryId);
     }
-    
+
+    public int count() throws Exception {
+        return categoryService.count();
+    }
+
     public ArrayList<CategoryDto> getAll() throws Exception {
         return categoryService.getAll();
     }

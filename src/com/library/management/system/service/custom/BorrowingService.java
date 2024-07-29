@@ -23,5 +23,7 @@ public interface BorrowingService extends SuperService {
 
     ArrayList<BorrowingDto> getAll() throws Exception;
 
+    int count() throws Exception;
+
     ArrayList<BorrowingDto> getTop5byBookId() throws Exception;
 }

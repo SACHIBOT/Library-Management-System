@@ -14,9 +14,10 @@ import java.util.ArrayList;
  * @author Lenovo
  */
 public class UserController {
-        private final UserService userService = (UserService) ServiceFactory.getInstance().getService(ServiceFactory.ServiceTypes.USER);
+    private final UserService userService = (UserService) ServiceFactory.getInstance()
+            .getService(ServiceFactory.ServiceTypes.USER);
 
-        public String save(UserDto userDto) throws Exception {
+    public String save(UserDto userDto) throws Exception {
         return userService.save(userDto);
     }
 
@@ -27,7 +28,15 @@ public class UserController {
     public String delete(String userId) throws Exception {
         return userService.delete(userId);
     }
-    
+
+    public boolean validateUser(String user, String password) throws Exception {
+        return userService.validateUser(user, password);
+    }
+
+    public int count() throws Exception {
+        return userService.count();
+    }
+
     public ArrayList<UserDto> getAll() throws Exception {
         return userService.getAll();
     }

@@ -74,4 +74,12 @@ public class BorrowingDaoImpl implements BorrowingDao {
         return BorrowingEntities;
     }
 
+    @Override
+    public int count() throws Exception {
+        ResultSet rst = CrudUtil.executeQuery("SELECT count(id) as count FROM users");
+        if (rst.next()) {
+            return rst.getInt("count");
+        }
+        return 0;
+    }
 }

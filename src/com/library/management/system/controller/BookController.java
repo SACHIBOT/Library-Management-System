@@ -14,7 +14,8 @@ import java.util.ArrayList;
  * @author Lenovo
  */
 public class BookController {
-    private final BookService bookService = (BookService) ServiceFactory.getInstance().getService(ServiceFactory.ServiceTypes.BOOK);
+    private final BookService bookService = (BookService) ServiceFactory.getInstance()
+            .getService(ServiceFactory.ServiceTypes.BOOK);
 
     public String save(BookDto bookDto) throws Exception {
         return bookService.save(bookDto);
@@ -27,7 +28,11 @@ public class BookController {
     public String delete(String bookId) throws Exception {
         return bookService.delete(bookId);
     }
-    
+
+    public int count() throws Exception {
+        return bookService.count();
+    }
+
     public ArrayList<BookDto> getAll() throws Exception {
         return bookService.getAll();
     }

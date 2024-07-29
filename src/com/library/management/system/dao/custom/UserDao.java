@@ -11,6 +11,6 @@ import com.library.management.system.entity.UserEntity;
  *
  * @author Lenovo
  */
-public interface UserDao extends CrudDao<UserEntity, String>{
-    
+public interface UserDao extends CrudDao<UserEntity, String> {
+    boolean validateUser(String user, String password) throws Exception;
 }

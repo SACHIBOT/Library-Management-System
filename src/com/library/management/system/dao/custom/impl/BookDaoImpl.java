@@ -60,4 +60,12 @@ public class BookDaoImpl implements BookDao {
         return BookEntities;
     }
 
+    @Override
+    public int count() throws Exception {
+        ResultSet rst = CrudUtil.executeQuery("SELECT count(id) as count FROM users");
+        if (rst.next()) {
+            return rst.getInt("count");
+        }
+        return 0;
+    }
 }

@@ -1,8 +1,0 @@
-.background-pane {
-    -fx-background-image: url('@images/mainpage-bg-hero.jpeg');
-    -fx-background-size: cover;
-    -fx-background-position: center;
-    -fx-background-repeat: no-repeat;
-    -fx-background-blend-mode: overlay;
-    -fx-background-color: rgba(0, 0, 0, 0.3);
-}

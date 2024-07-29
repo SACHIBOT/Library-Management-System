@@ -22,5 +22,7 @@ public interface CategoryService extends SuperService {
 
     CategoryDto get(String categoryId) throws Exception;
 
+    int count() throws Exception;
+
     ArrayList<CategoryDto> getAll() throws Exception;
 }

@@ -72,7 +72,10 @@
                                           </Pane>
                                        </children>
                                     </Pane>
-                                    <Label fx:id="lbltopname4" alignment="CENTER" contentDisplay="CENTER" layoutX="14.0" layoutY="197.0" maxWidth="140.0" prefHeight="59.0" prefWidth="140.0" textAlignment="CENTER" wrapText="true" />
+                                    <Label fx:id="lbltopname4" alignment="CENTER" contentDisplay="CENTER" layoutX="14.0" layoutY="197.0" maxWidth="140.0" prefHeight="59.0" prefWidth="140.0" textAlignment="CENTER" wrapText="true">
+                                       <font>
+                                          <Font name="Century" size="12.0" />
+                                       </font></Label>
                                  </children>
                               </Pane>
                               <Pane prefHeight="170.0" prefWidth="85.0" GridPane.columnIndex="1">
@@ -91,7 +94,10 @@
                                           </Pane>
                                        </children>
                                     </Pane>
-                                    <Label fx:id="lbltopname2" alignment="CENTER" contentDisplay="CENTER" layoutX="14.0" layoutY="197.0" maxWidth="140.0" prefHeight="59.0" prefWidth="140.0" textAlignment="CENTER" wrapText="true" />
+                                    <Label fx:id="lbltopname2" alignment="CENTER" contentDisplay="CENTER" layoutX="14.0" layoutY="197.0" maxWidth="140.0" prefHeight="59.0" prefWidth="140.0" textAlignment="CENTER" wrapText="true">
+                                       <font>
+                                          <Font name="Century" size="12.0" />
+                                       </font></Label>
                                  </children>
                               </Pane>
                               <Pane prefHeight="170.0" prefWidth="85.0" GridPane.columnIndex="2">
@@ -110,7 +116,10 @@
                                           </Pane>
                                        </children>
                                     </Pane>
-                                    <Label fx:id="lbltopname1" alignment="CENTER" contentDisplay="CENTER" layoutX="14.0" layoutY="197.0" maxWidth="140.0" prefHeight="59.0" prefWidth="140.0" textAlignment="CENTER" wrapText="true" />
+                                    <Label fx:id="lbltopname1" alignment="CENTER" contentDisplay="CENTER" layoutX="14.0" layoutY="197.0" maxWidth="140.0" prefHeight="59.0" prefWidth="140.0" textAlignment="CENTER" wrapText="true">
+                                       <font>
+                                          <Font name="Century" size="12.0" />
+                                       </font></Label>
                                  </children>
                               </Pane>
                               <Pane prefHeight="170.0" prefWidth="85.0" GridPane.columnIndex="3">
@@ -129,7 +138,10 @@
                                           </Pane>
                                        </children>
                                     </Pane>
-                                    <Label fx:id="lbltopname3" alignment="CENTER" contentDisplay="CENTER" layoutX="14.0" layoutY="197.0" maxWidth="140.0" prefHeight="59.0" prefWidth="140.0" textAlignment="CENTER" wrapText="true" />
+                                    <Label fx:id="lbltopname3" alignment="CENTER" contentDisplay="CENTER" layoutX="14.0" layoutY="197.0" maxWidth="140.0" prefHeight="59.0" prefWidth="140.0" textAlignment="CENTER" wrapText="true">
+                                       <font>
+                                          <Font name="Century" size="12.0" />
+                                       </font></Label>
                                  </children>
                               </Pane>
                               <Pane prefHeight="170.0" prefWidth="85.0" GridPane.columnIndex="4">
@@ -148,7 +160,10 @@
                                           </Pane>
                                        </children>
                                     </Pane>
-                                    <Label fx:id="lbltopname5" alignment="CENTER" contentDisplay="CENTER" layoutX="14.0" layoutY="197.0" maxWidth="140.0" prefHeight="59.0" prefWidth="140.0" textAlignment="CENTER" wrapText="true" />
+                                    <Label fx:id="lbltopname5" alignment="CENTER" contentDisplay="CENTER" layoutX="14.0" layoutY="197.0" maxWidth="140.0" prefHeight="59.0" prefWidth="140.0" textAlignment="CENTER" wrapText="true">
+                                       <font>
+                                          <Font name="Century" size="12.0" />
+                                       </font></Label>
                                  </children>
                               </Pane>
                            </children>
