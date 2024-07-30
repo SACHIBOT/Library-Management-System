@@ -23,6 +23,8 @@ public interface UserService extends SuperService {
 
     int count() throws Exception;
 
+    boolean updatePassword(String currentPassword, String newPassword, String userId) throws Exception;
+
     boolean validateUser(String user, String password) throws Exception;
 
     ArrayList<UserDto> getAll() throws Exception;

@@ -28,10 +28,9 @@ public class BorrowBookPopupController {
         this.popupStage = stage;
     }
 
-    public void setDetails(String title, String bookId) {
+    public void setDetails(String title, String bookId, LocalDate returnDate) {
         lblPopupTitle.setText(title);
         this.bookId = bookId;
-        LocalDate returnDate = LocalDate.now().plusMonths(1);
         lblReturnDate.setText(returnDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
         lblFine.setText("Rs. " + utils.getFinePerDay() + " per day after due date");
     }

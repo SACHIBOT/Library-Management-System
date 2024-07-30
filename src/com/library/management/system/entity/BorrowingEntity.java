@@ -4,7 +4,7 @@
  */
 package com.library.management.system.entity;
 
-import java.util.Date;
+import java.sql.Date;
 
 /**
  *
@@ -16,12 +16,12 @@ public class BorrowingEntity {
     private String bookId;
     private Date borrowDate;
     private Date returnDate;
-    private String status; 
+    private String status;
 
-    public BorrowingEntity(){
-        
+    public BorrowingEntity() {
+
     }
-    
+
     public BorrowingEntity(String id, String userId, String bookId, Date borrowDate, Date returnDate, String status) {
         this.id = id;
         this.userId = userId;

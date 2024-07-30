@@ -19,6 +19,8 @@ public class BooksViewController {
     @FXML
     private GridPane paneAllCategories;
 
+    private String thisPage = "/com/library/management/system/view/Books.fxml";
+
     @FXML
     void homePaneOnMouseClick(MouseEvent event) {
         try {
@@ -67,7 +69,7 @@ public class BooksViewController {
     @FXML
     void profilePaneOnMouseClick(MouseEvent event) {
         try {
-            utils.goToProfile(event);
+            utils.goToProfile(thisPage, event);
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -85,4 +85,24 @@ public class UserServiceImpl implements UserService {
                 entity.getRole());
     }
 
+    @Override
+    public boolean updatePassword(String currentPassword, String newPassword, String userId) throws Exception {
+        UserDto userDto = get(userId);
+        if (userDto != null) {
+            if (userDto.getPassword().equals(currentPassword)) {
+                UserEntity userEntity = getUserEntity(userDto);
+                userEntity.setPassword(newPassword);
+                if (userDao.update(userEntity)) {
+                    return true;
+                } else {
+                    return false;
+                }
+            } else {
+                return false;
+            }
+        } else {
+            return false;
+        }
+    }
+
 }

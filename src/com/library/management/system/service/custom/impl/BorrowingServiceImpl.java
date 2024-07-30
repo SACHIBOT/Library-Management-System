@@ -12,8 +12,9 @@ import com.library.management.system.dto.BorrowingDto;
 import com.library.management.system.entity.BookEntity;
 import com.library.management.system.entity.BorrowingEntity;
 import com.library.management.system.service.custom.BorrowingService;
-
+import java.time.LocalDate;
 import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 /**
@@ -56,9 +57,7 @@ public class BorrowingServiceImpl implements BorrowingService {
             }
 
         } catch (Exception e) {
-            if (connection != null) {
-                connection.rollback();
-            }
+            connection.rollback();
             e.printStackTrace();
             return "Fail";
         } finally {
@@ -69,8 +68,40 @@ public class BorrowingServiceImpl implements BorrowingService {
 
     @Override
     public String update(BorrowingDto borrowingDto) throws Exception {
-        BorrowingEntity entity = getBorrowingEntity(borrowingDto);
-        return BorrowingDao.update(entity) ? "Success" : "Fail";
+        Connection connection = DBConnection.getInstance().getConnection();
+        try {
+            connection.setAutoCommit(false);
+            BorrowingEntity entity = getBorrowingEntity(borrowingDto);
+
+            if (BorrowingDao.update(entity)) {
+                BookEntity bookEntity = bookDao.get(entity.getBookId());
+                if (entity.getStatus() == "Returned") {
+                    int newCopiesCount = bookEntity.getCopiesQoH() + 1;
+                    bookEntity.setCopiesQoH(newCopiesCount);
+                    if (bookDao.update(bookEntity)) {
+                        connection.commit();
+                        return "Success";
+                    } else {
+                        connection.rollback();
+                        return "Fail";
+                    }
+                } else {
+                    return "Success";
+                }
+            } else {
+                connection.rollback();
+
+                return "Fail";
+            }
+        } catch (Exception e) {
+            connection.rollback();
+            e.printStackTrace();
+            return "Fail";
+
+        } finally {
+            connection.setAutoCommit(true);
+        }
+
     }
 
     @Override
@@ -131,16 +162,34 @@ public class BorrowingServiceImpl implements BorrowingService {
         return getBorrowingDtosList(BorrowingDao.getByStatus(status));
     }
 
-    private ArrayList<BorrowingDto> getBorrowingDtosList(ArrayList<BorrowingEntity> BorrowingEntities) {
-        if (BorrowingEntities != null && !BorrowingEntities.isEmpty()) {
-            ArrayList<BorrowingDto> borrowingDtos = new ArrayList<>();
+    private ArrayList<BorrowingDto> getBorrowingDtosList(ArrayList<BorrowingEntity> BorrowingEntities)
+            throws ClassNotFoundException, SQLException {
+        Connection connection = DBConnection.getInstance().getConnection();
+        try {
+            connection.setAutoCommit(false);
+            if (BorrowingEntities != null && !BorrowingEntities.isEmpty()) {
+                ArrayList<BorrowingDto> borrowingDtos = new ArrayList<>();
 
-            for (BorrowingEntity BorrowingEntity : BorrowingEntities) {
-                borrowingDtos.add(getBorrowingDto(BorrowingEntity));
+                for (BorrowingEntity BorrowingEntity : BorrowingEntities) {
+                    LocalDate currentDate = LocalDate.now();
+                    LocalDate returnDate = BorrowingEntity.getReturnDate().toLocalDate();
+
+                    if (returnDate.isBefore(currentDate)) {
+                        BorrowingEntity.setStatus("Overdue");
+                        BorrowingDao.update(BorrowingEntity);
+                    }
+
+                    borrowingDtos.add(getBorrowingDto(BorrowingEntity));
+                }
+
+                return borrowingDtos;
             }
-
-            return borrowingDtos;
+            return null;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        } finally {
+            connection.setAutoCommit(true);
         }
-        return null;
     }
 }

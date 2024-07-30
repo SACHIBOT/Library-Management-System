@@ -37,6 +37,10 @@ public class UserController {
         return userService.count();
     }
 
+    public boolean updatePassword(String currentPassword, String newPassword, String userId) throws Exception {
+        return userService.updatePassword(currentPassword, newPassword, userId);
+    }
+
     public ArrayList<UserDto> getAll() throws Exception {
         return userService.getAll();
     }

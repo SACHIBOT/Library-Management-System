@@ -4,7 +4,7 @@
  */
 package com.library.management.system.dto;
 
-import java.util.Date;
+import java.sql.Date;
 
 /**
  *
@@ -16,12 +16,12 @@ public class BorrowingDto {
     private String bookId;
     private Date borrowDate;
     private Date returnDate;
-    private String status; 
+    private String status;
 
-    public BorrowingDto(){
-        
+    public BorrowingDto() {
+
     }
-    
+
     public BorrowingDto(String id, String userId, String bookId, Date borrowDate, Date returnDate, String status) {
         this.id = id;
         this.userId = userId;

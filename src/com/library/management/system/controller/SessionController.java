@@ -19,4 +19,9 @@ public class SessionController {
     public SessionDto getLoggedUser() throws Exception {
         return sessionService.getLoggedUser();
     }
+
+    public boolean updateSession(SessionDto sessionDto) throws Exception {
+        return sessionService.updateSession(sessionDto);
+    }
+
 }

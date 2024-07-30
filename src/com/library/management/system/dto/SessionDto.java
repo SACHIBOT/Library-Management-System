@@ -13,6 +13,7 @@ public class SessionDto {
     private String loggedUserId;
     private String loggedUsername;
     private String loggedPassword;
+
     private String loggedRole;
 
     public SessionDto(String loggedUserId, String loggedPassword) {
@@ -38,6 +39,10 @@ public class SessionDto {
 
     public String getLoggedUsername() {
         return loggedUsername;
+    }
+
+    public void setLoggedPassword(String loggedPassword) {
+        this.loggedPassword = loggedPassword;
     }
 
     public String getLoggedPassword() {

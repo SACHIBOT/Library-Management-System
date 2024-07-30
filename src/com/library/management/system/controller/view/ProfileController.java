@@ -11,11 +11,14 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
+import javafx.util.Callback;
 
 public class ProfileController {
     @FXML
@@ -25,13 +28,19 @@ public class ProfileController {
     private TextField txtUsername;
 
     @FXML
+    private TextField txtId;
+
+    @FXML
+    private Label loginerr;
+
+    @FXML
     private TextField txtemail;
 
     @FXML
     private TextField txtpassword;
 
     @FXML
-    private TextField txtpassword1;
+    private TextField txtpasswordnew;
 
     @FXML
     private TableColumn<BorrowingTm, Long> idColumn;
@@ -46,57 +55,124 @@ public class ProfileController {
     @FXML
     private TableColumn<BorrowingTm, String> statusColumn;
 
+    private String backPage;
+
+    // private String thisPage = "/com/library/management/system/view/Profile.fxml";
+
+    private Utils utils = Utils.getInstance();
+
     @FXML
     void backPaneOnMouseClick(MouseEvent event) {
-
+        try {
+            utils.goToBack(backPage, event);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML
     void btnUpdateOnAction(ActionEvent event) {
+        String currentPassword = txtpassword.getText();
+        String newPassword = txtpasswordnew.getText();
 
+        if (currentPassword.isEmpty() || newPassword.isEmpty()) {
+            loginerr.setText("Please fill Current Password and New password !");
+        } else {
+            if (utils.changepassword(currentPassword, newPassword)) {
+
+                loginerr.setText("Password changed !");
+                loginerr.setStyle("-fx-text-fill: #7dff00;");
+            } else {
+                loginerr.setText("Invalid credintials or something went wrong !");
+            }
+        }
     }
 
     @FXML
     void homePaneOnMouseClick(MouseEvent event) {
-
+        try {
+            utils.goToHome(event);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML
     void profilePaneOnMouseClick(MouseEvent event) {
-
+        try {
+            utils.goToProfile(backPage, event);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
-    public void initialize(String name, String email, ArrayList<BorrowingDto> borrowingDtos) {
+    public void initialize(String backPage, String userId, String name, String email,
+            ArrayList<BorrowingDto> borrowingDtos) {
+        this.backPage = backPage;
         txtUsername.setText(name);
         txtemail.setText(email);
-
+        txtId.setText(userId);
         idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
         bookIdColumn.setCellValueFactory(new PropertyValueFactory<>("bookId"));
         bookColumn.setCellValueFactory(new PropertyValueFactory<>("bookTitle"));
         borrowedDateColumn.setCellValueFactory(new PropertyValueFactory<>("borrowDate"));
         returnDateColumn.setCellValueFactory(new PropertyValueFactory<>("returnDate"));
         statusColumn.setCellValueFactory(new PropertyValueFactory<>("status"));
+
         loadTable(borrowingDtos);
+        setupRowClickListener();
     }
 
     public void loadTable(ArrayList<BorrowingDto> borrowingDtos) {
         BookController bookController = new BookController();
         ObservableList<BorrowingTm> borrowingTMList = FXCollections.observableArrayList();
-        try {
-            for (BorrowingDto borrowingDto : borrowingDtos) {
-                BorrowingTm borrowingTm;
+        double rowHeight = 25;
+        double headerHeight = 25;
 
-                borrowingTm = new BorrowingTm(borrowingDto.getId(),
+        try {
+            borrowingTMList.clear();
+
+            for (BorrowingDto borrowingDto : borrowingDtos) {
+
+                BorrowingTm borrowingTm = new BorrowingTm(
+                        borrowingDto.getId(),
                         borrowingDto.getBookId(),
                         bookController.get(borrowingDto.getBookId()).getTitle(),
-                        (Date) borrowingDto.getBorrowDate(),
-                        (Date) borrowingDto.getReturnDate(), borrowingDto.getStatus());
-
+                        borrowingDto.getBorrowDate(),
+                        borrowingDto.getReturnDate(),
+                        borrowingDto.getStatus());
                 borrowingTMList.add(borrowingTm);
+
             }
+
             tblborrowings.setItems(borrowingTMList);
+
+            int rowCount = borrowingTMList.size();
+            double totalHeight = rowCount * rowHeight + headerHeight;
+
+            tblborrowings.setPrefHeight(totalHeight);
+
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
+
+    private void setupRowClickListener() {
+        tblborrowings.setRowFactory(new Callback<TableView<BorrowingTm>, TableRow<BorrowingTm>>() {
+            @Override
+            public TableRow<BorrowingTm> call(TableView<BorrowingTm> tableView) {
+                final TableRow<BorrowingTm> row = new TableRow<>();
+                row.setOnMouseClicked(event -> {
+                    if (event.getClickCount() == 1 && !row.isEmpty()) {
+                        BorrowingTm rowData = row.getItem();
+                        if ("borrowed".equalsIgnoreCase(rowData.getStatus())) {
+                            utils.showBorrowedOptionsPopup(rowData);
+                        }
+                    }
+                });
+                return row;
+            }
+        });
+    }
+
 }

@@ -18,4 +18,6 @@ public interface SessionService extends SuperService {
     boolean logOutUser() throws Exception;
 
     SessionDto getLoggedUser() throws Exception;
+
+    boolean updateSession(SessionDto sessionDto) throws Exception;
 }

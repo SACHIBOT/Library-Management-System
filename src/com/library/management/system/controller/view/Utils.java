@@ -11,6 +11,7 @@ import com.library.management.system.controller.BorrowingController;
 import com.library.management.system.controller.CategoryController;
 import com.library.management.system.controller.SessionController;
 import com.library.management.system.controller.UserController;
+import com.library.management.system.controller.view.tm.BorrowingTm;
 import com.library.management.system.dto.BookDto;
 import com.library.management.system.dto.BorrowingDto;
 import com.library.management.system.dto.SessionDto;
@@ -29,6 +30,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import java.time.temporal.ChronoUnit;
 
 public class Utils {
 
@@ -50,10 +52,18 @@ public class Utils {
     private String loginPage = viewLayer + "login.fxml";
     private String signupPage = viewLayer + "signup.fxml";
     private String profilePage = viewLayer + "Profile.fxml";
+    private String borrowedOpts = viewLayer + "/BorrowedOptions.fxml";
+
     private int finePerDay = 10;
+
+    private long fineForLLostBook = 500;
 
     public int getFinePerDay() {
         return finePerDay;
+    }
+
+    public long getFineForLostBook() {
+        return fineForLLostBook;
     }
 
     public String getBooksPage() {
@@ -248,13 +258,16 @@ public class Utils {
         }
     }
 
-    public void popUpwindow(Label lblTitle, Label lblBookId, String popupfxml, String pouptitle) throws IOException {
+    public void borrowBookPopup(Label lblTitle, Label lblBookId, String popupfxml, String pouptitle)
+            throws IOException {
         FXMLLoader loader = new FXMLLoader(
                 getClass().getResource(popupfxml));
         Parent root = loader.load();
 
         BorrowBookPopupController controller = loader.getController();
-        controller.setDetails(lblTitle.getText(), lblBookId.getText());
+
+        LocalDate returnDate = LocalDate.now().plusMonths(1);
+        controller.setDetails(lblTitle.getText(), lblBookId.getText(), returnDate);
 
         Stage stage = new Stage();
         stage.setScene(new Scene(root));
@@ -286,7 +299,7 @@ public class Utils {
         stage.showAndWait();
     }
 
-    public void goToProfile(MouseEvent event) throws Exception {
+    public void goToProfile(String backPage, MouseEvent event) throws Exception {
 
         FXMLLoader loader = switchToAnotherPageWithAuth(profilePage, event);
         if (loader != null) {
@@ -297,7 +310,189 @@ public class Utils {
             UserDto userDto = userController.get(userId);
             BorrowingController borrowingController = new BorrowingController();
             ArrayList<BorrowingDto> borrowingDtos = borrowingController.getByUserId(userId);
-            profile.initialize(userDto.getName(), userDto.getEmail(), borrowingDtos);
+            profile.initialize(backPage, userDto.getId(), userDto.getName(), userDto.getEmail(), borrowingDtos);
         }
+    }
+
+    public boolean changepassword(String currentPassword, String newPassword) {
+        UserController userController = new UserController();
+        try {
+            String userId = sessionController.getLoggedUser().getLoggedUserId();
+            if (userController.updatePassword(currentPassword, newPassword, userId)) {
+                SessionDto sessionDto = sessionController.getLoggedUser();
+                sessionDto.setLoggedPassword(newPassword);
+                sessionController.updateSession(sessionDto);
+                return true;
+            } else {
+                return false;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+
+    }
+
+    public void showBorrowedOptionsPopup(BorrowingTm borrowingTm) {
+
+        try {
+
+            String title = borrowingTm.getBookTitle();
+            Date returnDate = borrowingTm.getReturnDate();
+            String status = borrowingTm.getStatus();
+            if ((!status.equals("Lost") && !status
+                    .equals("Returned"))) {
+
+                FXMLLoader loader = new FXMLLoader(
+                        getClass().getResource(borrowedOpts));
+                Parent root = loader.load();
+                long fine = calculateFine((!status.equals("Lost") && !status
+                        .equals("Returned")) ? returnDate : null);
+                String borrowingId = borrowingTm.getId();
+
+                BorrowedBookOptionsPopupController controller = loader.getController();
+                controller.setPopupData(title, returnDate, fine, status, borrowingId);
+
+                Stage stage = new Stage();
+                stage.setTitle("Borrowed Book Options");
+                stage.initModality(Modality.APPLICATION_MODAL);
+                stage.setScene(new Scene(root));
+
+                stage.getIcons().add(
+                        new Image(
+                                getClass().getResourceAsStream(
+                                        "/com/library/management/system/view/images/letter-l.png")));
+                stage.setResizable(false);
+                controller.setDialogStage(stage);
+                stage.showAndWait();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private long calculateFine(Date returnDate) {
+        long finePerDay = getFinePerDay();
+        long overdueDays = calculateOverdueDays(returnDate);
+        long totalFine = overdueDays * finePerDay;
+        return totalFine;
+
+    }
+
+    private long calculateOverdueDays(Date returnDate) {
+        if (returnDate == null) {
+            return 0;
+        }
+
+        LocalDate returnLocalDate = returnDate.toLocalDate();
+        LocalDate currentDate = LocalDate.now();
+
+        long daysBetween = ChronoUnit.DAYS.between(returnLocalDate, currentDate);
+
+        if (daysBetween < 0) {
+            return 0;
+        }
+
+        return daysBetween;
+    }
+
+    public boolean payCost(long cost) {
+        return true;
+    }
+
+    public boolean lostBookPay(String borrowingId) {
+        try {
+            BorrowingController borrowingController = new BorrowingController();
+
+            BorrowingDto borrowingDto = borrowingController.get(borrowingId);
+            if (borrowingDto != null) {
+                String status = borrowingDto.getStatus();
+                if (payCost(calculateFine(
+                        (!status.equals("Lost") && !status
+                                .equals("Returned")) ? borrowingDto.getReturnDate() : null)
+                        + fineForLLostBook)) {
+                    borrowingDto.setStatus("Lost");
+                    if (borrowingController.update(borrowingDto).equals("Success")) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                } else {
+                    return false;
+                }
+            } else {
+                return false;
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public boolean payFineAndReturnBook(String borrowingId) {
+        try {
+            BorrowingController borrowingController = new BorrowingController();
+
+            BorrowingDto borrowingDto = borrowingController.get(borrowingId);
+            if (borrowingDto != null) {
+                String status = borrowingDto.getStatus();
+                if (payCost(calculateFine(
+                        (!status.equals("Lost") && !status
+                                .equals("Returned")) ? borrowingDto.getReturnDate() : null))) {
+                    borrowingDto.setStatus("Returned");
+                    if (borrowingController.update(borrowingDto).equals("Success")) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                } else {
+                    return false;
+                }
+            } else {
+                return false;
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+
+    }
+
+    public boolean renewReturnDate(String borrowingId) {
+        try {
+            BorrowingController borrowingController = new BorrowingController();
+
+            BorrowingDto borrowingDto = borrowingController.get(borrowingId);
+            if (borrowingDto != null) {
+                String status = borrowingDto.getStatus();
+                if (!status.equals("Renewed")) {
+                    LocalDate returnDate = borrowingDto.getReturnDate().toLocalDate();
+                    LocalDate newReturnDate = returnDate.plusWeeks(2);
+                    borrowingDto.setStatus("Renewed");
+                    borrowingDto.setReturnDate(Date.valueOf(newReturnDate));
+                    if (borrowingController.update(borrowingDto).equals("Success")) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                } else {
+                    return false;
+                }
+            } else {
+                return false;
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+
+    }
+
+    public boolean returnBook(String borrowingId) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'returnBook'");
     }
 }

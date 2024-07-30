@@ -128,7 +128,7 @@ public class MainViewController {
     @FXML
     void profilePaneOnMouseClick(MouseEvent event) {
         try {
-            utils.goToProfile(event);
+            utils.goToProfile(thisPage, event);
         } catch (Exception e) {
             e.printStackTrace();
         }

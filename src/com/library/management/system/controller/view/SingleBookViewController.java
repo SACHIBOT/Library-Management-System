@@ -32,7 +32,7 @@ public class SingleBookViewController {
 
     private Utils utils = Utils.getInstance();
 
-    // private String thisPage = "/com/library/management/system/view/Book.fxml";
+    private String thisPage = "/com/library/management/system/view/Book.fxml";
 
     @FXML
     void backPaneOnMouseClick(MouseEvent event) {
@@ -46,7 +46,7 @@ public class SingleBookViewController {
     @FXML
     void profilePaneOnMouseClick(MouseEvent event) {
         try {
-            utils.goToProfile(event);
+            utils.goToProfile(thisPage, event);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -65,7 +65,7 @@ public class SingleBookViewController {
     void btnBorrowOnAction(ActionEvent event) {
         try {
             if (Integer.parseInt(lblCopies.getText()) > 0) {
-                utils.popUpwindow(lblTitle, lblBookId, "/com/library/management/system/view/BorrowBookPopup.fxml",
+                utils.borrowBookPopup(lblTitle, lblBookId, "/com/library/management/system/view/BorrowBookPopup.fxml",
                         "Borrow this book");
             } else {
                 utils.showAlert("Error", "All books are borrowed by users.", "Ooops !");

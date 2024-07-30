@@ -52,4 +52,9 @@ public class SessionServiceImpl implements SessionService {
         return sessionDto;
     }
 
+    @Override
+    public boolean updateSession(SessionDto sessionDto) throws Exception {
+        return logInUser(sessionDto);
+    }
+
 }
