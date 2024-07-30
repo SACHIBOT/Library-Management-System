@@ -53,6 +53,7 @@ public class Utils {
     private String signupPage = viewLayer + "signup.fxml";
     private String profilePage = viewLayer + "Profile.fxml";
     private String borrowedOpts = viewLayer + "/BorrowedOptions.fxml";
+    private String adminBooksController = viewLayer + "/AdminBooks.fxml";
 
     private int finePerDay = 10;
 
@@ -113,13 +114,29 @@ public class Utils {
     }
 
     public void addImageToPane(String imagePath, Pane pane) {
+        Image image;
+        try {
+            if (imagePath.startsWith("http://") || imagePath.startsWith("https://")) {
+                image = new Image(imagePath, true);
+            } else {
+                image = new Image(
+                        getClass().getResource("/com/library/management/system/view/" + imagePath).toExternalForm(),
+                        true);
+            }
+            if (image.isError()) {
+                throw new Exception("Image not found or failed to load.");
+            }
+        } catch (Exception e) {
+            image = new Image(
+                    getClass().getResource("/com/library/management/system/view/images/bookimages/bookimage.jpg")
+                            .toExternalForm());
+        }
 
-        ImageView imageView = new ImageView(
-                new Image(getClass().getResource("/com/library/management/system/view/" + imagePath)
-                        .toExternalForm()));
+        ImageView imageView = new ImageView(image);
         imageView.setFitWidth(pane.getPrefWidth());
         imageView.setFitHeight(pane.getPrefHeight());
         imageView.setPreserveRatio(true);
+
         Rectangle clip = new Rectangle(imageView.getFitWidth(), imageView.getFitHeight());
         clip.setArcWidth(10);
         clip.setArcHeight(10);
@@ -127,7 +144,6 @@ public class Utils {
 
         pane.getChildren().clear();
         pane.getChildren().add(imageView);
-
     }
 
     public void setBackgroundImagetoPane(Pane pane, String imagePath) {
@@ -279,7 +295,7 @@ public class Utils {
         stage.showAndWait();
     }
 
-    public void showAlert(String title, String value, String type) throws IOException {
+    public void showAlert(String title, String value, String header) throws IOException {
         FXMLLoader loader = new FXMLLoader(
                 getClass().getResource("/com/library/management/system/view/PopUp.fxml"));
         Parent root = loader.load();
@@ -290,7 +306,7 @@ public class Utils {
         Stage stage = new Stage();
         stage.setScene(new Scene(root));
         stage.initModality(Modality.APPLICATION_MODAL);
-        stage.setTitle(type);
+        stage.setTitle(header);
         stage.getIcons().add(
                 new Image(getClass().getResourceAsStream("/com/library/management/system/view/images/letter-l.png")));
         stage.setResizable(false);
@@ -526,5 +542,10 @@ public class Utils {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public void goToAdminDashboard() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'goToAdminDashboard'");
     }
 }
