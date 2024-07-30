@@ -54,6 +54,7 @@ public class Utils {
     private String profilePage = viewLayer + "Profile.fxml";
     private String borrowedOpts = viewLayer + "/BorrowedOptions.fxml";
     private String adminBooksController = viewLayer + "/AdminBooks.fxml";
+    private String adminCategoriesController = viewLayer + "/AdminCategories.fxml";
 
     private int finePerDay = 10;
 

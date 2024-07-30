@@ -134,6 +134,9 @@ public class AdminBooksController {
             utils.showAlert("Error",
                     "Something went wrong. Couldn't delete the book.",
                     "Oops!");
+        } finally {
+            setTextFeildValues("", "", "", "", "", "", true);
+            loadTable();
         }
     }
 
@@ -188,6 +191,9 @@ public class AdminBooksController {
             utils.showAlert("Error",
                     "Something went wrong. Couldn't save the book.",
                     "Oops!");
+        } finally {
+            setTextFeildValues("", "", "", "", "", "", true);
+            loadTable();
         }
     }
 
@@ -237,25 +243,37 @@ public class AdminBooksController {
             utils.showAlert("Error",
                     "Something went wrong. Couldn't update the book.",
                     "Oops!");
+        } finally {
+            setTextFeildValues("", "", "", "", "", "", true);
+            loadTable();
         }
+
     }
 
     private boolean txtIdEditable = true;
 
     @FXML
     void txtIdonchanged(KeyEvent event) {
-        if (txtIdEditable) {
-            String id = txtId.getText();
-            if (!id.isEmpty()) {
-                System.out.println(id);
+        try {
+            if (txtIdEditable) {
+                String id = txtId.getText();
+                if (!id.isEmpty()) {
+                    BookController bookController = new BookController();
+                    BookDto bookDto = bookController.get(id);
+                    if (bookDto != null) {
+                        setTextFeildValues(bookDto.getId(), bookDto.getTitle(), bookDto.getAuthor(),
+                                bookDto.getCategoryId(), Integer.toString(bookDto.getCopiesQoH()),
+                                bookDto.getImagePath(), true);
+                    }
+                }
             }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
     public void initialize() {
         try {
-            BookController bookController = new BookController();
-            ArrayList<BookDto> bookDtos = bookController.getAll();
 
             columnId.setCellValueFactory(new PropertyValueFactory<>("id"));
             columnTitle.setCellValueFactory(new PropertyValueFactory<>("title"));
@@ -264,7 +282,7 @@ public class AdminBooksController {
             columnCopies.setCellValueFactory(new PropertyValueFactory<>("copies"));
             columnImage.setCellValueFactory(new PropertyValueFactory<>("image"));
 
-            loadTable(bookDtos);
+            loadTable();
             setupRowClickListener();
             utils = Utils.getInstance();
             utils.addImageToPane("images/bookimages/bookimage.jpg", paneimg);
@@ -274,14 +292,9 @@ public class AdminBooksController {
     }
 
     private void setTextFeildValues(String id, String title, String author, String categoryId, String copiesCount,
-            String image) {
-        if (!id.isEmpty()) {
-            txtId.setEditable(false);
-            txtIdEditable = false;
-        } else {
-            txtId.setEditable(true);
-            txtIdEditable = true;
-        }
+            String image, boolean txtIdEditable) {
+        txtId.setEditable(txtIdEditable);
+        this.txtIdEditable = txtIdEditable;
 
         txtId.setText(id);
         txtTitle.setText(title);
@@ -304,7 +317,7 @@ public class AdminBooksController {
 
                         setTextFeildValues(rowData.getId(), rowData.getTitle(),
                                 rowData.getAuthor(), rowData.getCategoryId(),
-                                String.valueOf(rowData.getCopies()), rowData.getImage());
+                                String.valueOf(rowData.getCopies()), rowData.getImage(), false);
                     }
                 });
                 return row;
@@ -312,9 +325,11 @@ public class AdminBooksController {
         });
     }
 
-    private void loadTable(ArrayList<BookDto> bookDtos) {
+    private void loadTable() {
         try {
 
+            BookController bookController = new BookController();
+            ArrayList<BookDto> bookDtos = bookController.getAll();
             ObservableList<BooksTm> booksTms = FXCollections.observableArrayList();
             double rowHeight = 25;
             double headerHeight = 25;
