@@ -310,7 +310,8 @@ public class Utils {
             UserDto userDto = userController.get(userId);
             BorrowingController borrowingController = new BorrowingController();
             ArrayList<BorrowingDto> borrowingDtos = borrowingController.getByUserId(userId);
-            profile.initialize(backPage, userDto.getId(), userDto.getName(), userDto.getEmail(), borrowingDtos);
+            profile.initialize(backPage, userDto.getId(), userDto.getName(), userDto.getEmail(), borrowingDtos,
+                    profile);
         }
     }
 
@@ -333,7 +334,7 @@ public class Utils {
 
     }
 
-    public void showBorrowedOptionsPopup(BorrowingTm borrowingTm) {
+    public void showBorrowedOptionsPopup(BorrowingTm borrowingTm, ProfileController profileController) {
 
         try {
 
@@ -351,7 +352,7 @@ public class Utils {
                 String borrowingId = borrowingTm.getId();
 
                 BorrowedBookOptionsPopupController controller = loader.getController();
-                controller.setPopupData(title, returnDate, fine, status, borrowingId);
+                controller.setPopupData(title, returnDate, fine, status, borrowingId, profileController);
 
                 Stage stage = new Stage();
                 stage.setTitle("Borrowed Book Options");
@@ -492,7 +493,38 @@ public class Utils {
     }
 
     public boolean returnBook(String borrowingId) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'returnBook'");
+        try {
+            BorrowingController borrowingController = new BorrowingController();
+
+            BorrowingDto borrowingDto = borrowingController.get(borrowingId);
+            if (borrowingDto != null) {
+                String status = borrowingDto.getStatus();
+                if (!status.equals("Lost") && !status
+                        .equals("Returned")) {
+                    borrowingDto.setStatus("Returned");
+                    if (borrowingController.update(borrowingDto).equals("Success")) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                } else {
+                    return false;
+                }
+            } else {
+                return false;
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public void logoutUser() {
+        try {
+            sessionController.logOutUser();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

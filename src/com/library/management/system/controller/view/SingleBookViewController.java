@@ -5,6 +5,7 @@ import java.io.IOException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.input.InputMethodEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 
@@ -41,6 +42,11 @@ public class SingleBookViewController {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    @FXML
+    void typingOnAction(InputMethodEvent event) {
+
     }
 
     @FXML

@@ -9,6 +9,7 @@ import com.library.management.system.dto.CategoryDto;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.input.InputMethodEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
@@ -73,6 +74,11 @@ public class BooksViewController {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    @FXML
+    void typingOnAction(InputMethodEvent event) {
+
     }
 
     private void addCategoryPane(CategoryDto category) {

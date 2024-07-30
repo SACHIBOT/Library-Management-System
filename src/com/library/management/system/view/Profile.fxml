@@ -46,7 +46,7 @@
                                  </font>
                               </Label>
                               <TextField fx:id="txtUsername" editable="false" layoutX="164.0" layoutY="138.0" prefHeight="25.0" prefWidth="166.0" promptText="your name" />
-                              <Button layoutX="143.0" layoutY="343.0" mnemonicParsing="false" onAction="#btnUpdateOnAction" prefHeight="42.0" prefWidth="105.0" style="-fx-background-color: white;" text="Update">
+                              <Button layoutX="68.0" layoutY="342.0" mnemonicParsing="false" onAction="#btnUpdateOnAction" prefHeight="42.0" prefWidth="105.0" style="-fx-background-color: white;" text="Update">
                                  <font>
                                     <Font name="Century" size="18.0" />
                                  </font>
@@ -80,6 +80,11 @@
                                  </font>
                               </Label>
                               <TextField fx:id="txtId" editable="false" layoutX="164.0" layoutY="91.0" prefHeight="25.0" prefWidth="166.0" promptText="your id" />
+                              <Button layoutX="220.0" layoutY="342.0" mnemonicParsing="false" onAction="#btnLogoutOnAction" prefHeight="42.0" prefWidth="105.0" style="-fx-background-color: white;" text="Logout">
+                                 <font>
+                                    <Font name="Century" size="18.0" />
+                                 </font>
+                              </Button>
                            </children>
                         </Pane>
                         <Pane layoutY="486.0" prefWidth="922.0">

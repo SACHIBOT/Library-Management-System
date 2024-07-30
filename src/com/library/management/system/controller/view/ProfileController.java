@@ -60,6 +60,7 @@ public class ProfileController {
     // private String thisPage = "/com/library/management/system/view/Profile.fxml";
 
     private Utils utils = Utils.getInstance();
+    private ProfileController profileController;
 
     @FXML
     void backPaneOnMouseClick(MouseEvent event) {
@@ -98,6 +99,16 @@ public class ProfileController {
     }
 
     @FXML
+    void btnLogoutOnAction(ActionEvent event) {
+        try {
+            utils.logoutUser();
+            utils.switchToLogin(event);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
     void profilePaneOnMouseClick(MouseEvent event) {
         try {
             utils.goToProfile(backPage, event);
@@ -107,8 +118,9 @@ public class ProfileController {
     }
 
     public void initialize(String backPage, String userId, String name, String email,
-            ArrayList<BorrowingDto> borrowingDtos) {
+            ArrayList<BorrowingDto> borrowingDtos, ProfileController profileController) {
         this.backPage = backPage;
+        this.profileController = profileController;
         txtUsername.setText(name);
         txtemail.setText(email);
         txtId.setText(userId);
@@ -165,8 +177,10 @@ public class ProfileController {
                 row.setOnMouseClicked(event -> {
                     if (event.getClickCount() == 1 && !row.isEmpty()) {
                         BorrowingTm rowData = row.getItem();
-                        if ("borrowed".equalsIgnoreCase(rowData.getStatus())) {
-                            utils.showBorrowedOptionsPopup(rowData);
+                        String status = rowData.getStatus();
+                        if (!status.equals("Lost") && !status
+                                .equals("Returned")) {
+                            utils.showBorrowedOptionsPopup(rowData, profileController);
                         }
                     }
                 });

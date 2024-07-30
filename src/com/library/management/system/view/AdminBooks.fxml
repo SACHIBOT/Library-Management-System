@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="758.0" maxWidth="922.4" minHeight="758.0" minWidth="922.4" onInputMethodTextChanged="#typingOnAction" prefHeight="758.0" prefWidth="922.4" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.library.management.system.controller.view.AdminDashBoardController">
+   <children>
+      <ImageView fitHeight="42.0" fitWidth="46.0" layoutX="227.0" layoutY="20.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@images/letter-l.png" />
+         </image>
+      </ImageView>
+      <Label alignment="CENTER" layoutX="329.0" layoutY="25.0" prefHeight="31.0" text="LIBRARY MANAGEMENT SYSTEM">
+         <font>
+            <Font name="Century" size="18.0" />
+         </font>
+      </Label>
+      <ScrollPane hbarPolicy="NEVER" layoutY="69.0" prefHeight="700.0" prefWidth="922.0" vbarPolicy="ALWAYS">
+         <content>
+            <AnchorPane prefHeight="700.0" prefWidth="922.0">
+               <children>
+                  <GridPane layoutX="-1.0" layoutY="1.0" prefHeight="690.0" prefWidth="922.0">
+                    <columnConstraints>
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints maxHeight="700.8" minHeight="10.0" prefHeight="664.000048828125" vgrow="SOMETIMES" />
+                      <RowConstraints maxHeight="345.6000122070312" minHeight="0.0" prefHeight="26.399951171875045" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                        <Pane prefHeight="673.0" prefWidth="922.0">
+                           <children>
+                              <TableView fx:id="tblBooks" layoutX="39.0" layoutY="370.0" prefHeight="277.0" prefWidth="845.0">
+                                <columns>
+                                  <TableColumn fx:id="columnId" editable="false" prefWidth="75.20000457763672" resizable="false" sortable="false" text="Id" />
+                                  <TableColumn fx:id="columnTitle" editable="false" prefWidth="162.4000244140625" resizable="false" sortable="false" text="Title" />
+                                    <TableColumn fx:id="columnAuthor" editable="false" prefWidth="185.60003662109375" resizable="false" sortable="false" text="Author" />
+                                    <TableColumn fx:id="columnCategoryId" editable="false" prefWidth="146.39996337890625" resizable="false" sortable="false" text="Category" />
+                                    <TableColumn fx:id="columnCopies" editable="false" prefWidth="120.79998779296875" resizable="false" sortable="false" text="Copies" />
+                                    <TableColumn fx:id="columnImage" editable="false" prefWidth="154.4000244140625" resizable="false" sortable="false" text="Image" />
+                                </columns>
+                              </TableView>
+                              <GridPane layoutX="89.0" layoutY="88.0" prefHeight="237.0" prefWidth="473.0">
+                                <columnConstraints>
+                                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                </columnConstraints>
+                                <rowConstraints>
+                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                </rowConstraints>
+                                 <children>
+                                    <Pane prefHeight="200.0" prefWidth="200.0">
+                                       <children>
+                                          <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="137.0" layoutY="12.0" text="Id :    ">
+                                             <font>
+                                                <Font name="Century" size="20.0" />
+                                             </font>
+                                          </Label>
+                                       </children>
+                                    </Pane>
+                                    <Pane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                                       <children>
+                                          <TextField editable="false" layoutY="3.0" prefHeight="42.0" prefWidth="236.0" />
+                                       </children>
+                                    </Pane>
+                                    <Pane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                       <children>
+                                          <TextField editable="false" layoutY="3.0" prefHeight="42.0" prefWidth="236.0" />
+                                       </children>
+                                    </Pane>
+                                    <Pane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1">
+                                       <children>
+                                          <TextField editable="false" layoutY="11.0" prefHeight="26.0" prefWidth="204.0" />
+                                       </children>
+                                    </Pane>
+                                    <Pane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1">
+                                       <children>
+                                          <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="112.0" layoutY="12.0" text="Title :    ">
+                                             <font>
+                                                <Font name="Century" size="20.0" />
+                                             </font>
+                                          </Label>
+                                       </children>
+                                    </Pane>
+                                    <Pane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="2">
+                                       <children>
+                                          <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="91.0" layoutY="12.0" text="Author :    ">
+                                             <font>
+                                                <Font name="Century" size="20.0" />
+                                             </font>
+                                          </Label>
+                                       </children>
+                                    </Pane>
+                                    <Pane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="3">
+                                       <children>
+                                          <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="72.0" layoutY="12.0" text="Category :    ">
+                                             <font>
+                                                <Font name="Century" size="20.0" />
+                                             </font>
+                                          </Label>
+                                       </children>
+                                    </Pane>
+                                    <Pane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                                       <children>
+                                          <TextField editable="false" layoutY="11.0" prefHeight="26.0" prefWidth="204.0" />
+                                       </children>
+                                    </Pane>
+                                    <Pane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="4">
+                                       <children>
+                                          <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="94.0" layoutY="12.0" text="Copies :    ">
+                                             <font>
+                                                <Font name="Century" size="20.0" />
+                                             </font>
+                                          </Label>
+                                       </children>
+                                    </Pane>
+                                    <Pane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                                       <children>
+                                          <TextField editable="false" layoutY="11.0" prefHeight="26.0" prefWidth="204.0" />
+                                       </children>
+                                    </Pane>
+                                 </children>
+                              </GridPane>
+                           </children>
+                        </Pane>
+                     </children>
+                  </GridPane>
+               </children>
+            </AnchorPane>
+         </content>
+      </ScrollPane>
+      <Pane layoutX="37.0" layoutY="28.0" onMouseClicked="#adminPaneOnMouseClick" prefHeight="25.0" prefWidth="64.0">
+         <children>
+            <Label alignment="CENTER" contentDisplay="CENTER" onMouseClicked="#homePaneOnMouseClick" prefHeight="26.0" prefWidth="64.0" text="Admin" textAlignment="CENTER">
+               <font>
+                  <Font name="Century" size="12.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
+      <Pane layoutX="101.0" layoutY="28.0" onMouseClicked="#backPaneOnMouseClick" prefHeight="25.0" prefWidth="64.0">
+         <children>
+            <Label alignment="CENTER" contentDisplay="CENTER" onMouseClicked="#backPaneOnMouseClick" prefHeight="26.0" prefWidth="64.0" text="Back" textAlignment="CENTER">
+               <font>
+                  <Font name="Century" size="12.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="807.0" layoutY="27.0" onMouseClicked="#profilePaneOnMouseClick" prefHeight="26.0" prefWidth="64.0" text="Profile" textAlignment="CENTER">
+         <font>
+            <Font name="Century" size="12.0" />
+         </font>
+      </Label>
+      <TextField fx:id="searchBar" layoutX="657.0" layoutY="28.0" onInputMethodTextChanged="#typingOnAction" promptText="Search..." />
+   </children>
+</AnchorPane>

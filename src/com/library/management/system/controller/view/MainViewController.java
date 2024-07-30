@@ -143,51 +143,6 @@ public class MainViewController {
         }
     }
 
-    @FXML
-    void top1OnMouseClick(MouseEvent event) {
-        try {
-            utils.goToBook(top5BookDtos.get(0), event, thisPage);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    @FXML
-    void top2OnMouseClick(MouseEvent event) {
-        try {
-            utils.goToBook(top5BookDtos.get(1), event, thisPage);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    @FXML
-    void top3OnMouseClick(MouseEvent event) {
-        try {
-            utils.goToBook(top5BookDtos.get(2), event, thisPage);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    @FXML
-    void top4OnMouseClick(MouseEvent event) {
-        try {
-            utils.goToBook(top5BookDtos.get(3), event, thisPage);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    @FXML
-    void top5OnMouseClick(MouseEvent event) {
-        try {
-            utils.goToBook(top5BookDtos.get(4), event, thisPage);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
     private void setTopBooksDetails(Pane topPane, Label titleLabel, String title, Label topLabel, int topValue,
             Pane imagePane, String imagePath) {
         titleLabel.setText(title);

@@ -1,14 +1,18 @@
 package com.library.management.system.controller.view;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
-import java.io.IOException;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+
+import com.library.management.system.controller.BorrowingController;
+import com.library.management.system.dto.BorrowingDto;
 
 public class BorrowedBookOptionsPopupController {
 
@@ -43,9 +47,10 @@ public class BorrowedBookOptionsPopupController {
     private Stage dialogStage;
 
     Utils utils = Utils.getInstance();
+    private ProfileController profileController;
 
     @FXML
-    private void btnReturnOnAction() {
+    private void btnReturnOnAction(ActionEvent event) {
         try {
             if (utils.returnBook(borrowingId)) {
                 utils.showAlert("Success",
@@ -56,16 +61,24 @@ public class BorrowedBookOptionsPopupController {
                         "Something went wrong. The book cannot be returned.",
                         "Oops!");
             }
-
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
-        }
+        } finally {
+            dialogStage.close();
+            try {
 
-        dialogStage.close();
+                BorrowingController borrowingController = new BorrowingController();
+                BorrowingDto borrowingDto = borrowingController.get(borrowingId);
+                ArrayList<BorrowingDto> borrowingDtos = borrowingController.getByUserId(borrowingDto.getUserId());
+                profileController.loadTable(borrowingDtos);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     @FXML
-    private void btnRenewOnAction() {
+    private void btnRenewOnAction(ActionEvent event) {
         try {
             if (utils.renewReturnDate(borrowingId)) {
                 utils.showAlert("Success",
@@ -76,15 +89,24 @@ public class BorrowedBookOptionsPopupController {
                         "Something went wrong. The return date cannot be renewed.",
                         "Oops!");
             }
-
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
+        } finally {
+            dialogStage.close();
+            try {
+
+                BorrowingController borrowingController = new BorrowingController();
+                BorrowingDto borrowingDto = borrowingController.get(borrowingId);
+                ArrayList<BorrowingDto> borrowingDtos = borrowingController.getByUserId(borrowingDto.getUserId());
+                profileController.loadTable(borrowingDtos);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
-        dialogStage.close();
     }
 
     @FXML
-    private void btnReportLostOnAction() {
+    private void btnReportLostOnAction(ActionEvent event) {
         try {
             if (utils.lostBookPay(borrowingId)) {
                 utils.showAlert("Success",
@@ -95,39 +117,57 @@ public class BorrowedBookOptionsPopupController {
                         "Something went wrong. The book could not be reported as lost and the payment could not be processed.",
                         "Oops!");
             }
-
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
+        } finally {
+            dialogStage.close();
+            try {
+
+                BorrowingController borrowingController = new BorrowingController();
+                BorrowingDto borrowingDto = borrowingController.get(borrowingId);
+                ArrayList<BorrowingDto> borrowingDtos = borrowingController.getByUserId(borrowingDto.getUserId());
+                profileController.loadTable(borrowingDtos);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
-        dialogStage.close();
     }
 
     @FXML
-    private void btnPayFineOnAction() {
+    private void btnPayFineOnAction(ActionEvent event) {
         try {
             if (utils.payFineAndReturnBook(borrowingId)) {
-
                 utils.showAlert("Success",
                         "Fine has been successfully paid and the book has been successfully returned.",
                         "Excellent!");
-
             } else {
                 utils.showAlert("Error",
                         "Something went wrong. The book could not be returned and the payment could not be processed.",
                         "Oops!");
             }
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
-        }
-        dialogStage.close();
+        } finally {
+            dialogStage.close();
+            try {
 
+                BorrowingController borrowingController = new BorrowingController();
+                BorrowingDto borrowingDto = borrowingController.get(borrowingId);
+                ArrayList<BorrowingDto> borrowingDtos = borrowingController.getByUserId(borrowingDto.getUserId());
+                profileController.loadTable(borrowingDtos);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     public void setDialogStage(Stage dialogStage) {
         this.dialogStage = dialogStage;
     }
 
-    public void setPopupData(String title, Date returnDate, long fine, String status, String borrowingId) {
+    public void setPopupData(String title, Date returnDate, long fine, String status, String borrowingId,
+            ProfileController profileController) {
+        this.profileController = profileController;
         lostmsg.setText(
                 "If the book is lost, an additional charge of Rs. " + utils.getFineForLostBook() + " will be applied.");
         this.borrowingId = borrowingId;
@@ -135,8 +175,7 @@ public class BorrowedBookOptionsPopupController {
         LocalDate returnLocalDate = returnDate.toLocalDate();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         lblReturnDate.setText(returnLocalDate.format(formatter));
-        if (status.equals("Renewed")) {
-
+        if ("Renewed".equals(status)) {
             btnRenew.setVisible(false);
         }
         if (fine != 0) {

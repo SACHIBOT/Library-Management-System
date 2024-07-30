@@ -58,7 +58,7 @@
                            <children>
                               <Pane prefHeight="170.0" prefWidth="85.0">
                                  <children>
-                                    <Pane fx:id="panetop4" layoutX="7.0" layoutY="13.0" onMouseClicked="#top4OnMouseClick" prefHeight="184.0" prefWidth="155.0" style="-fx-background-radius: 10; -fx-border-radius: 10;">
+                                    <Pane fx:id="panetop4" layoutX="7.0" layoutY="13.0" prefHeight="184.0" prefWidth="155.0" style="-fx-background-radius: 10; -fx-border-radius: 10;">
                                        <children>
                                           <Label fx:id="lbltop4" alignment="CENTER" contentDisplay="CENTER" layoutX="47.0" layoutY="155.0" textAlignment="CENTER" textFill="WHITE">
                                              <font>
@@ -80,7 +80,7 @@
                               </Pane>
                               <Pane prefHeight="170.0" prefWidth="85.0" GridPane.columnIndex="1">
                                  <children>
-                                    <Pane fx:id="panetop2" layoutX="7.0" layoutY="13.0" onMouseClicked="#top2OnMouseClick" prefHeight="184.0" prefWidth="155.0" style="-fx-background-radius: 10; -fx-border-radius: 10;">
+                                    <Pane fx:id="panetop2" layoutX="7.0" layoutY="13.0" prefHeight="184.0" prefWidth="155.0" style="-fx-background-radius: 10; -fx-border-radius: 10;">
                                        <children>
                                           <Label fx:id="lbltop2" alignment="CENTER" contentDisplay="CENTER" layoutX="47.0" layoutY="155.0" textAlignment="CENTER" textFill="WHITE">
                                              <font>
@@ -102,7 +102,7 @@
                               </Pane>
                               <Pane prefHeight="170.0" prefWidth="85.0" GridPane.columnIndex="2">
                                  <children>
-                                    <Pane fx:id="panetop1" layoutX="7.0" layoutY="13.0" onMouseClicked="#top1OnMouseClick" prefHeight="184.0" prefWidth="155.0" style="-fx-background-radius: 10; -fx-border-radius: 10;">
+                                    <Pane fx:id="panetop1" layoutX="7.0" layoutY="13.0" prefHeight="184.0" prefWidth="155.0" style="-fx-background-radius: 10; -fx-border-radius: 10;">
                                        <children>
                                           <Label fx:id="lbltop1" alignment="CENTER" contentDisplay="CENTER" layoutX="47.0" layoutY="155.0" textAlignment="CENTER" textFill="WHITE">
                                              <font>
@@ -124,7 +124,7 @@
                               </Pane>
                               <Pane prefHeight="170.0" prefWidth="85.0" GridPane.columnIndex="3">
                                  <children>
-                                    <Pane fx:id="panetop3" layoutX="7.0" layoutY="13.0" onMouseClicked="#top3OnMouseClick" prefHeight="184.0" prefWidth="155.0" style="-fx-background-radius: 10; -fx-border-radius: 10;">
+                                    <Pane fx:id="panetop3" layoutX="7.0" layoutY="13.0" prefHeight="184.0" prefWidth="155.0" style="-fx-background-radius: 10; -fx-border-radius: 10;">
                                        <children>
                                           <Label fx:id="lbltop3" alignment="CENTER" contentDisplay="CENTER" layoutX="47.0" layoutY="155.0" textAlignment="CENTER" textFill="WHITE">
                                              <font>
@@ -146,7 +146,7 @@
                               </Pane>
                               <Pane prefHeight="170.0" prefWidth="85.0" GridPane.columnIndex="4">
                                  <children>
-                                    <Pane fx:id="panetop5" layoutX="7.0" layoutY="13.0" onMouseClicked="#top5OnMouseClick" prefHeight="184.0" prefWidth="155.0" style="-fx-background-radius: 10; -fx-border-radius: 10;">
+                                    <Pane fx:id="panetop5" layoutX="7.0" layoutY="13.0" prefHeight="184.0" prefWidth="155.0" style="-fx-background-radius: 10; -fx-border-radius: 10;">
                                        <children>
                                           <Label fx:id="lbltop5" alignment="CENTER" contentDisplay="CENTER" layoutX="47.0" layoutY="155.0" textAlignment="CENTER" textFill="WHITE">
                                              <font>
