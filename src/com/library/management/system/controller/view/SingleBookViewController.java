@@ -45,11 +45,6 @@ public class SingleBookViewController {
     }
 
     @FXML
-    void typingOnAction(InputMethodEvent event) {
-
-    }
-
-    @FXML
     void profilePaneOnMouseClick(MouseEvent event) {
         try {
             utils.goToProfile(thisPage, event);

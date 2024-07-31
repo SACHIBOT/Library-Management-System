@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="758.0" maxWidth="922.4" minHeight="758.0" minWidth="922.4" prefHeight="758.0" prefWidth="922.4" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.library.management.system.controller.view.ProfileController">
+   <children>
+      <ImageView fitHeight="42.0" fitWidth="46.0" layoutX="227.0" layoutY="20.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@images/letter-l.png" />
+         </image>
+      </ImageView>
+      <Label alignment="CENTER" layoutX="329.0" layoutY="25.0" prefHeight="31.0" text="LIBRARY MANAGEMENT SYSTEM">
+         <font>
+            <Font name="Century" size="18.0" />
+         </font>
+      </Label>
+      <ScrollPane hbarPolicy="NEVER" layoutY="69.0" prefHeight="700.0" prefWidth="922.0" vbarPolicy="ALWAYS">
+         <content>
+            <AnchorPane prefWidth="922.0">
+               <children>
+                  <Pane prefWidth="922.0">
+                     <children>
+                        <Pane layoutX="161.0" layoutY="40.0" prefHeight="420.0" prefWidth="393.0" style="-fx-background-color: #304463; -fx-background-radius: 10; -fx-border-radius: 10;">
+                           <children>
+                              <Label layoutX="112.0" layoutY="38.0" text="Update Details" textFill="WHITE">
+                                 <font>
+                                    <Font name="Century" size="24.0" />
+                                 </font>
+                              </Label>
+                              <Label layoutX="106.0" layoutY="141.0" text="name :" textFill="WHITE">
+                                 <font>
+                                    <Font name="Century" size="15.0" />
+                                 </font>
+                              </Label>
+                              <TextField fx:id="txtUsername" editable="false" layoutX="164.0" layoutY="138.0" prefHeight="25.0" prefWidth="166.0" promptText="your name" />
+                              <Button layoutX="68.0" layoutY="342.0" mnemonicParsing="false" onAction="#btnUpdateOnAction" prefHeight="42.0" prefWidth="105.0" style="-fx-background-color: white;" text="Update">
+                                 <font>
+                                    <Font name="Century" size="18.0" />
+                                 </font>
+                              </Button>
+                              <Label fx:id="loginerr" alignment="CENTER" contentDisplay="CENTER" layoutX="68.0" layoutY="391.0" prefHeight="15.0" prefWidth="257.0" textAlignment="CENTER" textFill="RED">
+                                 <font>
+                                    <Font name="Century" size="12.0" />
+                                 </font>
+                              </Label>
+                              <Label layoutX="106.0" layoutY="189.0" text="email :" textFill="WHITE">
+                                 <font>
+                                    <Font name="Century" size="15.0" />
+                                 </font>
+                              </Label>
+                              <TextField fx:id="txtemail" editable="false" layoutX="164.0" layoutY="186.0" prefHeight="25.0" prefWidth="166.0" promptText="your email" />
+                              <Label layoutX="23.0" layoutY="239.0" text="current password :" textFill="WHITE">
+                                 <font>
+                                    <Font name="Century" size="15.0" />
+                                 </font>
+                              </Label>
+                              <TextField fx:id="txtpassword" layoutX="167.0" layoutY="236.0" prefHeight="25.0" prefWidth="166.0" promptText="your current password" />
+                              <Label layoutX="46.0" layoutY="291.0" text="new password :" textFill="WHITE">
+                                 <font>
+                                    <Font name="Century" size="15.0" />
+                                 </font>
+                              </Label>
+                              <TextField fx:id="txtpasswordnew" layoutX="167.0" layoutY="288.0" prefHeight="25.0" prefWidth="166.0" promptText="your new password" />
+                              <Label layoutX="129.0" layoutY="94.0" text="id :" textFill="WHITE">
+                                 <font>
+                                    <Font name="Century" size="15.0" />
+                                 </font>
+                              </Label>
+                              <TextField fx:id="txtId" editable="false" layoutX="164.0" layoutY="91.0" prefHeight="25.0" prefWidth="166.0" promptText="your id" />
+                              <Button layoutX="220.0" layoutY="342.0" mnemonicParsing="false" onAction="#btnLogoutOnAction" prefHeight="42.0" prefWidth="105.0" style="-fx-background-color: white;" text="Logout">
+                                 <font>
+                                    <Font name="Century" size="18.0" />
+                                 </font>
+                              </Button>
+                           </children>
+                        </Pane>
+                        <Pane layoutY="486.0" prefWidth="922.0">
+                           <children>
+                              <Label layoutX="74.0" layoutY="14.0" text="Your Borrowings">
+                                 <font>
+                                    <Font name="Century" size="22.0" />
+                                 </font>
+                              </Label>
+                              <GridPane layoutX="93.0" layoutY="56.0" prefHeight="300.0" prefWidth="736.0">
+                                <columnConstraints>
+                                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                </columnConstraints>
+                                <rowConstraints>
+                                  <RowConstraints maxHeight="292.79998168945315" minHeight="10.0" prefHeight="242.4" vgrow="SOMETIMES" />
+                                  <RowConstraints maxHeight="143.20002136230468" minHeight="10.0" prefHeight="56.79999999999998" vgrow="SOMETIMES" />
+                                </rowConstraints>
+                                 <children>
+                                    <Pane prefHeight="242.0" prefWidth="720.0">
+                                       <children>
+                                         <TableView fx:id="tblborrowings" layoutX="1.0" layoutY="30.0" minHeight="67.0" prefHeight="67.0" prefWidth="735.0" snapToPixel="false">
+                                            <columns>
+                                                <TableColumn fx:id="idColumn" editable="false" prefWidth="75.0" resizable="false" sortable="false" text="id" />
+                                                <TableColumn fx:id="bookIdColumn" editable="false" prefWidth="75.0" resizable="false" sortable="false" text="book id" />
+                                                <TableColumn fx:id="bookColumn" editable="false" prefWidth="205.6" resizable="false" sortable="false" text="book" />
+                                                <TableColumn fx:id="borrowedDateColumn" editable="false" prefWidth="135.2" resizable="false" sortable="false" text="borrowed date" />
+                                                <TableColumn fx:id="returnDateColumn" editable="false" prefWidth="128.0" resizable="false" sortable="false" text="return date" />
+                                                <TableColumn fx:id="statusColumn" editable="false" prefWidth="114.39990234375" resizable="false" sortable="false" text="status" />
+                                            </columns>
+                                             <columnResizePolicy>
+                                                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                                             </columnResizePolicy>
+                                        </TableView>
+                                       </children>
+                                    </Pane>
+                                 </children>
+                              </GridPane>
+                              <Label alignment="CENTER" contentDisplay="CENTER" layoutX="174.0" layoutY="50.0" text="Click on a table row to return the book, renew the return date, or report the book as lost.">
+                                 <font>
+                                    <Font name="Century" size="14.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </Pane>
+                     </children>
+                  </Pane>
+               </children>
+            </AnchorPane>
+         </content>
+      </ScrollPane>
+      <Pane layoutX="37.0" layoutY="28.0" onMouseClicked="#homePaneOnMouseClick" prefHeight="25.0" prefWidth="64.0">
+         <children>
+            <Label alignment="CENTER" contentDisplay="CENTER" onMouseClicked="#homePaneOnMouseClick" prefHeight="26.0" prefWidth="64.0" text="Home" textAlignment="CENTER">
+               <font>
+                  <Font name="Century" size="12.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
+      <Pane layoutX="101.0" layoutY="28.0" onMouseClicked="#backPaneOnMouseClick" prefHeight="25.0" prefWidth="64.0">
+         <children>
+            <Label alignment="CENTER" contentDisplay="CENTER" onMouseClicked="#backPaneOnMouseClick" prefHeight="26.0" prefWidth="64.0" text="Back" textAlignment="CENTER">
+               <font>
+                  <Font name="Century" size="12.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="809.0" layoutY="27.0" onMouseClicked="#profilePaneOnMouseClick" prefHeight="26.0" prefWidth="64.0" text="Profile" textAlignment="CENTER">
+         <font>
+            <Font name="Century" size="12.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>

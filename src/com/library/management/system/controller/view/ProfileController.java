@@ -43,9 +43,9 @@ public class ProfileController {
     private TextField txtpasswordnew;
 
     @FXML
-    private TableColumn<BorrowingTm, Long> idColumn;
+    private TableColumn<BorrowingTm, String> idColumn;
     @FXML
-    private TableColumn<BorrowingTm, Long> bookIdColumn;
+    private TableColumn<BorrowingTm, String> bookIdColumn;
     @FXML
     private TableColumn<BorrowingTm, String> bookColumn;
     @FXML

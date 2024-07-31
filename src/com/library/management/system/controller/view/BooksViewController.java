@@ -76,11 +76,6 @@ public class BooksViewController {
         }
     }
 
-    @FXML
-    void typingOnAction(InputMethodEvent event) {
-
-    }
-
     private void addCategoryPane(CategoryDto category) {
         try {
             FXMLLoader loaderBooksCategoryLayer = new FXMLLoader(

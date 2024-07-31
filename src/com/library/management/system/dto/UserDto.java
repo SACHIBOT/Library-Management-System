@@ -9,11 +9,11 @@ package com.library.management.system.dto;
  * @author Lenovo
  */
 public class UserDto {
-        private String id;
+    private String id;
     private String name;
     private String email;
     private String password;
-    private String role;
+    private String role = "member";
 
     public UserDto() {
     }
@@ -66,5 +66,4 @@ public class UserDto {
         this.role = role;
     }
 
- 
 }

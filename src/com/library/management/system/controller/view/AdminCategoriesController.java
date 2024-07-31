@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import com.library.management.system.controller.CategoryController;
 import com.library.management.system.controller.view.tm.CategoriesTm;
 import com.library.management.system.dto.CategoryDto;
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -29,9 +28,6 @@ public class AdminCategoriesController {
     private TableColumn<CategoriesTm, String> columnCategory;
 
     @FXML
-    private TextField searchBar;
-
-    @FXML
     private TableView<CategoriesTm> tblCategories;
 
     @FXML
@@ -48,13 +44,28 @@ public class AdminCategoriesController {
 
     @FXML
     void adminPaneOnMouseClick(MouseEvent event) {
-        utils.goToAdminDashboard();
+        utils.goToAdminPage("dashboard", event);
     }
 
     @FXML
     void profilePaneOnMouseClick(MouseEvent event) {
         try {
             utils.goToProfile(thisPage, event);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    void btnGenerateIdOnclick(ActionEvent event) {
+        try {
+            CategoryController categoryController = new CategoryController();
+            ArrayList<CategoryDto> categoryDtos = categoryController.getAll();
+            ArrayList<String> categoryIds = new ArrayList<String>();
+            for (CategoryDto categoryDto : categoryDtos) {
+                categoryIds.add(categoryDto.getId());
+            }
+            txtCategoryId.setText("c" + utils.findNextId(categoryIds));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -80,7 +91,7 @@ public class AdminCategoriesController {
                     }
                 } else {
                     utils.showAlert("Error",
-                            "Something went wrong. Couldn't find the Category to delete.",
+                            "Something went wrong. Couldn't find the Category to delete, or make sure to check the ID again.",
                             "Oops!");
 
                 }
@@ -115,7 +126,7 @@ public class AdminCategoriesController {
 
                 if (categoryDto2 != null) {
                     utils.showAlert("Error",
-                            "Use the 'Update Category' button to update the Category.",
+                            "Use the 'Update Category' button to update the Category, or make sure to check the ID again.",
                             "Oops!");
 
                 } else {
@@ -158,7 +169,7 @@ public class AdminCategoriesController {
                 CategoryDto categoryDto2 = categoryController.get(id);
                 if (categoryDto2 == null) {
                     utils.showAlert("Error",
-                            "Use the 'Save Category' button to add a new Category.",
+                            "Use the 'Save Category' button to add a new Category, or make sure to check the ID again.",
                             "Oops!");
 
                 } else {
@@ -186,11 +197,6 @@ public class AdminCategoriesController {
             setTextFeildValues("", "", true);
             loadTable();
         }
-    }
-
-    @FXML
-    void typingOnAction(InputMethodEvent event) {
-
     }
 
     @FXML
@@ -264,7 +270,7 @@ public class AdminCategoriesController {
                     if (event.getClickCount() == 1 && !row.isEmpty()) {
                         CategoriesTm rowData = row.getItem();
 
-                        setTextFeildValues(rowData.getCategoryId(), rowData.getCategory(), false);
+                        setTextFeildValues(rowData.getCategoryId(), rowData.getCategory(), true);
                     }
                 });
                 return row;

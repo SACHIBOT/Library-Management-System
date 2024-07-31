@@ -53,9 +53,6 @@ public class AdminBooksController {
     private Pane paneimg;
 
     @FXML
-    private TextField searchBar;
-
-    @FXML
     private TableView<BooksTm> tblBooks;
 
     @FXML
@@ -82,7 +79,7 @@ public class AdminBooksController {
 
     @FXML
     void adminPaneOnMouseClick(MouseEvent event) {
-        utils.goToAdminDashboard();
+        utils.goToAdminPage("dashboard", event);
     }
 
     @FXML
@@ -92,11 +89,6 @@ public class AdminBooksController {
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
-
-    @FXML
-    void typingOnAction(InputMethodEvent event) {
-
     }
 
     @FXML
@@ -119,7 +111,7 @@ public class AdminBooksController {
                     }
                 } else {
                     utils.showAlert("Error",
-                            "Something went wrong. Couldn't find the book to delete.",
+                            "Something went wrong. Couldn't find the book to delete, or make sure to check the ID again.",
                             "Oops!");
 
                 }
@@ -146,6 +138,21 @@ public class AdminBooksController {
     }
 
     @FXML
+    void btnGenerateIdOnclick(ActionEvent event) {
+        try {
+            BookController bookController = new BookController();
+            ArrayList<BookDto> bookDtos = bookController.getAll();
+            ArrayList<String> bookIds = new ArrayList<String>();
+            for (BookDto bookDto : bookDtos) {
+                bookIds.add(bookDto.getId());
+            }
+            txtId.setText("b" + utils.findNextId(bookIds));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
     void btnSaveBookOnAction(ActionEvent event) throws IOException {
         try {
             String id = txtId.getText();
@@ -167,7 +174,7 @@ public class AdminBooksController {
                 BookDto bookDto2 = bookController.get(id);
                 if (bookDto2 != null) {
                     utils.showAlert("Error",
-                            "Use the 'Update Book' button to update the book.",
+                            "Use the 'Update Book' button to update the book, or make sure to check the ID again.",
                             "Oops!");
 
                 } else {
@@ -219,7 +226,7 @@ public class AdminBooksController {
                 BookDto bookDto2 = bookController.get(id);
                 if (bookDto2 == null) {
                     utils.showAlert("Error",
-                            "Use the 'Save Book' button to add a new book.",
+                            "Use the 'Save Book' button to add a new book, or make sure to check the ID again.",
                             "Oops!");
 
                 } else {
@@ -317,7 +324,7 @@ public class AdminBooksController {
 
                         setTextFeildValues(rowData.getId(), rowData.getTitle(),
                                 rowData.getAuthor(), rowData.getCategoryId(),
-                                String.valueOf(rowData.getCopies()), rowData.getImage(), false);
+                                String.valueOf(rowData.getCopies()), rowData.getImage(), true);
                     }
                 });
                 return row;

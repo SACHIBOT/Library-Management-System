@@ -13,12 +13,12 @@ public class UserEntity {
     private String name;
     private String email;
     private String password;
-    private String role;
+    private String role = "member";
 
     public UserEntity() {
     }
 
-    public UserEntity(String id, String name, String email, String password,String role) {
+    public UserEntity(String id, String name, String email, String password, String role) {
         this.id = id;
         this.name = name;
         this.email = email;
@@ -66,5 +66,4 @@ public class UserEntity {
         this.role = role;
     }
 
-    
 }

@@ -2,7 +2,6 @@
 
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -50,6 +49,5 @@
             <Font name="Century" size="12.0" />
          </font>
       </Label>
-      <TextField fx:id="searchBar" layoutX="656.0" layoutY="28.0" onInputMethodTextChanged="#typingOnAction" promptText="Search..." />
    </children>
 </AnchorPane>

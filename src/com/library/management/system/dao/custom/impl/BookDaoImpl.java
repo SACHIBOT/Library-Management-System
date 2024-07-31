@@ -37,7 +37,7 @@ public class BookDaoImpl implements BookDao {
 
     @Override
     public BookEntity get(String id) throws Exception {
-        ResultSet rst = CrudUtil.executeQuery("SELECT * FROM books WHERE id = ?", id);
+        ResultSet rst = CrudUtil.executeQuery("SELECT * FROM books WHERE id = ? or title = ?", id, id);
         if (rst.next()) {
             BookEntity entity = new BookEntity(rst.getString("id"), rst.getString("title"),
                     rst.getString("author"), rst.getString("category_id"), rst.getInt("copies_qoh"),

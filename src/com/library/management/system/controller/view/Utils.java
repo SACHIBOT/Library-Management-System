@@ -53,8 +53,11 @@ public class Utils {
     private String signupPage = viewLayer + "signup.fxml";
     private String profilePage = viewLayer + "Profile.fxml";
     private String borrowedOpts = viewLayer + "/BorrowedOptions.fxml";
-    private String adminBooksController = viewLayer + "/AdminBooks.fxml";
-    private String adminCategoriesController = viewLayer + "/AdminCategories.fxml";
+    private String adminBooksPage = viewLayer + "/AdminBooks.fxml";
+    private String adminCategoriesPage = viewLayer + "/AdminCategories.fxml";
+    private String adminUsersPage = viewLayer + "/AdminMembers.fxml";
+    private String adminBorrowingsPage = viewLayer + "/AdminBorrowings.fxml";
+    private String adminDashboardPage = viewLayer + "/AdminDashboard.fxml";
 
     private int finePerDay = 10;
 
@@ -88,10 +91,28 @@ public class Utils {
         return loader;
     }
 
-    public FXMLLoader switchToAnotherPageWithAuth(String newpage, Event event) throws Exception {
-        if (sessionController.getLoggedUser().getIsLoggedIn()) {
+    private FXMLLoader switchToAnotherPageWithAuth(String newpage, Event event) throws Exception {
+        if (sessionController != null && sessionController.getLoggedUser() != null
+                && sessionController.getLoggedUser().getIsLoggedIn()) {
 
             return switchToAnotherPage(newpage, event);
+
+        } else {
+            switchToLogin(event);
+            return null;
+        }
+    }
+
+    private FXMLLoader switchToAnotherPageWithAdminAuth(String newpage, Event event) throws Exception {
+        if (sessionController != null && sessionController.getLoggedUser() != null
+                && sessionController.getLoggedUser().getIsLoggedIn()) {
+            if (isAdmin(new UserController().get(sessionController.getLoggedUser().getLoggedUserId()))) {
+
+                return switchToAnotherPage(newpage, event);
+            } else {
+                switchToLogin(event);
+                return null;
+            }
 
         } else {
             switchToLogin(event);
@@ -179,13 +200,22 @@ public class Utils {
         }
     }
 
+    private boolean isAdmin(UserDto userDto) {
+        return userDto != null ? userDto.getRole().equals("admin") : false;
+    }
+
     public void loginUser(String username, String password, Event event, Label loginerr) {
         UserController userController = new UserController();
         try {
             if (userController.validateUser(username, password)) {
                 SessionDto sessionDto = new SessionDto(username, password);
                 if (sessionController.logInUser(sessionDto)) {
-                    switchToBooksPage(event);
+                    if (isAdmin(userController.get(username))) {
+                        goToAdminPage("dashboard", event);
+
+                    } else {
+                        switchToBooksPage(event);
+                    }
                 } else {
                     loginerr.setText("Invalid credintials !");
                 }
@@ -211,7 +241,11 @@ public class Utils {
                     for (UserDto userDto : userDtos) {
                         userIds.add(userDto.getId());
                     }
-                    UserDto userDto = new UserDto("u" + findNextId(userIds), username, email, password, "member");
+                    UserDto userDto = new UserDto();
+                    userDto.setId("u" + findNextId(userIds));
+                    userDto.setName(username);
+                    userDto.setEmail(email);
+                    userDto.setPassword(password);
                     if (userController.save(userDto).equals("Success")) {
                         loginUser(username, password, event, loginerr);
                     } else {
@@ -230,7 +264,7 @@ public class Utils {
         }
     }
 
-    private int findNextId(ArrayList<String> list) {
+    public int findNextId(ArrayList<String> list) {
         int max = Integer.MIN_VALUE;
         for (String str : list) {
             int startIndex = 0;
@@ -414,7 +448,7 @@ public class Utils {
         return daysBetween;
     }
 
-    public boolean payCost(long cost) {
+    private boolean payCost(long cost) {
         return true;
     }
 
@@ -545,8 +579,31 @@ public class Utils {
         }
     }
 
-    public void goToAdminDashboard() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'goToAdminDashboard'");
+    public void goToAdminPage(String page, Event event) {
+        try {
+            switch (page) {
+                case "dashboard":
+                    switchToAnotherPageWithAdminAuth(adminDashboardPage, event);
+                    break;
+                case "categories":
+                    switchToAnotherPageWithAdminAuth(adminCategoriesPage, event);
+                    break;
+                case "users":
+                    switchToAnotherPageWithAdminAuth(adminUsersPage, event);
+                    break;
+                case "borrowings":
+                    switchToAnotherPageWithAdminAuth(adminBorrowingsPage, event);
+                    break;
+                case "books":
+                    switchToAnotherPageWithAdminAuth(adminBooksPage, event);
+                    break;
+                default:
+                    switchToAnotherPageWithAdminAuth(adminDashboardPage, event);
+                    break;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
+
 }
