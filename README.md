@@ -1,6 +1,6 @@
 # Library Management System
 
-A JavaFX-based library management system that allows users to manage book borrowings, update their profile, and navigate through the system.
+A JavaFX-based library management system that allows users to manage book borrowings.
 
 ![screenshot](https://i.ibb.co/x5Xt49j/image.png)
 
