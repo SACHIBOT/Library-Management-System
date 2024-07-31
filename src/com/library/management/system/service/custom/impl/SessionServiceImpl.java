@@ -23,8 +23,10 @@ public class SessionServiceImpl implements SessionService {
         UserEntity userEntity = userDao.get(sessionDto.getLoggedUserId());
         if (userEntity != null) {
             if (sessionDto.getLoggedUserId().equals(userEntity.getId())
-                    || sessionDto.getLoggedUserId().equals(userEntity.getEmail())) {
+                    || sessionDto.getLoggedUserId().equals(userEntity.getEmail())
+                    || sessionDto.getLoggedUserId().equals(userEntity.getName())) {
                 if (sessionDto.getLoggedPassword().equals(userEntity.getPassword())) {
+                    sessionDto.setLoggedUserId(userEntity.getId());
                     sessionDto.setLoggedUserName(userEntity.getName());
                     sessionDto.setIsLoggedIn(true);
                     sessionDto.setLoggedRole(userEntity.getRole());

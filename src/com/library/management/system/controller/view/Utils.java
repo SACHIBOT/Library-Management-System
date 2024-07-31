@@ -37,7 +37,7 @@ public class Utils {
     private static Utils utils;
     private static SessionController sessionController;
 
-    public static Utils getInstance() {
+    protected static Utils getInstance() {
         if (utils == null) {
             utils = new Utils();
             sessionController = new SessionController();
@@ -63,15 +63,15 @@ public class Utils {
 
     private long fineForLLostBook = 500;
 
-    public int getFinePerDay() {
+    protected int getFinePerDay() {
         return finePerDay;
     }
 
-    public long getFineForLostBook() {
+    protected long getFineForLostBook() {
         return fineForLLostBook;
     }
 
-    public String getBooksPage() {
+    protected String getBooksPage() {
         return booksPage;
     }
 
@@ -120,22 +120,22 @@ public class Utils {
         }
     }
 
-    public void switchToBooksPage(Event event) throws Exception {
+    protected void switchToBooksPage(Event event) throws Exception {
         switchToAnotherPageWithAuth(booksPage, event);
     }
 
-    public void switchToLogin(Event event) throws Exception {
+    protected void switchToLogin(Event event) throws Exception {
         sessionController.logOutUser();
         switchToAnotherPage(loginPage, event);
     }
 
-    public void switchToSignup(Event event) throws Exception {
+    protected void switchToSignup(Event event) throws Exception {
         sessionController.logOutUser();
         switchToAnotherPage(signupPage, event);
 
     }
 
-    public void addImageToPane(String imagePath, Pane pane) {
+    protected void addImageToPane(String imagePath, Pane pane) {
         Image image;
         try {
             if (imagePath.startsWith("http://") || imagePath.startsWith("https://")) {
@@ -168,14 +168,14 @@ public class Utils {
         pane.getChildren().add(imageView);
     }
 
-    public void setBackgroundImagetoPane(Pane pane, String imagePath) {
+    protected void setBackgroundImagetoPane(Pane pane, String imagePath) {
         String image = getClass().getResource("/" + imagePath).toExternalForm();
         pane.setStyle("-fx-background-image: url('" + image + "'); " +
                 "-fx-background-size: cover; " +
                 "-fx-background-repeat: no-repeat; ");
     }
 
-    public void goToBook(BookDto bookDto, Event event, String backPage) throws Exception {
+    protected void goToBook(BookDto bookDto, Event event, String backPage) throws Exception {
 
         CategoryController categoryController = new CategoryController();
         FXMLLoader loader = switchToAnotherPageWithAuth(bookPage, event);
@@ -188,11 +188,11 @@ public class Utils {
         }
     }
 
-    public void goToHome(Event event) throws Exception {
+    protected void goToHome(Event event) throws Exception {
         switchToAnotherPage(mainPage, event);
     }
 
-    public void goToBack(String backPage, Event event) throws Exception {
+    protected void goToBack(String backPage, Event event) throws Exception {
         if (backPage.equals(mainPage)) {
             switchToAnotherPage(mainPage, event);
         } else {
@@ -204,7 +204,7 @@ public class Utils {
         return userDto != null ? userDto.getRole().equals("admin") : false;
     }
 
-    public void loginUser(String username, String password, Event event, Label loginerr) {
+    protected void loginUser(String username, String password, Event event, Label loginerr) {
         UserController userController = new UserController();
         try {
             if (userController.validateUser(username, password)) {
@@ -229,33 +229,37 @@ public class Utils {
         }
     }
 
-    public void signupUser(String username, String password, String email, Event event, Label loginerr) {
+    protected void signupUser(String username, String password, String email, Event event, Label loginerr) {
         UserController userController = new UserController();
         try {
-            UserDto userDtobyusername = userController.get(username);
-            if (userDtobyusername == null) {
-                UserDto userDtobyemail = userController.get(email);
-                if (userDtobyemail == null) {
-                    ArrayList<UserDto> userDtos = userController.getAll();
-                    ArrayList<String> userIds = new ArrayList<String>();
-                    for (UserDto userDto : userDtos) {
-                        userIds.add(userDto.getId());
-                    }
-                    UserDto userDto = new UserDto();
-                    userDto.setId("u" + findNextId(userIds));
-                    userDto.setName(username);
-                    userDto.setEmail(email);
-                    userDto.setPassword(password);
-                    if (userController.save(userDto).equals("Success")) {
-                        loginUser(username, password, event, loginerr);
+            if (!username.contains(" ")) {
+                UserDto userDtobyusername = userController.get(username);
+                if (userDtobyusername == null) {
+                    UserDto userDtobyemail = userController.get(email);
+                    if (userDtobyemail == null) {
+                        ArrayList<UserDto> userDtos = userController.getAll();
+                        ArrayList<String> userIds = new ArrayList<String>();
+                        for (UserDto userDto : userDtos) {
+                            userIds.add(userDto.getId());
+                        }
+                        UserDto userDto = new UserDto();
+                        userDto.setId("u" + findNextId(userIds));
+                        userDto.setName(username);
+                        userDto.setEmail(email);
+                        userDto.setPassword(password);
+                        if (userController.save(userDto).equals("Success")) {
+                            loginUser(username, password, event, loginerr);
+                        } else {
+                            loginerr.setText("Something went wrong !");
+                        }
                     } else {
-                        loginerr.setText("Something went wrong !");
+                        loginerr.setText("Email already exists !");
                     }
                 } else {
-                    loginerr.setText("Email already exists !");
+                    loginerr.setText("Username already exists!");
                 }
             } else {
-                loginerr.setText("Username already exists!");
+                loginerr.setText("Username should not contain spaces !");
             }
 
         } catch (Exception e) {
@@ -264,7 +268,7 @@ public class Utils {
         }
     }
 
-    public int findNextId(ArrayList<String> list) {
+    protected int findNextId(ArrayList<String> list) {
         int max = Integer.MIN_VALUE;
         for (String str : list) {
             int startIndex = 0;
@@ -281,7 +285,7 @@ public class Utils {
         return max + 1;
     }
 
-    public String borrowBook(String bookId) throws Exception {
+    protected String borrowBook(String bookId) throws Exception {
         BorrowingController borrowingController = new BorrowingController();
         BookController bookController = new BookController();
         BookDto bookDto = bookController.get(bookId);
@@ -309,7 +313,7 @@ public class Utils {
         }
     }
 
-    public void borrowBookPopup(Label lblTitle, Label lblBookId, String popupfxml, String pouptitle)
+    protected void borrowBookPopup(Label lblTitle, Label lblBookId, String popupfxml, String pouptitle)
             throws IOException {
         FXMLLoader loader = new FXMLLoader(
                 getClass().getResource(popupfxml));
@@ -330,7 +334,7 @@ public class Utils {
         stage.showAndWait();
     }
 
-    public void showAlert(String title, String value, String header) throws IOException {
+    protected void showAlert(String title, String value, String header) throws IOException {
         FXMLLoader loader = new FXMLLoader(
                 getClass().getResource("/com/library/management/system/view/PopUp.fxml"));
         Parent root = loader.load();
@@ -350,7 +354,7 @@ public class Utils {
         stage.showAndWait();
     }
 
-    public void goToProfile(String backPage, MouseEvent event) throws Exception {
+    protected void goToProfile(String backPage, MouseEvent event) throws Exception {
 
         FXMLLoader loader = switchToAnotherPageWithAuth(profilePage, event);
         if (loader != null) {
@@ -366,7 +370,7 @@ public class Utils {
         }
     }
 
-    public boolean changepassword(String currentPassword, String newPassword) {
+    protected boolean changepassword(String currentPassword, String newPassword) {
         UserController userController = new UserController();
         try {
             String userId = sessionController.getLoggedUser().getLoggedUserId();
@@ -385,7 +389,7 @@ public class Utils {
 
     }
 
-    public void showBorrowedOptionsPopup(BorrowingTm borrowingTm, ProfileController profileController) {
+    protected void showBorrowedOptionsPopup(BorrowingTm borrowingTm, ProfileController profileController) {
 
         try {
 
@@ -452,7 +456,7 @@ public class Utils {
         return true;
     }
 
-    public boolean lostBookPay(String borrowingId) {
+    protected boolean lostBookPay(String borrowingId) {
         try {
             BorrowingController borrowingController = new BorrowingController();
 
@@ -482,7 +486,7 @@ public class Utils {
         }
     }
 
-    public boolean payFineAndReturnBook(String borrowingId) {
+    protected boolean payFineAndReturnBook(String borrowingId) {
         try {
             BorrowingController borrowingController = new BorrowingController();
 
@@ -512,7 +516,7 @@ public class Utils {
 
     }
 
-    public boolean renewReturnDate(String borrowingId) {
+    protected boolean renewReturnDate(String borrowingId) {
         try {
             BorrowingController borrowingController = new BorrowingController();
 
@@ -543,7 +547,7 @@ public class Utils {
 
     }
 
-    public boolean returnBook(String borrowingId) {
+    protected boolean returnBook(String borrowingId) {
         try {
             BorrowingController borrowingController = new BorrowingController();
 
@@ -571,7 +575,7 @@ public class Utils {
         }
     }
 
-    public void logoutUser() {
+    protected void logoutUser() {
         try {
             sessionController.logOutUser();
         } catch (Exception e) {
@@ -579,7 +583,7 @@ public class Utils {
         }
     }
 
-    public void goToAdminPage(String page, Event event) {
+    protected void goToAdminPage(String page, Event event) {
         try {
             switch (page) {
                 case "dashboard":

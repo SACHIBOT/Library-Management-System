@@ -33,6 +33,10 @@ public class SessionDto {
         this.loggedUsername = loggedUsername;
     }
 
+    public void setLoggedUserId(String id) {
+        this.loggedUserId = id;
+    }
+
     public String getLoggedUserId() {
         return loggedUserId;
     }

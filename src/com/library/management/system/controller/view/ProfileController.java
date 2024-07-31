@@ -135,24 +135,36 @@ public class ProfileController {
         setupRowClickListener();
     }
 
-    public void loadTable(ArrayList<BorrowingDto> borrowingDtos) {
-        BookController bookController = new BookController();
-        ObservableList<BorrowingTm> borrowingTMList = FXCollections.observableArrayList();
-        double rowHeight = 25;
-        double headerHeight = 25;
+    protected void loadTable(ArrayList<BorrowingDto> borrowingDtos) {
 
         try {
-            borrowingTMList.clear();
+            ObservableList<BorrowingTm> borrowingTMList = FXCollections.observableArrayList();
+            double rowHeight = 25;
+            double headerHeight = 25;
 
-            for (BorrowingDto borrowingDto : borrowingDtos) {
+            if (borrowingDtos != null) {
+                BookController bookController = new BookController();
+                borrowingTMList.clear();
+                for (BorrowingDto borrowingDto : borrowingDtos) {
+                    BorrowingTm borrowingTm = new BorrowingTm(
+                            borrowingDto.getId(),
+                            borrowingDto.getBookId(),
+                            bookController.get(borrowingDto.getBookId()).getTitle(),
+                            borrowingDto.getBorrowDate(),
+                            borrowingDto.getReturnDate(),
+                            borrowingDto.getStatus());
+                    borrowingTMList.add(borrowingTm);
+                }
+            } else {
 
+                borrowingTMList.clear();
                 BorrowingTm borrowingTm = new BorrowingTm(
-                        borrowingDto.getId(),
-                        borrowingDto.getBookId(),
-                        bookController.get(borrowingDto.getBookId()).getTitle(),
-                        borrowingDto.getBorrowDate(),
-                        borrowingDto.getReturnDate(),
-                        borrowingDto.getStatus());
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null);
                 borrowingTMList.add(borrowingTm);
 
             }
@@ -163,7 +175,6 @@ public class ProfileController {
             double totalHeight = rowCount * rowHeight + headerHeight;
 
             tblborrowings.setPrefHeight(totalHeight);
-
         } catch (Exception e) {
             e.printStackTrace();
         }

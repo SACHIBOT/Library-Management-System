@@ -27,7 +27,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        URL resource = getClass().getResource("view/AdminBorrowings.fxml");
+        URL resource = getClass().getResource("view/Main.fxml");
         if (resource == null) {
             throw new RuntimeException("main FXML file not found in path");
         }

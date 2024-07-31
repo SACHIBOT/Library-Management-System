@@ -35,7 +35,8 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public UserEntity get(String user) throws Exception {
-        ResultSet rst = CrudUtil.executeQuery("SELECT * FROM users WHERE id = ? OR email = ?", user, user);
+        ResultSet rst = CrudUtil.executeQuery("SELECT * FROM users WHERE id = ? OR name = ? OR email = ?", user, user,
+                user);
         if (rst.next()) {
             UserEntity entity = new UserEntity(rst.getString("id"), rst.getString("name"),
                     rst.getString("email"), rst.getString("password"), rst.getString("role"));
@@ -59,7 +60,7 @@ public class UserDaoImpl implements UserDao {
     @Override
     public boolean validateUser(String user, String password) throws Exception {
         ResultSet rst = CrudUtil.executeQuery(
-                "SELECT * FROM users WHERE email = ? OR name = ? OR id = ? AND password = ?", user, user, user,
+                "SELECT * FROM users WHERE (email = ? OR name = ? OR id = ?) AND password = ?", user, user, user,
                 password);
 
         return rst.next();

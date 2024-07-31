@@ -35,12 +35,12 @@
                                     <Font name="Century" size="24.0" />
                                  </font>
                               </Label>
-                              <Label layoutX="64.0" layoutY="121.0" text="name :" textFill="WHITE">
+                              <Label layoutX="35.0" layoutY="121.0" text="username :" textFill="WHITE">
                                  <font>
                                     <Font name="Century" size="15.0" />
                                  </font>
                               </Label>
-                              <TextField fx:id="txtUsername" layoutX="130.0" layoutY="118.0" prefHeight="25.0" prefWidth="198.0" promptText="your name" />
+                              <TextField fx:id="txtUsername" layoutX="130.0" layoutY="118.0" prefHeight="25.0" prefWidth="198.0" promptText="your username" />
                               <Button layoutX="144.0" layoutY="275.0" mnemonicParsing="false" onAction="#btnSignuponaction" prefHeight="42.0" prefWidth="105.0" style="-fx-background-color: white;" text="Sign Up">
                                  <font>
                                     <Font name="Century" size="18.0" />
