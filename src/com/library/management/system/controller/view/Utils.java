@@ -1,6 +1,10 @@
 package com.library.management.system.controller.view;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.OutputStream;
 import java.net.URL;
 import java.sql.Date;
 import java.time.LocalDate;
@@ -31,11 +35,14 @@ import javafx.scene.shape.Rectangle;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import java.time.temporal.ChronoUnit;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ExecutorService;
 
 public class Utils {
 
     private static Utils utils;
     private static SessionController sessionController;
+    private final ExecutorService executorService = Executors.newSingleThreadExecutor();
 
     protected static Utils getInstance() {
         if (utils == null) {
@@ -52,12 +59,12 @@ public class Utils {
     private String loginPage = viewLayer + "login.fxml";
     private String signupPage = viewLayer + "signup.fxml";
     private String profilePage = viewLayer + "Profile.fxml";
-    private String borrowedOpts = viewLayer + "/BorrowedOptions.fxml";
-    private String adminBooksPage = viewLayer + "/AdminBooks.fxml";
-    private String adminCategoriesPage = viewLayer + "/AdminCategories.fxml";
-    private String adminUsersPage = viewLayer + "/AdminMembers.fxml";
-    private String adminBorrowingsPage = viewLayer + "/AdminBorrowings.fxml";
-    private String adminDashboardPage = viewLayer + "/AdminDashboard.fxml";
+    private String borrowedOpts = viewLayer + "BorrowedOptions.fxml";
+    private String adminBooksPage = viewLayer + "AdminBooks.fxml";
+    private String adminCategoriesPage = viewLayer + "AdminCategories.fxml";
+    private String adminUsersPage = viewLayer + "AdminMembers.fxml";
+    private String adminBorrowingsPage = viewLayer + "AdminBorrowings.fxml";
+    private String adminDashboardPage = viewLayer + "AdminDashboard.fxml";
 
     private int finePerDay = 10;
 
@@ -84,10 +91,19 @@ public class Utils {
         FXMLLoader loader = new FXMLLoader(resource);
         Parent root = loader.load();
 
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
+        Node sourceNode = (Node) event.getSource();
+        if (sourceNode == null || sourceNode.getScene() == null) {
+            throw new IllegalStateException("Source node or scene is null.");
+        }
+
+        Stage stage = (Stage) sourceNode.getScene().getWindow();
+        try {
+
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+        } catch (Exception e) {
+        }
         return loader;
     }
 
@@ -135,26 +151,68 @@ public class Utils {
 
     }
 
-    protected void addImageToPane(String imagePath, Pane pane) {
+    public void saveImage(String imageUrl, String destinationFile) throws IOException {
+        URL url = new URL(imageUrl);
+        File file = new File(destinationFile);
+        File parentDir = file.getParentFile();
+
+        if (!parentDir.exists()) {
+            parentDir.mkdirs();
+        }
+
+        try (InputStream is = url.openStream(); OutputStream os = new FileOutputStream(file)) {
+            byte[] b = new byte[2048];
+            int length;
+            while ((length = is.read(b)) != -1) {
+                os.write(b, 0, length);
+            }
+        }
+    }
+
+    private Image loadImage(String imagePath) {
         Image image;
         try {
             if (imagePath.startsWith("http://") || imagePath.startsWith("https://")) {
-                image = new Image(imagePath, true);
+                String localPath = "./src/com/library/management/system/view/images/bookimages/"
+                        + new File(imagePath).getName();
+                File localFile = new File(localPath);
+
+                if (localFile.exists()) {
+                    image = new Image(
+                            getClass().getResource(localPath.replace("./src/", "/")).toExternalForm(), true);
+                } else {
+                    image = new Image(imagePath, true);
+                    executorService.submit(() -> {
+                        try {
+                            saveImage(imagePath, localPath);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    });
+
+                }
             } else {
                 image = new Image(
                         getClass().getResource("/com/library/management/system/view/" + imagePath).toExternalForm(),
                         true);
             }
+
             if (image.isError()) {
                 throw new Exception("Image not found or failed to load.");
             }
-        } catch (Exception e) {
+        } catch (
+
+        Exception e) {
             image = new Image(
                     getClass().getResource("/com/library/management/system/view/images/bookimages/bookimage.jpg")
                             .toExternalForm());
         }
+        return image;
+    }
 
-        ImageView imageView = new ImageView(image);
+    protected void addImageToPane(String imagePath, Pane pane) {
+
+        ImageView imageView = new ImageView(loadImage(imagePath));
         imageView.setFitWidth(pane.getPrefWidth());
         imageView.setFitHeight(pane.getPrefHeight());
         imageView.setPreserveRatio(true);
@@ -189,15 +247,28 @@ public class Utils {
     }
 
     protected void goToHome(Event event) throws Exception {
-        switchToAnotherPage(mainPage, event);
+        SessionDto sessionDto = sessionController.getLoggedUser();
+        UserController userController = new UserController();
+        if (isAdmin(userController.get(sessionDto.getLoggedUsername()))) {
+            goToAdminPage("dashboard", event);
+        } else {
+
+            switchToAnotherPage(mainPage, event);
+        }
     }
 
     protected void goToBack(String backPage, Event event) throws Exception {
-        if (backPage.equals(mainPage)) {
-            switchToAnotherPage(mainPage, event);
-        } else {
-            switchToAnotherPageWithAuth(backPage, event);
+        try {
+            if (backPage.equals(mainPage)) {
+                switchToAnotherPage(mainPage, event);
+            } else {
+                switchToAnotherPageWithAuth(backPage, event);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            goToHome(event);
         }
+
     }
 
     private boolean isAdmin(UserDto userDto) {

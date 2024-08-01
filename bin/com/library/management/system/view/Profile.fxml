@@ -137,7 +137,12 @@
       </ScrollPane>
       <Pane layoutX="37.0" layoutY="28.0" onMouseClicked="#homePaneOnMouseClick" prefHeight="25.0" prefWidth="64.0">
          <children>
-            <Label alignment="CENTER" contentDisplay="CENTER" onMouseClicked="#homePaneOnMouseClick" prefHeight="26.0" prefWidth="64.0" text="Home" textAlignment="CENTER">
+            <Label fx:id="lblhome" alignment="CENTER" contentDisplay="CENTER" onMouseClicked="#homePaneOnMouseClick" prefHeight="26.0" prefWidth="64.0" text="Home" textAlignment="CENTER">
+               <font>
+                  <Font name="Century" size="12.0" />
+               </font>
+            </Label>
+            <Label fx:id="lbladmin" alignment="CENTER" contentDisplay="CENTER" onMouseClicked="#homePaneOnMouseClick" prefHeight="26.0" prefWidth="64.0" text="Admin" textAlignment="CENTER" visible="false">
                <font>
                   <Font name="Century" size="12.0" />
                </font>

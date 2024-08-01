@@ -5,7 +5,6 @@ import java.io.IOException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-import javafx.scene.input.InputMethodEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 
@@ -33,8 +32,6 @@ public class SingleBookViewController {
 
     private Utils utils = Utils.getInstance();
 
-    private String thisPage = "/com/library/management/system/view/Book.fxml";
-
     @FXML
     void backPaneOnMouseClick(MouseEvent event) {
         try {
@@ -47,7 +44,7 @@ public class SingleBookViewController {
     @FXML
     void profilePaneOnMouseClick(MouseEvent event) {
         try {
-            utils.goToProfile(thisPage, event);
+            utils.goToProfile(backPage, event);
         } catch (Exception e) {
             e.printStackTrace();
         }

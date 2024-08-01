@@ -4,8 +4,10 @@ import java.sql.Date;
 import java.util.ArrayList;
 
 import com.library.management.system.controller.BookController;
+import com.library.management.system.controller.UserController;
 import com.library.management.system.controller.view.tm.BorrowingTm;
 import com.library.management.system.dto.BorrowingDto;
+import com.library.management.system.dto.UserDto;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -23,6 +25,12 @@ import javafx.util.Callback;
 public class ProfileController {
     @FXML
     private TableView<BorrowingTm> tblborrowings;
+
+    @FXML
+    private Label lbladmin;
+
+    @FXML
+    private Label lblhome;
 
     @FXML
     private TextField txtUsername;
@@ -124,6 +132,22 @@ public class ProfileController {
         txtUsername.setText(name);
         txtemail.setText(email);
         txtId.setText(userId);
+        UserController userController = new UserController();
+        try {
+            UserDto userDto = userController.get(userId);
+            if (userDto.getRole().equals("member")) {
+                lbladmin.setVisible(false);
+                lblhome.setVisible(true);
+            } else {
+                lblhome.setVisible(true);
+                lbladmin.setVisible(false);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            lblhome.setVisible(false);
+            lbladmin.setVisible(false);
+        }
+
         idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
         bookIdColumn.setCellValueFactory(new PropertyValueFactory<>("bookId"));
         bookColumn.setCellValueFactory(new PropertyValueFactory<>("bookTitle"));
